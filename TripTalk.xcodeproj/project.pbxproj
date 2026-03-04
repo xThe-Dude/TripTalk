@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FC15101A35CE4280B1509348 /* TripTalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81D19EA050647A789E5A906 /* TripTalkApp.swift */; };
+		F19832AD45184A23919CE563 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64219E045F345F688B6A83F /* ContentView.swift */; };
+		402DEA6ADA024780B51C1041 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357F146D58244E0A237A046 /* Enums.swift */; };
+		0A71A294D6C44CC58B7BE30F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F3659A67AC4DEE9FB804B5 /* Review.swift */; };
+		0EA565B5D84E4766B608810F /* ServiceCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */; };
+		8E0C780689B441B5A0E07692 /* Substance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9BEAB8136B438A92F6655A /* Substance.swift */; };
+		91221A605C6D4FE09EDFF59D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C04C43255D44009EBC75DD /* MockData.swift */; };
+		D8756BFEDA294F8482039729 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D86B056EF1F4E73A8E47A52 /* AppState.swift */; };
+		23C7F3A3BF6B43C697C95883 /* AgeGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC23CA0102EF4029B0ADE24A /* AgeGateView.swift */; };
+		A627EAC972CB4D0985F70C3B /* CatalogFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F483409EB8054F748C37EA13 /* CatalogFilterSheet.swift */; };
+		62A07979FA434DB487C6A006 /* CatalogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA549ABE79794758BDA460ED /* CatalogListView.swift */; };
+		9D69FBB9F202471182B77838 /* SubstanceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1964A18A974204A831D33C /* SubstanceDetailView.swift */; };
+		170104C72CD84CBDA58383CF /* RatingStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC10A7E62E7480C9E9668BB /* RatingStars.swift */; };
+		1859B0AF03C84BF3826A4F51 /* ReviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF5316B49934F9BA28E6D51 /* ReviewCard.swift */; };
+		23B2733F80884B4895196560 /* ServiceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4843385F631422696F1DDC6 /* ServiceCard.swift */; };
+		C476F774249141D6857EA8B2 /* SubstanceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */; };
+		2353045B5D164E86B7C45196 /* TagChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */; };
+		C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE613D09283448CBBAD3246 /* ExploreView.swift */; };
+		EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */; };
+		55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */; };
+		3DF18703F6F84B40BD999F38 /* WriteReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B674A807334191810E25C2 /* WriteReviewView.swift */; };
+		E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39887C56594152B9946131 /* ServiceDetailView.swift */; };
+		20F12423A87F4023BB6B1E19 /* ServicesFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E50CE9FE494CB3A40C88E6 /* ServicesFilterSheet.swift */; };
+		862DBA9AF59044679B4F1716 /* ServicesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF6ADC568904035B45C65DF /* ServicesListView.swift */; };
+		B2AB31902DA74DABA3C035A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C4F223D5C0D461B82424664 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E81D19EA050647A789E5A906 /* TripTalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTalkApp.swift; sourceTree = "<group>"; };
+		D64219E045F345F688B6A83F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D357F146D58244E0A237A046 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		E9F3659A67AC4DEE9FB804B5 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCenter.swift; sourceTree = "<group>"; };
+		0D9BEAB8136B438A92F6655A /* Substance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Substance.swift; sourceTree = "<group>"; };
+		71C04C43255D44009EBC75DD /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		7D86B056EF1F4E73A8E47A52 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		CC23CA0102EF4029B0ADE24A /* AgeGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGateView.swift; sourceTree = "<group>"; };
+		F483409EB8054F748C37EA13 /* CatalogFilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterSheet.swift; sourceTree = "<group>"; };
+		DA549ABE79794758BDA460ED /* CatalogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListView.swift; sourceTree = "<group>"; };
+		DD1964A18A974204A831D33C /* SubstanceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceDetailView.swift; sourceTree = "<group>"; };
+		7BC10A7E62E7480C9E9668BB /* RatingStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStars.swift; sourceTree = "<group>"; };
+		6AF5316B49934F9BA28E6D51 /* ReviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCard.swift; sourceTree = "<group>"; };
+		B4843385F631422696F1DDC6 /* ServiceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCard.swift; sourceTree = "<group>"; };
+		407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceCard.swift; sourceTree = "<group>"; };
+		B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagChip.swift; sourceTree = "<group>"; };
+		4FE613D09283448CBBAD3246 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsFeedView.swift; sourceTree = "<group>"; };
+		63B674A807334191810E25C2 /* WriteReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewView.swift; sourceTree = "<group>"; };
+		3E39887C56594152B9946131 /* ServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailView.swift; sourceTree = "<group>"; };
+		32E50CE9FE494CB3A40C88E6 /* ServicesFilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFilterSheet.swift; sourceTree = "<group>"; };
+		FFF6ADC568904035B45C65DF /* ServicesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesListView.swift; sourceTree = "<group>"; };
+		7C4F223D5C0D461B82424664 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B54B52DC3AC440ABBF710A99 /* TripTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE3602E5046A4AA5BF5A0949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E6DF1D07AA6F494FA6BF210B /* mainGroup */ = {
+			isa = PBXGroup;
+			children = (
+				6B0DF16D691940369258BA47 /* TripTalk */,
+				89DEB0DDA9A04789A8815F52 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89DEB0DDA9A04789A8815F52 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B54B52DC3AC440ABBF710A99 /* TripTalk.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B0DF16D691940369258BA47 /* TripTalk */ = {
+			isa = PBXGroup;
+			children = (
+				E81D19EA050647A789E5A906 /* TripTalkApp.swift */,
+				D64219E045F345F688B6A83F /* ContentView.swift */,
+				B69D023FC63942759F0395B4 /* Models */,
+				174FB74CB1D047449EEDCAE5 /* Data */,
+				CC8BB7C5881747B49C6DD390 /* ViewModels */,
+				792A90C4BCFE455FAB7AFB51 /* Views */,
+				7C4F223D5C0D461B82424664 /* Assets.xcassets */,
+			);
+			path = TripTalk;
+			sourceTree = "<group>";
+		};
+		B69D023FC63942759F0395B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D357F146D58244E0A237A046 /* Enums.swift */,
+				E9F3659A67AC4DEE9FB804B5 /* Review.swift */,
+				820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */,
+				0D9BEAB8136B438A92F6655A /* Substance.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		174FB74CB1D047449EEDCAE5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				71C04C43255D44009EBC75DD /* MockData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CC8BB7C5881747B49C6DD390 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7D86B056EF1F4E73A8E47A52 /* AppState.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		792A90C4BCFE455FAB7AFB51 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9A68A417748A46FDBF313D77 /* AgeGate */,
+				B7218CFBB66F4C8C8179644C /* Catalog */,
+				0BF182184A1247798123C383 /* Components */,
+				831ADBBA46434233B6475399 /* Explore */,
+				6779E0522B564559B7BBEE13 /* Profile */,
+				1FE7B6DB9D1746059F19182E /* Reviews */,
+				20089FF7C568410B9E5F92D4 /* Services */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9A68A417748A46FDBF313D77 /* AgeGate */ = {
+			isa = PBXGroup;
+			children = (
+				CC23CA0102EF4029B0ADE24A /* AgeGateView.swift */,
+			);
+			path = AgeGate;
+			sourceTree = "<group>";
+		};
+		B7218CFBB66F4C8C8179644C /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				F483409EB8054F748C37EA13 /* CatalogFilterSheet.swift */,
+				DA549ABE79794758BDA460ED /* CatalogListView.swift */,
+				DD1964A18A974204A831D33C /* SubstanceDetailView.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		0BF182184A1247798123C383 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7BC10A7E62E7480C9E9668BB /* RatingStars.swift */,
+				6AF5316B49934F9BA28E6D51 /* ReviewCard.swift */,
+				B4843385F631422696F1DDC6 /* ServiceCard.swift */,
+				407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */,
+				B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		831ADBBA46434233B6475399 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				4FE613D09283448CBBAD3246 /* ExploreView.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		6779E0522B564559B7BBEE13 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		1FE7B6DB9D1746059F19182E /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */,
+				63B674A807334191810E25C2 /* WriteReviewView.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		20089FF7C568410B9E5F92D4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3E39887C56594152B9946131 /* ServiceDetailView.swift */,
+				32E50CE9FE494CB3A40C88E6 /* ServicesFilterSheet.swift */,
+				FFF6ADC568904035B45C65DF /* ServicesListView.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DFE0A0E7D18F4A90B6A30319 /* TripTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4C20F87CFEE43FD80288ADD /* Build configuration list for PBXNativeTarget "TripTalk" */;
+			buildPhases = (
+				2CED73228D5246A69259CE92 /* Sources */,
+				AE3602E5046A4AA5BF5A0949 /* Frameworks */,
+				887EA90E152A4E7FAC508CC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TripTalk;
+			productName = TripTalk;
+			productReference = B54B52DC3AC440ABBF710A99 /* TripTalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F17D9FFF59C247A29B6C588D /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 0C80E33CFE5F42ECAF56B7B6 /* Build configuration list for PBXProject "TripTalk" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E6DF1D07AA6F494FA6BF210B;
+			productRefGroup = 89DEB0DDA9A04789A8815F52 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DFE0A0E7D18F4A90B6A30319 /* TripTalk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		887EA90E152A4E7FAC508CC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2AB31902DA74DABA3C035A1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CED73228D5246A69259CE92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC15101A35CE4280B1509348 /* TripTalkApp.swift in Sources */,
+				F19832AD45184A23919CE563 /* ContentView.swift in Sources */,
+				402DEA6ADA024780B51C1041 /* Enums.swift in Sources */,
+				0A71A294D6C44CC58B7BE30F /* Review.swift in Sources */,
+				0EA565B5D84E4766B608810F /* ServiceCenter.swift in Sources */,
+				8E0C780689B441B5A0E07692 /* Substance.swift in Sources */,
+				91221A605C6D4FE09EDFF59D /* MockData.swift in Sources */,
+				D8756BFEDA294F8482039729 /* AppState.swift in Sources */,
+				23C7F3A3BF6B43C697C95883 /* AgeGateView.swift in Sources */,
+				A627EAC972CB4D0985F70C3B /* CatalogFilterSheet.swift in Sources */,
+				62A07979FA434DB487C6A006 /* CatalogListView.swift in Sources */,
+				9D69FBB9F202471182B77838 /* SubstanceDetailView.swift in Sources */,
+				170104C72CD84CBDA58383CF /* RatingStars.swift in Sources */,
+				1859B0AF03C84BF3826A4F51 /* ReviewCard.swift in Sources */,
+				23B2733F80884B4895196560 /* ServiceCard.swift in Sources */,
+				C476F774249141D6857EA8B2 /* SubstanceCard.swift in Sources */,
+				2353045B5D164E86B7C45196 /* TagChip.swift in Sources */,
+				C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */,
+				EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */,
+				55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */,
+				3DF18703F6F84B40BD999F38 /* WriteReviewView.swift in Sources */,
+				E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */,
+				20F12423A87F4023BB6B1E19 /* ServicesFilterSheet.swift in Sources */,
+				862DBA9AF59044679B4F1716 /* ServicesListView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6D90CC26C62747D6B0976361 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5C9A5641B25E43C896CAA80C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6BF94CC124BB4090B09DF7DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = TripTalk;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.triptalk.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		83D8E0212A50446D9E2D53D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = TripTalk;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.triptalk.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0C80E33CFE5F42ECAF56B7B6 /* Build configuration list for PBXProject "TripTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D90CC26C62747D6B0976361 /* Debug */,
+				5C9A5641B25E43C896CAA80C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4C20F87CFEE43FD80288ADD /* Build configuration list for PBXNativeTarget "TripTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BF94CC124BB4090B09DF7DD /* Debug */,
+				83D8E0212A50446D9E2D53D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = F17D9FFF59C247A29B6C588D /* Project object */;
+}
