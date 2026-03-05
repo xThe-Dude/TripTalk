@@ -5,6 +5,19 @@ struct SubstanceDetailView: View {
     let substance: Substance
     @State private var showWriteReview = false
 
+    // Map substance to SubstanceType for strain lookup
+    private var substanceType: SubstanceType? {
+        switch substance.id {
+        case MockData.psilocybinID: return .psilocybin
+        case MockData.ayahuascaID: return .ayahuasca
+        case MockData.mescalineID: return .mescaline
+        case MockData.lsdID: return .lsd
+        case MockData.mdmaID: return .mdma
+        case MockData.ketamineID: return .ketamine
+        default: return nil
+        }
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -85,6 +98,24 @@ struct SubstanceDetailView: View {
                 }
                 .padding(.horizontal)
 
+                // Strains for this substance
+                if let st = substanceType {
+                    let relatedStrains = appState.strainsFor(substanceType: st)
+                    if !relatedStrains.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Strains")
+                                .font(.system(.title3, design: .serif, weight: .bold))
+                            ForEach(relatedStrains) { strain in
+                                NavigationLink(value: strain) {
+                                    StrainCard(strain: strain)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+
                 // Reviews
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
@@ -133,6 +164,9 @@ struct SubstanceDetailView: View {
         }
         .sheet(isPresented: $showWriteReview) {
             WriteReviewView(substanceID: substance.id)
+        }
+        .navigationDestination(for: Strain.self) { strain in
+            StrainDetailView(strain: strain)
         }
     }
 

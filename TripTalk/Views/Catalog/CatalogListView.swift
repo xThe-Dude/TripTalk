@@ -8,19 +8,38 @@ struct CatalogListView: View {
         @Bindable var state = appState
         NavigationStack {
             ScrollView {
-                LazyVStack(spacing: 10) {
-                    ForEach(appState.filteredSubstances) { substance in
-                        NavigationLink(value: substance) {
-                            SubstanceCard(substance: substance)
+                VStack(alignment: .leading, spacing: 12) {
+                    // Substance type horizontal scroll
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            SubstanceTypePill(type: nil, isSelected: appState.catalogSubstanceTypeFilter == nil) {
+                                appState.catalogSubstanceTypeFilter = nil
+                            }
+                            ForEach(SubstanceType.allCases) { type in
+                                SubstanceTypePill(type: type, isSelected: appState.catalogSubstanceTypeFilter == type) {
+                                    appState.catalogSubstanceTypeFilter = (appState.catalogSubstanceTypeFilter == type) ? nil : type
+                                }
+                            }
                         }
-                        .buttonStyle(.plain)
+                        .padding(.horizontal)
                     }
+
+                    // Strain grid
+                    LazyVStack(spacing: 10) {
+                        ForEach(appState.filteredStrains) { strain in
+                            NavigationLink(value: strain) {
+                                StrainCard(strain: strain)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal)
                 }
-                .padding()
+                .padding(.vertical)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Catalog")
-            .searchable(text: $state.catalogSearchText, prompt: "Search substances...")
+            .searchable(text: $state.catalogSearchText, prompt: "Search strains...")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -33,9 +52,37 @@ struct CatalogListView: View {
             .sheet(isPresented: $showFilter) {
                 CatalogFilterSheet()
             }
+            .navigationDestination(for: Strain.self) { strain in
+                StrainDetailView(strain: strain)
+            }
             .navigationDestination(for: Substance.self) { substance in
                 SubstanceDetailView(substance: substance)
             }
+        }
+    }
+}
+
+struct SubstanceTypePill: View {
+    let type: SubstanceType?
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 4) {
+                if let type {
+                    Image(systemName: type.icon)
+                        .font(.caption2)
+                }
+                Text(type?.rawValue ?? "All")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(isSelected ? (type?.color ?? Color.accentColor) : Color(.systemGray5))
+            .foregroundStyle(isSelected ? .white : .primary)
+            .clipShape(Capsule())
         }
     }
 }

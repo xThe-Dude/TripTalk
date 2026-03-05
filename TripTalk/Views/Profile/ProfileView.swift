@@ -25,7 +25,51 @@ struct ProfileView: View {
                     }
                 }
 
-                // Saved
+                // Saved Strains
+                Section("Saved Strains") {
+                    if appState.savedStrainIDs.isEmpty {
+                        Text("No saved strains yet")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(appState.strains.filter { appState.savedStrainIDs.contains($0.id) }) { strain in
+                            NavigationLink(value: strain) {
+                                HStack {
+                                    Image(systemName: strain.parentSubstance.icon)
+                                        .foregroundStyle(strain.parentSubstance.color)
+                                    Text(strain.name)
+                                    Spacer()
+                                    HStack(spacing: 2) {
+                                        ForEach(1...4, id: \.self) { i in
+                                            Circle()
+                                                .fill(i <= strain.potency.level ? strain.potency.color : Color(.systemGray4))
+                                                .frame(width: 6, height: 6)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // My Trip Reports
+                Section("My Trip Reports") {
+                    if appState.userTripReports.isEmpty {
+                        Text("No trip reports written yet")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(appState.userTripReports) { report in
+                            let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(strainName)
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                RatingStars(rating: Double(report.rating), size: 10)
+                            }
+                        }
+                    }
+                }
+
+                // Saved Substances (legacy)
                 Section("Saved Substances") {
                     if appState.savedSubstanceIDs.isEmpty {
                         Text("No saved substances yet")
@@ -98,6 +142,9 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .navigationDestination(for: Strain.self) { strain in
+                StrainDetailView(strain: strain)
+            }
             .navigationDestination(for: Substance.self) { substance in
                 SubstanceDetailView(substance: substance)
             }

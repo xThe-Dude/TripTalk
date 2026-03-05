@@ -1,4 +1,6 @@
-import Foundation
+import SwiftUI
+
+// MARK: - Original Enums (kept for backward compat)
 
 enum SubstanceCategory: String, CaseIterable, Identifiable, Codable {
     case psychedelic = "Psychedelic"
@@ -80,4 +82,150 @@ enum ExploreSegment: String, CaseIterable, Identifiable {
     case articles = "Articles"
 
     var id: String { rawValue }
+}
+
+// MARK: - New Strain-Related Enums
+
+enum SubstanceType: String, CaseIterable, Identifiable {
+    case psilocybin = "Psilocybin"
+    case ayahuasca = "Ayahuasca"
+    case mescaline = "Mescaline"
+    case lsd = "LSD"
+    case mdma = "MDMA"
+    case ketamine = "Ketamine"
+    case other = "Other"
+
+    var id: String { rawValue }
+
+    var icon: String {
+        switch self {
+        case .psilocybin: return "leaf.fill"
+        case .ayahuasca: return "drop.fill"
+        case .mescaline: return "sun.max.fill"
+        case .lsd: return "diamond.fill"
+        case .mdma: return "heart.circle.fill"
+        case .ketamine: return "waveform.path.ecg"
+        case .other: return "sparkle"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .psilocybin: return .green
+        case .ayahuasca: return .purple
+        case .mescaline: return .orange
+        case .lsd: return .blue
+        case .mdma: return .pink
+        case .ketamine: return .teal
+        case .other: return .gray
+        }
+    }
+}
+
+enum Potency: String, CaseIterable, Identifiable {
+    case mild = "Mild"
+    case moderate = "Moderate"
+    case strong = "Strong"
+    case veryStrong = "Very Strong"
+
+    var id: String { rawValue }
+
+    var level: Int {
+        switch self {
+        case .mild: return 1
+        case .moderate: return 2
+        case .strong: return 3
+        case .veryStrong: return 4
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .mild: return .green
+        case .moderate: return .yellow
+        case .strong: return .orange
+        case .veryStrong: return .red
+        }
+    }
+}
+
+enum BodyFeel: String, CaseIterable, Identifiable {
+    case warm = "Warm"
+    case heavy = "Heavy"
+    case tingly = "Tingly"
+    case light = "Light"
+    case energetic = "Energetic"
+    case relaxed = "Relaxed"
+
+    var id: String { rawValue }
+}
+
+enum EmotionalTag: String, CaseIterable, Identifiable {
+    case calm = "Calm"
+    case giggly = "Giggly"
+    case profound = "Profound"
+    case anxious = "Anxious"
+    case euphoric = "Euphoric"
+    case loving = "Loving"
+    case introspective = "Introspective"
+
+    var id: String { rawValue }
+}
+
+enum TripSetting: String, CaseIterable, Identifiable {
+    case nature = "Nature"
+    case home = "Home"
+    case ceremony = "Ceremony"
+    case social = "Social"
+    case festival = "Festival"
+
+    var id: String { rawValue }
+
+    var icon: String {
+        switch self {
+        case .nature: return "leaf.fill"
+        case .home: return "house.fill"
+        case .ceremony: return "flame.fill"
+        case .social: return "person.3.fill"
+        case .festival: return "music.note"
+        }
+    }
+}
+
+enum ExperienceType: String, CaseIterable, Identifiable {
+    case visual = "Visual"
+    case physical = "Physical"
+    case emotional = "Emotional"
+    case spiritual = "Spiritual"
+
+    var id: String { rawValue }
+}
+
+enum MoodTag: String, CaseIterable, Identifiable {
+    case euphoric = "Euphoric"
+    case calm = "Calm"
+    case anxious = "Anxious"
+    case giggly = "Giggly"
+    case profound = "Profound"
+    case peaceful = "Peaceful"
+    case energetic = "Energetic"
+    case loving = "Loving"
+
+    var id: String { rawValue }
+}
+
+enum Difficulty: String, CaseIterable, Identifiable {
+    case beginner = "Beginner Friendly"
+    case intermediate = "Intermediate"
+    case experienced = "Experienced"
+
+    var id: String { rawValue }
+
+    var color: Color {
+        switch self {
+        case .beginner: return .green
+        case .intermediate: return .yellow
+        case .experienced: return .red
+        }
+    }
 }

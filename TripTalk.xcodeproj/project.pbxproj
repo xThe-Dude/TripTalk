@@ -32,6 +32,12 @@
 		20F12423A87F4023BB6B1E19 /* ServicesFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E50CE9FE494CB3A40C88E6 /* ServicesFilterSheet.swift */; };
 		862DBA9AF59044679B4F1716 /* ServicesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF6ADC568904035B45C65DF /* ServicesListView.swift */; };
 		B2AB31902DA74DABA3C035A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C4F223D5C0D461B82424664 /* Assets.xcassets */; };
+		AA000001AAAA4001AAAA0001 /* Strain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0011 /* Strain.swift */; };
+		AA000001AAAA4001AAAA0002 /* TripReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0012 /* TripReport.swift */; };
+		AA000001AAAA4001AAAA0003 /* StrainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0013 /* StrainCard.swift */; };
+		AA000001AAAA4001AAAA0004 /* TripReportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0014 /* TripReportCard.swift */; };
+		AA000001AAAA4001AAAA0005 /* StrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0015 /* StrainDetailView.swift */; };
+		AA000001AAAA4001AAAA0006 /* WriteTripReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0016 /* WriteTripReportView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +67,12 @@
 		FFF6ADC568904035B45C65DF /* ServicesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesListView.swift; sourceTree = "<group>"; };
 		7C4F223D5C0D461B82424664 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B54B52DC3AC440ABBF710A99 /* TripTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA000001AAAA4001AAAA0011 /* Strain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strain.swift; sourceTree = "<group>"; };
+		AA000001AAAA4001AAAA0012 /* TripReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReport.swift; sourceTree = "<group>"; };
+		AA000001AAAA4001AAAA0013 /* StrainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainCard.swift; sourceTree = "<group>"; };
+		AA000001AAAA4001AAAA0014 /* TripReportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReportCard.swift; sourceTree = "<group>"; };
+		AA000001AAAA4001AAAA0015 /* StrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainDetailView.swift; sourceTree = "<group>"; };
+		AA000001AAAA4001AAAA0016 /* WriteTripReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTripReportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +123,8 @@
 				E9F3659A67AC4DEE9FB804B5 /* Review.swift */,
 				820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */,
 				0D9BEAB8136B438A92F6655A /* Substance.swift */,
+				AA000001AAAA4001AAAA0011 /* Strain.swift */,
+				AA000001AAAA4001AAAA0012 /* TripReport.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -159,6 +173,7 @@
 				F483409EB8054F748C37EA13 /* CatalogFilterSheet.swift */,
 				DA549ABE79794758BDA460ED /* CatalogListView.swift */,
 				DD1964A18A974204A831D33C /* SubstanceDetailView.swift */,
+				AA000001AAAA4001AAAA0015 /* StrainDetailView.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -171,6 +186,8 @@
 				B4843385F631422696F1DDC6 /* ServiceCard.swift */,
 				407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */,
 				B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */,
+				AA000001AAAA4001AAAA0013 /* StrainCard.swift */,
+				AA000001AAAA4001AAAA0014 /* TripReportCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -196,6 +213,7 @@
 			children = (
 				8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */,
 				63B674A807334191810E25C2 /* WriteReviewView.swift */,
+				AA000001AAAA4001AAAA0016 /* WriteTripReportView.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -293,6 +311,12 @@
 				E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */,
 				20F12423A87F4023BB6B1E19 /* ServicesFilterSheet.swift in Sources */,
 				862DBA9AF59044679B4F1716 /* ServicesListView.swift in Sources */,
+				AA000001AAAA4001AAAA0001 /* Strain.swift in Sources */,
+				AA000001AAAA4001AAAA0002 /* TripReport.swift in Sources */,
+				AA000001AAAA4001AAAA0003 /* StrainCard.swift in Sources */,
+				AA000001AAAA4001AAAA0004 /* TripReportCard.swift in Sources */,
+				AA000001AAAA4001AAAA0005 /* StrainDetailView.swift in Sources */,
+				AA000001AAAA4001AAAA0006 /* WriteTripReportView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
