@@ -26,7 +26,8 @@ struct ServicesListView: View {
                 }
                 .padding(.vertical)
             }
-            .background(Color(.systemGroupedBackground))
+            .background { GradientBackground() }
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .navigationTitle("Services")
             .searchable(text: $state.servicesSearchText, prompt: "Search services...")
             .toolbar {

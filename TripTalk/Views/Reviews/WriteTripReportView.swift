@@ -149,6 +149,8 @@ struct WriteTripReportView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { GradientBackground() }
             .navigationTitle("Trip Report")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

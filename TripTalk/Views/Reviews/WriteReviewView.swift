@@ -67,6 +67,8 @@ struct WriteReviewView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { GradientBackground() }
             .navigationTitle("Write Review")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

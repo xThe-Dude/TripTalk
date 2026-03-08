@@ -141,6 +141,9 @@ struct ProfileView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { GradientBackground() }
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .navigationTitle("Profile")
             .navigationDestination(for: Strain.self) { strain in
                 StrainDetailView(strain: strain)

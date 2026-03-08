@@ -95,8 +95,9 @@ struct ExploreView: View {
                 }
                 .padding(.vertical)
             }
-            .background(Color(.systemGroupedBackground))
+            .background { GradientBackground() }
             .navigationTitle("Explore")
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .searchable(text: $searchText, prompt: "Search strains, services...")
             .navigationDestination(for: Strain.self) { strain in
                 StrainDetailView(strain: strain)
@@ -150,7 +151,9 @@ struct MiniStrainCard: View {
         }
         .frame(width: 110)
         .padding(10)
-        .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
     }
 }

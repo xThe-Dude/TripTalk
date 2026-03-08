@@ -150,7 +150,8 @@ struct SubstanceDetailView: View {
             }
             .padding(.vertical)
         }
-        .background(Color(.systemGroupedBackground))
+        .background { GradientBackground() }
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .navigationTitle(substance.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

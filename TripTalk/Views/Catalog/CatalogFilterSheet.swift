@@ -66,5 +66,6 @@ struct CatalogFilterSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+        .presentationBackground(.ultraThinMaterial)
     }
 }

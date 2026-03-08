@@ -24,6 +24,8 @@
 		23B2733F80884B4895196560 /* ServiceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4843385F631422696F1DDC6 /* ServiceCard.swift */; };
 		C476F774249141D6857EA8B2 /* SubstanceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */; };
 		2353045B5D164E86B7C45196 /* TagChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */; };
+		AA111111111111111111AAA1 /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA222222222222222222AAA2 /* GradientBackground.swift */; };
+		AA333333333333333333AAA3 /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA444444444444444444AAA4 /* ThemedCard.swift */; };
 		C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE613D09283448CBBAD3246 /* ExploreView.swift */; };
 		EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */; };
 		55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */; };
@@ -58,6 +60,8 @@
 		B4843385F631422696F1DDC6 /* ServiceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCard.swift; sourceTree = "<group>"; };
 		407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceCard.swift; sourceTree = "<group>"; };
 		B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagChip.swift; sourceTree = "<group>"; };
+		AA222222222222222222AAA2 /* GradientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackground.swift; sourceTree = "<group>"; };
+		AA444444444444444444AAA4 /* ThemedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedCard.swift; sourceTree = "<group>"; };
 		4FE613D09283448CBBAD3246 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsFeedView.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 				B4843385F631422696F1DDC6 /* ServiceCard.swift */,
 				407EF68AE3EC46459413A7A0 /* SubstanceCard.swift */,
 				B3CAB2AE93844CBA9F9EA6EF /* TagChip.swift */,
+				AA222222222222222222AAA2 /* GradientBackground.swift */,
+				AA444444444444444444AAA4 /* ThemedCard.swift */,
 				AA000001AAAA4001AAAA0013 /* StrainCard.swift */,
 				AA000001AAAA4001AAAA0014 /* TripReportCard.swift */,
 			);
@@ -304,6 +310,8 @@
 				23B2733F80884B4895196560 /* ServiceCard.swift in Sources */,
 				C476F774249141D6857EA8B2 /* SubstanceCard.swift in Sources */,
 				2353045B5D164E86B7C45196 /* TagChip.swift in Sources */,
+				AA111111111111111111AAA1 /* GradientBackground.swift in Sources */,
+				AA333333333333333333AAA3 /* ThemedCard.swift in Sources */,
 				C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */,
 				EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */,
 				55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */,

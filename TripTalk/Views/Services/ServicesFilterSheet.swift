@@ -47,5 +47,6 @@ struct ServicesFilterSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+        .presentationBackground(.ultraThinMaterial)
     }
 }

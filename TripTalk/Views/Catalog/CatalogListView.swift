@@ -37,7 +37,8 @@ struct CatalogListView: View {
                 }
                 .padding(.vertical)
             }
-            .background(Color(.systemGroupedBackground))
+            .background { GradientBackground() }
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .navigationTitle("Catalog")
             .searchable(text: $state.catalogSearchText, prompt: "Search strains...")
             .toolbar {

@@ -21,5 +21,11 @@ struct ContentView: View {
                 }
         }
         .tint(.accentColor)
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 }
