@@ -59,6 +59,8 @@ struct ProfileView: View {
                                                     .frame(width: 6, height: 6)
                                             }
                                         }
+                                        .accessibilityElement(children: .ignore)
+                                        .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
                                         Image(systemName: "chevron.right")
                                             .font(.caption2)
                                             .foregroundStyle(Color.ttSecondary)

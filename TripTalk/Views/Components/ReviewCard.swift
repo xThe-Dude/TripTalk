@@ -69,9 +69,12 @@ struct ReviewCard: View {
 
                     Spacer()
                 }
+                .frame(minHeight: 44)
             }
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(review.authorName), \(review.title), rated \(review.rating) stars, \(review.helpfulCount) people found helpful")
     }
 }

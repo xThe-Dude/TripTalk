@@ -78,6 +78,8 @@ struct StrainCard: View {
                     }
                     Spacer()
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 4) {
@@ -90,5 +92,7 @@ struct StrainCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(strain.name), \(strain.parentSubstance.rawValue), potency \(strain.potency.rawValue), rated \(String(format: "%.1f", strain.averageRating)) stars, \(strain.reviewCount) reports")
     }
 }

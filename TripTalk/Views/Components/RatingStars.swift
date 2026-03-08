@@ -13,6 +13,8 @@ struct RatingStars: View {
                     .foregroundStyle(Color.ttAccent)
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(rating, specifier: "%.1f") out of \(maxRating) stars")
     }
 
     private func starImage(for index: Int) -> String {
@@ -33,6 +35,15 @@ struct InteractiveRatingStars: View {
                     .font(.system(size: size))
                     .foregroundStyle(Color.ttAccent)
                     .onTapGesture { rating = index; Haptics.light() }
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(rating) out of 5 stars")
+        .accessibilityAdjustableAction { direction in
+            switch direction {
+            case .increment: if rating < 5 { rating += 1; Haptics.light() }
+            case .decrement: if rating > 0 { rating -= 1; Haptics.light() }
+            @unknown default: break
             }
         }
     }

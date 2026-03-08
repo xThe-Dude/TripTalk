@@ -110,12 +110,13 @@ extension View {
 struct AnimatedAppearance: ViewModifier {
     let delay: Double
     @State private var appeared = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
             .opacity(appeared ? 1 : 0)
-            .offset(y: appeared ? 0 : 20)
-            .animation(.easeOut(duration: 0.4).delay(delay), value: appeared)
+            .offset(y: (!reduceMotion && !appeared) ? 20 : 0)
+            .animation(reduceMotion ? .none : .easeOut(duration: 0.4).delay(delay), value: appeared)
             .onAppear { appeared = true }
     }
 }
@@ -124,10 +125,11 @@ struct AnimatedAppearance: ViewModifier {
 
 struct PressEffect: ViewModifier {
     @State private var isPressed = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
-            .scaleEffect(isPressed ? 0.97 : 1.0)
+            .scaleEffect((!reduceMotion && isPressed) ? 0.97 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: isPressed)
             .simultaneousGesture(
                 DragGesture(minimumDistance: 0)

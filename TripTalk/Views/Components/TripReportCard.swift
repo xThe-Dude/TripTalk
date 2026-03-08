@@ -80,6 +80,8 @@ struct TripReportCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(report.authorName)'s trip report, rated \(report.rating) stars, \(report.setting.rawValue) setting\(report.wouldRepeat ? ", would repeat" : "")")
     }
 }
 
@@ -91,7 +93,7 @@ struct IntensityBar: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label)
-                .font(.system(size: 9))
+                .font(.caption2)
                 .foregroundStyle(Color.ttSecondary)
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
@@ -104,5 +106,7 @@ struct IntensityBar: View {
             }
             .frame(height: 6)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label) intensity: \(value) out of 5")
     }
 }

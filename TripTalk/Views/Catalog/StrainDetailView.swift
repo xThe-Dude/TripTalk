@@ -59,6 +59,8 @@ struct StrainDetailView: View {
                             .foregroundStyle(strain.potency.color)
                     }
                     .frame(maxWidth: .infinity)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
                     Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
 
@@ -318,5 +320,7 @@ struct IntensityChartRow: View {
                 .foregroundStyle(Color.ttSecondary)
                 .frame(width: 24, alignment: .trailing)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label) intensity: \(String(format: "%.1f", value)) out of 5")
     }
 }

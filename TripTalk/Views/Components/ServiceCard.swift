@@ -55,5 +55,7 @@ struct ServiceCard: View {
             }
         }
         .darkGlassCard()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(service.name), \(service.locationString), \(service.distanceMiles) miles away, rated \(String(format: "%.1f", service.averageRating)) stars\(service.isVerified ? ", verified" : "")")
     }
 }

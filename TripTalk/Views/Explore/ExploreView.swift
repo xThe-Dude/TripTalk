@@ -195,10 +195,12 @@ struct MiniStrainCard: View {
                             .frame(width: 5, height: 5)
                     }
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
                 HStack(spacing: 2) {
                     Image(systemName: "star.fill")
-                        .font(.system(size: 9))
+                        .font(.caption2)
                         .foregroundStyle(Color.ttAccent)
                     Text(String(format: "%.1f", strain.averageRating))
                         .font(.caption2)
@@ -229,5 +231,7 @@ struct MiniStrainCard: View {
                 )
         )
         .shadow(color: .black.opacity(0.2), radius: 12, y: 6)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(strain.name), rated \(String(format: "%.1f", strain.averageRating)) stars")
     }
 }

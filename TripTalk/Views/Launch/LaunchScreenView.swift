@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LaunchScreenView: View {
     @State private var opacity: Double = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -40,8 +41,12 @@ struct LaunchScreenView: View {
         }
         .ignoresSafeArea()
         .onAppear {
-            withAnimation(.easeIn(duration: 0.6)) {
+            if reduceMotion {
                 opacity = 1
+            } else {
+                withAnimation(.easeIn(duration: 0.6)) {
+                    opacity = 1
+                }
             }
         }
     }

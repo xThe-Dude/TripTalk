@@ -56,5 +56,7 @@ struct SubstanceCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(substance.name), \(substance.category.rawValue), rated \(String(format: "%.1f", substance.averageRating)) stars")
     }
 }

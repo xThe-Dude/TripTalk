@@ -15,10 +15,13 @@ struct TagChip: View {
             .fontWeight(.medium)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
+            .frame(minHeight: 28)
             .background(isSelected ? chipColor.opacity(0.35) : chipColor.opacity(0.15))
             .foregroundStyle(isSelected ? Color.ttPrimary : Color.ttSecondary)
             .clipShape(Capsule())
             .overlay(Capsule().stroke(chipColor.opacity(isSelected ? 0.5 : 0.2), lineWidth: 0.5))
             .shadow(color: isSelected ? chipColor.opacity(0.3) : .clear, radius: 6, y: 0)
+            .accessibilityLabel(text)
+            .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
