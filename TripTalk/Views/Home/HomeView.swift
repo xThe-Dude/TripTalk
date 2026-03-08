@@ -80,18 +80,14 @@ struct HomeView: View {
                                             .padding(.vertical, 8)
                                             .background(Color.ttAccent.opacity(0.8))
                                             .clipShape(Capsule())
+                                            .shadow(color: Color.ttAccent.opacity(0.3), radius: 8, y: 0)
                                     }
                                     .padding(.top, 4)
                                 }
                                 .padding(20)
                             }
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
-                        )
-                        .shadow(color: .black.opacity(0.3), radius: 16, y: 8)
+                        .darkGlassCardElevated(glowColor: featured.parentSubstance.color)
                         .padding(.horizontal)
                     }
 
@@ -119,6 +115,7 @@ struct HomeView: View {
                         Text("Quick Links")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
+                            .tracking(0.8)
                             .padding(.horizontal)
 
                         HStack(spacing: 0) {
@@ -139,6 +136,7 @@ struct HomeView: View {
                         Text("Recent Trip Reports")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
+                            .tracking(0.8)
                             .padding(.horizontal)
 
                         ForEach(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3)) { report in
@@ -176,9 +174,20 @@ struct HomeView: View {
     private func quickLink(icon: String, label: String, color: Color) -> some View {
         VStack(spacing: 6) {
             ZStack {
+                // Glow behind
+                Circle()
+                    .fill(color.opacity(0.2))
+                    .frame(width: 58, height: 58)
+                    .blur(radius: 8)
+
                 Circle()
                     .fill(color.opacity(0.15))
                     .frame(width: 52, height: 52)
+                    .overlay(
+                        Circle()
+                            .stroke(color.opacity(0.3), lineWidth: 0.5)
+                    )
+
                 Image(systemName: icon)
                     .font(.title3)
                     .foregroundStyle(color)

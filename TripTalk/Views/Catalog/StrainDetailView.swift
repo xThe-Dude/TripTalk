@@ -105,7 +105,7 @@ struct StrainDetailView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .darkGlassCard()
+                .darkGlassCardElevated()
                 .padding(.horizontal)
 
                 // Intensity chart
@@ -129,7 +129,7 @@ struct StrainDetailView: View {
                         .foregroundStyle(Color.ttPrimary)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.commonEffects) { effect in
-                            TagChip(text: effect.rawValue)
+                            TagChip(text: effect.rawValue, color: effectColor(for: effect.rawValue))
                         }
                     }
                 }
@@ -142,7 +142,7 @@ struct StrainDetailView: View {
                         .foregroundStyle(Color.ttPrimary)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.bodyFeel) { feel in
-                            TagChip(text: feel.rawValue)
+                            TagChip(text: feel.rawValue, color: .ttBody)
                         }
                     }
                 }
@@ -155,7 +155,7 @@ struct StrainDetailView: View {
                         .foregroundStyle(Color.ttPrimary)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.emotionalProfile) { tag in
-                            TagChip(text: tag.rawValue)
+                            TagChip(text: tag.rawValue, color: .ttEmotional)
                         }
                     }
                 }
@@ -247,6 +247,7 @@ struct StrainDetailView: View {
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
+                            .shadow(color: Color.teal.opacity(0.3), radius: 10, y: 0)
                     }
                 }
                 .padding(.horizontal)
@@ -271,6 +272,21 @@ struct StrainDetailView: View {
         .sheet(isPresented: $showWriteTripReport) {
             WriteTripReportView(strainId: strain.id)
         }
+    }
+
+    /// Map effect names to contextual colors
+    private func effectColor(for effectName: String) -> Color {
+        let lower = effectName.lowercased()
+        let visualKeywords = ["visual", "color", "geometric", "pattern", "fractal", "hallucin", "distortion", "trails", "synesthesia"]
+        let bodyKeywords = ["body", "tingling", "warmth", "nausea", "energy", "sedat", "relax", "heavy", "light"]
+        let emotionalKeywords = ["euphori", "empathy", "love", "anxiety", "fear", "joy", "bliss", "peace", "connect"]
+        let spiritualKeywords = ["spirit", "transcend", "ego", "mystical", "cosmic", "unity", "dissolv"]
+
+        if visualKeywords.contains(where: { lower.contains($0) }) { return .ttVisual }
+        if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
+        if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
+        if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
+        return nil ?? .teal
     }
 }
 

@@ -7,6 +7,14 @@ struct GradientBackground: View {
         case subtle, standard, immersive
     }
 
+    private var orbOpacity: Double {
+        switch intensity {
+        case .subtle: return 0.08
+        case .standard: return 0.15
+        case .immersive: return 0.25
+        }
+    }
+
     var body: some View {
         ZStack {
             // Base: deep dark teal-to-navy
@@ -19,9 +27,34 @@ struct GradientBackground: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-            // Overlay: soft radial glow
+
+            // Orb 1: Teal glow top-leading
             RadialGradient(
-                colors: [Color.teal.opacity(0.15), .clear],
+                colors: [Color.teal.opacity(orbOpacity), .clear],
+                center: .topLeading,
+                startRadius: 30,
+                endRadius: 400
+            )
+
+            // Orb 2: Indigo glow center
+            RadialGradient(
+                colors: [Color.indigo.opacity(orbOpacity * 0.8), .clear],
+                center: .center,
+                startRadius: 20,
+                endRadius: 350
+            )
+
+            // Orb 3: Deep blue glow bottom-trailing
+            RadialGradient(
+                colors: [Color(red: 0.2, green: 0.3, blue: 0.8).opacity(orbOpacity * 0.7), .clear],
+                center: .bottomTrailing,
+                startRadius: 40,
+                endRadius: 450
+            )
+
+            // Original top glow
+            RadialGradient(
+                colors: [Color.teal.opacity(orbOpacity), .clear],
                 center: .top,
                 startRadius: 50,
                 endRadius: 500

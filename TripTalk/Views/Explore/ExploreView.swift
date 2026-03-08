@@ -114,6 +114,7 @@ struct ExploreView: View {
             Text(title)
                 .font(.system(.title2, design: .serif, weight: .bold))
                 .foregroundStyle(Color.ttPrimary)
+                .tracking(0.5)
                 .padding(.horizontal)
             content()
         }
@@ -132,12 +133,19 @@ struct MiniStrainCard: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(height: 80)
+                .frame(height: 100)
+
+                // Subtle glow behind icon
+                Circle()
+                    .fill(strain.parentSubstance.color.opacity(0.25))
+                    .frame(width: 50, height: 50)
+                    .blur(radius: 15)
+                    .padding(.bottom, 28)
 
                 Image(systemName: strain.parentSubstance.icon)
                     .font(.system(size: 32))
                     .foregroundStyle(.white.opacity(0.9))
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 28)
 
                 // Name overlaid
                 Text(strain.name)
@@ -170,7 +178,7 @@ struct MiniStrainCard: View {
             }
             .padding(.vertical, 6)
         }
-        .frame(width: 130)
+        .frame(width: 140)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white.opacity(0.07))
