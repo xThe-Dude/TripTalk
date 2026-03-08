@@ -41,9 +41,7 @@ struct ProfileView: View {
                     // Saved Strains
                     profileSection("Saved Varieties") {
                         if appState.savedStrainIDs.isEmpty {
-                            Text("No saved varieties yet")
-                                .foregroundStyle(Color.ttSecondary)
-                                .padding(.vertical, 4)
+                            EmptyStateView(icon: "leaf", title: "No Saved Varieties", subtitle: "Browse the catalog and bookmark varieties you're interested in")
                         } else {
                             ForEach(appState.strains.filter { appState.savedStrainIDs.contains($0.id) }) { strain in
                                 NavigationLink(value: strain) {
@@ -74,9 +72,7 @@ struct ProfileView: View {
                     // My Trip Reports
                     profileSection("My Trip Reports") {
                         if appState.userTripReports.isEmpty {
-                            Text("No trip reports written yet")
-                                .foregroundStyle(Color.ttSecondary)
-                                .padding(.vertical, 4)
+                            EmptyStateView(icon: "square.and.pencil", title: "No Trip Reports", subtitle: "Share your experiences to help the community")
                         } else {
                             ForEach(appState.userTripReports) { report in
                                 let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
@@ -95,9 +91,7 @@ struct ProfileView: View {
                     // Saved Substances
                     profileSection("Saved Substances") {
                         if appState.savedSubstanceIDs.isEmpty {
-                            Text("No saved substances yet")
-                                .foregroundStyle(Color.ttSecondary)
-                                .padding(.vertical, 4)
+                            EmptyStateView(icon: "testtube.2", title: "No Saved Substances", subtitle: "Explore substances and save the ones you want to learn about")
                         } else {
                             ForEach(appState.substances.filter { appState.savedSubstanceIDs.contains($0.id) }) { substance in
                                 NavigationLink(value: substance) {
@@ -121,9 +115,7 @@ struct ProfileView: View {
                     // Saved Services
                     profileSection("Saved Services") {
                         if appState.savedServiceIDs.isEmpty {
-                            Text("No saved services yet")
-                                .foregroundStyle(Color.ttSecondary)
-                                .padding(.vertical, 4)
+                            EmptyStateView(icon: "building.2", title: "No Saved Services", subtitle: "Find licensed service centers near you")
                         } else {
                             ForEach(appState.services.filter { appState.savedServiceIDs.contains($0.id) }) { service in
                                 NavigationLink(value: service) {
@@ -147,9 +139,7 @@ struct ProfileView: View {
                     // My Reviews
                     profileSection("My Reviews") {
                         if appState.userReviews.isEmpty {
-                            Text("No reviews written yet")
-                                .foregroundStyle(Color.ttSecondary)
-                                .padding(.vertical, 4)
+                            EmptyStateView(icon: "text.bubble", title: "No Reviews Yet", subtitle: "Share your thoughts on substances and services")
                         } else {
                             ForEach(appState.userReviews) { review in
                                 VStack(alignment: .leading, spacing: 4) {

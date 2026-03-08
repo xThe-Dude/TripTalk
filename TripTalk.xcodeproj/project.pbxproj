@@ -27,6 +27,9 @@
 		AA111111111111111111AAA1 /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA222222222222222222AAA2 /* GradientBackground.swift */; };
 		AA333333333333333333AAA3 /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA444444444444444444AAA4 /* ThemedCard.swift */; };
 		BB111111111111111111BBB1 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB222222222222222222BBB2 /* ThemeColors.swift */; };
+		PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000001PP000001PP000001 /* LaunchScreenView.swift */; };
+		PP000005PP000005PP000005 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000004PP000004PP000004 /* OnboardingView.swift */; };
+		PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000007PP000007PP000007 /* EmptyStateView.swift */; };
 		C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE613D09283448CBBAD3246 /* ExploreView.swift */; };
 		EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */; };
 		55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */; };
@@ -81,6 +84,9 @@
 		AA000001AAAA4001AAAA0014 /* TripReportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReportCard.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0015 /* StrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainDetailView.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0016 /* WriteTripReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTripReportView.swift; sourceTree = "<group>"; };
+		PP000001PP000001PP000001 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		PP000004PP000004PP000004 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		PP000007PP000007PP000007 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,8 @@
 				0BF182184A1247798123C383 /* Components */,
 				831ADBBA46434233B6475399 /* Explore */,
 				HH000001HHHH4001HHHH0099 /* Home */,
+				PP000003PP000003PP000003 /* Launch */,
+				PP000006PP000006PP000006 /* Onboarding */,
 				6779E0522B564559B7BBEE13 /* Profile */,
 				1FE7B6DB9D1746059F19182E /* Reviews */,
 				20089FF7C568410B9E5F92D4 /* Services */,
@@ -208,8 +216,25 @@
 				BB222222222222222222BBB2 /* ThemeColors.swift */,
 				AA000001AAAA4001AAAA0013 /* StrainCard.swift */,
 				AA000001AAAA4001AAAA0014 /* TripReportCard.swift */,
+				PP000007PP000007PP000007 /* EmptyStateView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		PP000003PP000003PP000003 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				PP000001PP000001PP000001 /* LaunchScreenView.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		PP000006PP000006PP000006 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				PP000004PP000004PP000004 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		831ADBBA46434233B6475399 /* Explore */ = {
@@ -341,6 +366,9 @@
 				AA000001AAAA4001AAAA0005 /* StrainDetailView.swift in Sources */,
 				AA000001AAAA4001AAAA0006 /* WriteTripReportView.swift in Sources */,
 				HH000001HHHH4001HHHH0001 /* HomeView.swift in Sources */,
+				PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */,
+				PP000005PP000005PP000005 /* OnboardingView.swift in Sources */,
+				PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

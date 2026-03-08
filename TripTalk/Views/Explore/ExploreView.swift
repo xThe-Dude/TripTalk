@@ -21,6 +21,27 @@ struct ExploreView: View {
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
                     .padding(.horizontal)
 
+                    if !searchText.isEmpty {
+                        // Search results
+                        let filtered = appState.strains.filter {
+                            $0.name.localizedCaseInsensitiveContains(searchText) ||
+                            $0.parentSubstance.rawValue.localizedCaseInsensitiveContains(searchText)
+                        }
+                        if filtered.isEmpty {
+                            EmptyStateView(icon: "magnifyingglass", title: "No Results", subtitle: "Try a different search term")
+                                .padding(.top, 40)
+                        } else {
+                            LazyVStack(spacing: 10) {
+                                ForEach(filtered) { strain in
+                                    NavigationLink(value: strain) {
+                                        StrainCard(strain: strain)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    } else {
                     // Popular Varieties
                     sectionView("Popular Varieties") {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -89,6 +110,7 @@ struct ExploreView: View {
                             }
                         }
                     }
+                    } // end else (no search)
                 }
                 .padding(.vertical)
             }
