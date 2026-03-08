@@ -51,6 +51,7 @@ struct WriteTripReportView: View {
                         ForEach(ExperienceType.allCases) { type in
                             TagChip(text: type.rawValue, isSelected: selectedExperienceTypes.contains(type))
                                 .onTapGesture {
+                                    Haptics.selection()
                                     if selectedExperienceTypes.contains(type) { selectedExperienceTypes.remove(type) }
                                     else { selectedExperienceTypes.insert(type) }
                                 }
@@ -106,6 +107,7 @@ struct WriteTripReportView: View {
                         ForEach(MoodTag.allCases) { mood in
                             TagChip(text: mood.rawValue, isSelected: selectedMoods.contains(mood))
                                 .onTapGesture {
+                                    Haptics.selection()
                                     if selectedMoods.contains(mood) { selectedMoods.remove(mood) }
                                     else { selectedMoods.insert(mood) }
                                 }
@@ -212,6 +214,7 @@ struct WriteTripReportView: View {
         )
         appState.addTripReport(report)
         showSuccess = true
+        Haptics.success()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { dismiss() }
     }
 }

@@ -32,7 +32,7 @@ struct InteractiveRatingStars: View {
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .font(.system(size: size))
                     .foregroundStyle(Color.ttAccent)
-                    .onTapGesture { rating = index }
+                    .onTapGesture { rating = index; Haptics.light() }
             }
         }
     }

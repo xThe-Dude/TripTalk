@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension Color {
     // Primary text: cream/warm white
@@ -93,5 +94,62 @@ extension View {
 
     func darkGlassCardElevated(glowColor: Color = .ttGlow) -> some View {
         modifier(DarkGlassCardElevated(glowColor: glowColor))
+    }
+
+    func animateIn(delay: Double = 0) -> some View {
+        modifier(AnimatedAppearance(delay: delay))
+    }
+
+    func pressEffect() -> some View {
+        modifier(PressEffect())
+    }
+}
+
+// MARK: - Animated Appearance
+
+struct AnimatedAppearance: ViewModifier {
+    let delay: Double
+    @State private var appeared = false
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(appeared ? 1 : 0)
+            .offset(y: appeared ? 0 : 20)
+            .animation(.easeOut(duration: 0.4).delay(delay), value: appeared)
+            .onAppear { appeared = true }
+    }
+}
+
+// MARK: - Press Effect
+
+struct PressEffect: ViewModifier {
+    @State private var isPressed = false
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isPressed ? 0.97 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: isPressed)
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in isPressed = true }
+                    .onEnded { _ in isPressed = false }
+            )
+    }
+}
+
+// MARK: - Haptics
+
+enum Haptics {
+    static func light() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+    static func medium() {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    static func success() {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    static func selection() {
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }

@@ -58,6 +58,7 @@ struct OnboardingView: View {
 
                             if index == pages.count - 1 {
                                 Button {
+                                    Haptics.success()
                                     onComplete()
                                 } label: {
                                     Text("Get Started")
@@ -69,6 +70,7 @@ struct OnboardingView: View {
                                         .clipShape(Capsule())
                                         .shadow(color: Color.ttAccent.opacity(0.4), radius: 12, y: 4)
                                 }
+                                .pressEffect()
                                 .padding(.horizontal, 40)
                                 .padding(.bottom, 60)
                             } else {

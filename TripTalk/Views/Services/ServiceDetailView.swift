@@ -113,6 +113,7 @@ struct ServiceDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                             .shadow(color: Color.teal.opacity(0.4), radius: 12, y: 4)
                     }
+                    .pressEffect()
                 }
                 .padding(.horizontal)
             }
@@ -127,6 +128,7 @@ struct ServiceDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     appState.toggleSavedService(service.id)
+                    Haptics.medium()
                 } label: {
                     Image(systemName: appState.savedServiceIDs.contains(service.id) ? "bookmark.fill" : "bookmark")
                         .foregroundStyle(Color.ttPrimary)

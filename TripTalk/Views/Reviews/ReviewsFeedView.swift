@@ -31,10 +31,10 @@ struct ReviewsFeedView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
                             TagChip(text: "All", isSelected: selectedEffectFilter == nil)
-                                .onTapGesture { selectedEffectFilter = nil }
+                                .onTapGesture { Haptics.selection(); selectedEffectFilter = nil }
                             ForEach([EffectTag.spiritualExperience, .introspection, .euphoria, .creativity, .empathy]) { tag in
                                 TagChip(text: tag.rawValue, isSelected: selectedEffectFilter == tag)
-                                    .onTapGesture { selectedEffectFilter = tag }
+                                    .onTapGesture { Haptics.selection(); selectedEffectFilter = tag }
                             }
                         }
                         .padding(.horizontal)
@@ -42,12 +42,13 @@ struct ReviewsFeedView: View {
 
                     // Reviews
                     LazyVStack(spacing: 10) {
-                        ForEach(filteredReviews) { review in
+                        ForEach(Array(filteredReviews.enumerated()), id: \.element.id) { index, review in
                             ReviewCard(
                                 review: review,
                                 onHelpful: { appState.toggleHelpful(review.id) },
                                 onReport: { appState.reportReview(review.id) }
                             )
+                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
                     }
                     .padding(.horizontal)

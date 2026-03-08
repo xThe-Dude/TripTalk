@@ -46,46 +46,52 @@ struct ExploreView: View {
                     sectionView("Popular Varieties") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6)) { strain in
+                                ForEach(Array(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6).enumerated()), id: \.element.id) { index, strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
+                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
                         }
                     }
+                    .animateIn(delay: 0.1)
 
                     // Beginner Friendly
                     sectionView("Beginner Friendly") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(appState.strains.filter { $0.difficulty == .beginner }) { strain in
+                                ForEach(Array(appState.strains.filter { $0.difficulty == .beginner }.enumerated()), id: \.element.id) { index, strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
+                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
                         }
                     }
+                    .animateIn(delay: 0.2)
 
                     // Most Visual
                     sectionView("Most Visual") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(appState.strains.filter { $0.commonEffects.contains(.visualDistortions) }.sorted(by: { $0.averageRating > $1.averageRating }).prefix(6)) { strain in
+                                ForEach(Array(appState.strains.filter { $0.commonEffects.contains(.visualDistortions) }.sorted(by: { $0.averageRating > $1.averageRating }).prefix(6).enumerated()), id: \.element.id) { index, strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
+                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
                         }
                     }
+                    .animateIn(delay: 0.3)
 
                     // Near You
                     sectionView("Near You") {
@@ -99,6 +105,7 @@ struct ExploreView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.4)
 
                     // Recent Trip Reports
                     sectionView("Recent Trip Reports") {

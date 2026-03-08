@@ -44,6 +44,7 @@ struct WriteReviewView: View {
                         ForEach(EffectTag.allCases) { tag in
                             TagChip(text: tag.rawValue, isSelected: selectedTags.contains(tag))
                                 .onTapGesture {
+                                    Haptics.selection()
                                     if selectedTags.contains(tag) { selectedTags.remove(tag) }
                                     else { selectedTags.insert(tag) }
                                 }
@@ -110,6 +111,7 @@ struct WriteReviewView: View {
         )
         appState.addReview(review)
         showSuccess = true
+        Haptics.success()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             dismiss()
         }

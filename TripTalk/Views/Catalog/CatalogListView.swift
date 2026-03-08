@@ -39,11 +39,12 @@ struct CatalogListView: View {
                     }
 
                     LazyVStack(spacing: 10) {
-                        ForEach(appState.filteredStrains) { strain in
+                        ForEach(Array(appState.filteredStrains.enumerated()), id: \.element.id) { index, strain in
                             NavigationLink(value: strain) {
                                 StrainCard(strain: strain)
                             }
                             .buttonStyle(.plain)
+                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
                     }
                     .padding(.horizontal)

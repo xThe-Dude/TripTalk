@@ -47,6 +47,7 @@ struct AgeGateView: View {
                         .opacity(0.6)
 
                     Button {
+                        Haptics.success()
                         withAnimation { ageVerified = true }
                     } label: {
                         Text("I am 21+")
@@ -60,6 +61,7 @@ struct AgeGateView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .shadow(color: Color.teal.opacity(0.4), radius: 16, y: 4)
                     }
+                    .pressEffect()
                     .padding(.horizontal, 40)
 
                     (Text("By continuing you agree to our\n")

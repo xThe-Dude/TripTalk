@@ -29,11 +29,12 @@ struct ServicesListView: View {
                         .padding(.horizontal)
 
                     LazyVStack(spacing: 10) {
-                        ForEach(appState.filteredServices) { service in
+                        ForEach(Array(appState.filteredServices.enumerated()), id: \.element.id) { index, service in
                             NavigationLink(value: service) {
                                 ServiceCard(service: service)
                             }
                             .buttonStyle(.plain)
+                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
                     }
                     .padding(.horizontal)

@@ -154,6 +154,7 @@ struct SubstanceDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                             .shadow(color: Color.teal.opacity(0.4), radius: 12, y: 4)
                     }
+                    .pressEffect()
                 }
                 .padding(.horizontal)
             }
@@ -168,6 +169,7 @@ struct SubstanceDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     appState.toggleSavedSubstance(substance.id)
+                    Haptics.medium()
                 } label: {
                     Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
                         .foregroundStyle(Color.ttPrimary)

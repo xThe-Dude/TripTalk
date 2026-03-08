@@ -37,6 +37,7 @@ struct ProfileView: View {
                             .font(.subheadline)
                             .foregroundStyle(Color.ttSecondary)
                     }
+                    .animateIn(delay: 0.1)
 
                     // Saved Strains
                     profileSection("Saved Varieties") {
@@ -68,6 +69,7 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.2)
 
                     // My Trip Reports
                     profileSection("My Trip Reports") {
@@ -87,6 +89,7 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.3)
 
                     // Saved Substances
                     profileSection("Saved Substances") {
@@ -111,6 +114,7 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.4)
 
                     // Saved Services
                     profileSection("Saved Services") {
@@ -135,6 +139,7 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.5)
 
                     // My Reviews
                     profileSection("My Reviews") {
@@ -153,6 +158,7 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .animateIn(delay: 0.6)
 
                     // Settings
                     profileSection("Settings") {
@@ -168,6 +174,7 @@ struct ProfileView: View {
                             .tint(Color.ttAccent)
                         }
                     }
+                    .animateIn(delay: 0.7)
 
                     // Links
                     profileSection("Info") {
@@ -211,6 +218,7 @@ struct ProfileView: View {
                             .padding(.vertical, 2)
                         }
                     }
+                    .animateIn(delay: 0.8)
 
                     // Reset
                     Button(role: .destructive) {

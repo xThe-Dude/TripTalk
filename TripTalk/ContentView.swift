@@ -31,6 +31,7 @@ struct ContentView: View {
                 }
                 .tag(4)
         }
+        .animation(.easeInOut(duration: 0.2), value: selectedTab)
         .tint(Color.ttAccent)
         .onAppear {
             let appearance = UITabBarAppearance()

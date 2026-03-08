@@ -249,6 +249,7 @@ struct StrainDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                             .shadow(color: Color.teal.opacity(0.3), radius: 10, y: 0)
                     }
+                    .pressEffect()
                 }
                 .padding(.horizontal)
             }
@@ -263,6 +264,7 @@ struct StrainDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     appState.toggleSavedStrain(strain.id)
+                    Haptics.medium()
                 } label: {
                     Image(systemName: appState.savedStrainIDs.contains(strain.id) ? "bookmark.fill" : "bookmark")
                         .foregroundStyle(Color.ttPrimary)

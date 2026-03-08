@@ -82,6 +82,7 @@ struct HomeView: View {
                                             .clipShape(Capsule())
                                             .shadow(color: Color.ttAccent.opacity(0.3), radius: 8, y: 0)
                                     }
+                                    .pressEffect()
                                     .padding(.top, 4)
                                 }
                                 .padding(20)
@@ -89,6 +90,7 @@ struct HomeView: View {
                         }
                         .darkGlassCardElevated(glowColor: featured.parentSubstance.color)
                         .padding(.horizontal)
+                        .animateIn(delay: 0.1)
                     }
 
                     // MARK: - Harm Reduction Tip
@@ -109,6 +111,7 @@ struct HomeView: View {
                     }
                     .darkGlassCard()
                     .padding(.horizontal)
+                    .animateIn(delay: 0.2)
 
                     // MARK: - Quick Links
                     VStack(alignment: .leading, spacing: 12) {
@@ -130,6 +133,7 @@ struct HomeView: View {
                             Spacer()
                         }
                     }
+                    .animateIn(delay: 0.3)
 
                     // MARK: - Recent Trip Reports
                     VStack(alignment: .leading, spacing: 12) {
@@ -139,10 +143,11 @@ struct HomeView: View {
                             .tracking(0.8)
                             .padding(.horizontal)
 
-                        ForEach(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3)) { report in
+                        ForEach(Array(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3).enumerated()), id: \.element.id) { index, report in
                             let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? ""
                             TripReportCard(report: report, strainName: strainName)
                                 .padding(.horizontal)
+                                .animateIn(delay: 0.3 + Double(index) * 0.05)
                         }
                     }
 
