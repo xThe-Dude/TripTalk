@@ -1,2 +1,15 @@
+# Python venvs
 .iconvenv/
-supabase/.temp/
+
+# Icon generators (kept locally, not needed in repo)
+generate_icon*.py
+icon.svg
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+
+# macOS
+.DS_Store
