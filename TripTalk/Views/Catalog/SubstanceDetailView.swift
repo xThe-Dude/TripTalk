@@ -5,7 +5,6 @@ struct SubstanceDetailView: View {
     let substance: Substance
     @State private var showWriteReview = false
 
-    // Map substance to SubstanceType for strain lookup
     private var substanceType: SubstanceType? {
         switch substance.id {
         case MockData.psilocybinID: return .psilocybin
@@ -21,28 +20,28 @@ struct SubstanceDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Hero
+                // Immersive hero
                 ZStack {
                     LinearGradient(
-                        colors: [.green.opacity(0.8), .blue.opacity(0.8)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+                        colors: [.teal.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
+                    .frame(height: 240)
                     VStack(spacing: 8) {
                         Image(systemName: substance.imageSymbol)
                             .font(.system(size: 50))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.white.opacity(0.9))
                         Text(substance.name)
-                            .font(.system(.title, design: .serif, weight: .bold))
-                            .foregroundStyle(.white)
+                            .font(.system(.largeTitle, design: .serif, weight: .bold))
+                            .foregroundStyle(Color.ttPrimary)
                         Text(substance.category.rawValue)
                             .font(.subheadline)
-                            .foregroundStyle(.white.opacity(0.8))
+                            .foregroundStyle(Color.ttSecondary)
                     }
                     .padding(.vertical, 30)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding(.horizontal)
+                .ignoresSafeArea(edges: .top)
 
                 // Jurisdiction pill
                 let status = substance.statusFor(appState.selectedJurisdiction)
@@ -63,9 +62,10 @@ struct SubstanceDetailView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("About")
                         .font(.system(.title3, design: .serif, weight: .bold))
+                        .foregroundStyle(Color.ttPrimary)
                     Text(substance.about)
                         .font(.body)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
                 .padding(.horizontal)
 
@@ -73,6 +73,7 @@ struct SubstanceDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Effects")
                         .font(.system(.title3, design: .serif, weight: .bold))
+                        .foregroundStyle(Color.ttPrimary)
                     FlowLayout(spacing: 6) {
                         ForEach(substance.effects) { effect in
                             TagChip(text: effect.rawValue)
@@ -85,6 +86,7 @@ struct SubstanceDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Safety Notes")
                         .font(.system(.title3, design: .serif, weight: .bold))
+                        .foregroundStyle(Color.ttPrimary)
                     ForEach(substance.safetyNotes, id: \.self) { note in
                         HStack(alignment: .top, spacing: 8) {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -92,19 +94,20 @@ struct SubstanceDetailView: View {
                                 .foregroundStyle(.orange)
                             Text(note)
                                 .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.ttSecondary)
                         }
                     }
                 }
                 .padding(.horizontal)
 
-                // Strains for this substance
+                // Strains
                 if let st = substanceType {
                     let relatedStrains = appState.strainsFor(substanceType: st)
                     if !relatedStrains.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Strains")
                                 .font(.system(.title3, design: .serif, weight: .bold))
+                                .foregroundStyle(Color.ttPrimary)
                             ForEach(relatedStrains) { strain in
                                 NavigationLink(value: strain) {
                                     StrainCard(strain: strain)
@@ -121,11 +124,12 @@ struct SubstanceDetailView: View {
                     HStack {
                         Text("Reviews")
                             .font(.system(.title3, design: .serif, weight: .bold))
+                            .foregroundStyle(Color.ttPrimary)
                         Spacer()
                         RatingStars(rating: substance.averageRating)
                         Text("(\(substance.reviewCount))")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                     }
 
                     ForEach(appState.reviewsFor(substance: substance.id).prefix(3)) { review in
@@ -140,7 +144,7 @@ struct SubstanceDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.green, .blue], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -148,10 +152,11 @@ struct SubstanceDetailView: View {
                 }
                 .padding(.horizontal)
             }
-            .padding(.vertical)
+            .padding(.bottom)
         }
         .background { GradientBackground() }
-        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .navigationTitle(substance.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -160,6 +165,7 @@ struct SubstanceDetailView: View {
                     appState.toggleSavedSubstance(substance.id)
                 } label: {
                     Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
+                        .foregroundStyle(Color.ttPrimary)
                 }
             }
         }
@@ -174,7 +180,7 @@ struct SubstanceDetailView: View {
     private func jurisdictionColor(_ status: JurisdictionStatus) -> Color {
         switch status {
         case .legal: return .green
-        case .decriminalized: return .yellow
+        case .decriminalized: return Color.ttAccent
         case .medicalOnly: return .blue
         case .illegal: return .red
         case .underReview: return .orange
@@ -182,7 +188,7 @@ struct SubstanceDetailView: View {
     }
 }
 
-// Simple flow layout for tag clouds
+// Flow layout for tag clouds
 struct FlowLayout: Layout {
     var spacing: CGFloat = 6
 

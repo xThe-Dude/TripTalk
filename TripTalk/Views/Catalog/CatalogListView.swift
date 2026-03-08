@@ -3,12 +3,26 @@ import SwiftUI
 struct CatalogListView: View {
     @Environment(AppState.self) private var appState
     @State private var showFilter = false
+    @State private var searchText = ""
 
     var body: some View {
         @Bindable var state = appState
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
+                    // Custom search bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(Color.ttSecondary)
+                        TextField("Search strains...", text: $state.catalogSearchText)
+                            .foregroundStyle(Color.ttPrimary)
+                    }
+                    .padding(12)
+                    .background(Color.white.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
+                    .padding(.horizontal)
+
                     // Substance type horizontal scroll
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -24,7 +38,6 @@ struct CatalogListView: View {
                         .padding(.horizontal)
                     }
 
-                    // Strain grid
                     LazyVStack(spacing: 10) {
                         ForEach(appState.filteredStrains) { strain in
                             NavigationLink(value: strain) {
@@ -38,15 +51,16 @@ struct CatalogListView: View {
                 .padding(.vertical)
             }
             .background { GradientBackground() }
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationTitle("Catalog")
-            .searchable(text: $state.catalogSearchText, prompt: "Search strains...")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showFilter = true
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
+                            .foregroundStyle(Color.ttPrimary)
                     }
                 }
             }
@@ -81,9 +95,10 @@ struct SubstanceTypePill: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(isSelected ? (type?.color ?? Color.accentColor) : Color(.systemGray5))
-            .foregroundStyle(isSelected ? .white : .primary)
+            .background(isSelected ? (type?.color ?? Color.teal) : Color.white.opacity(0.08))
+            .foregroundStyle(isSelected ? .white : Color.ttSecondary)
             .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.white.opacity(isSelected ? 0 : 0.1), lineWidth: 0.5))
         }
     }
 }

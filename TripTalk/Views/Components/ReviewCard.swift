@@ -10,14 +10,15 @@ struct ReviewCard: View {
             HStack {
                 Image(systemName: "person.circle.fill")
                     .font(.title3)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.ttSecondary)
                 VStack(alignment: .leading, spacing: 1) {
                     Text(review.authorName)
                         .font(.subheadline)
                         .fontWeight(.semibold)
+                        .foregroundStyle(Color.ttPrimary)
                     Text(review.date, style: .relative)
                         .font(.caption2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
                 Spacer()
                 RatingStars(rating: Double(review.rating), size: 12)
@@ -25,10 +26,11 @@ struct ReviewCard: View {
 
             Text(review.title)
                 .font(.system(.subheadline, design: .serif, weight: .semibold))
+                .foregroundStyle(Color.ttPrimary)
 
             Text(review.body)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.ttSecondary)
                 .lineLimit(3)
 
             if !review.tags.isEmpty {
@@ -47,7 +49,7 @@ struct ReviewCard: View {
                 } label: {
                     Label("\(review.helpfulCount)", systemImage: "hand.thumbsup")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
 
                 Button {
@@ -55,16 +57,12 @@ struct ReviewCard: View {
                 } label: {
                     Label("Report", systemImage: "flag")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
 
                 Spacer()
             }
         }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
+        .darkGlassCard()
     }
 }

@@ -54,7 +54,8 @@ struct ReviewsFeedView: View {
                 .padding(.vertical)
             }
             .background { GradientBackground() }
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationTitle("Reviews")
         }
     }

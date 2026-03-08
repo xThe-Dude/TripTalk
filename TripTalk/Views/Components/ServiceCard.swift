@@ -11,7 +11,7 @@ struct ServiceCard: View {
                     .foregroundStyle(.white)
                     .frame(width: 44, height: 44)
                     .background(
-                        LinearGradient(colors: [.green, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 10))
 
@@ -19,6 +19,7 @@ struct ServiceCard: View {
                     HStack(spacing: 4) {
                         Text(service.name)
                             .font(.system(.headline, design: .serif))
+                            .foregroundStyle(Color.ttPrimary)
                             .lineLimit(1)
                         if service.isVerified {
                             Image(systemName: "checkmark.seal.fill")
@@ -29,18 +30,18 @@ struct ServiceCard: View {
                     HStack(spacing: 4) {
                         Text(service.locationString)
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                         Text("•")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                         Text("\(service.distanceMiles)mi")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                         Spacer()
                         RatingStars(rating: service.averageRating, size: 10)
                         Text(String(format: "%.1f", service.averageRating))
                             .font(.caption2)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                     }
                 }
             }
@@ -53,10 +54,6 @@ struct ServiceCard: View {
                 }
             }
         }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
+        .darkGlassCard()
     }
 }

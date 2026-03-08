@@ -9,14 +9,15 @@ struct TripReportCard: View {
             HStack {
                 Image(systemName: "person.circle.fill")
                     .font(.title3)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.ttSecondary)
                 VStack(alignment: .leading, spacing: 1) {
                     Text(report.authorName)
                         .font(.subheadline)
                         .fontWeight(.semibold)
+                        .foregroundStyle(Color.ttPrimary)
                     Text(report.date, style: .relative)
                         .font(.caption2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
                 Spacer()
                 RatingStars(rating: Double(report.rating), size: 12)
@@ -25,29 +26,29 @@ struct TripReportCard: View {
             if !strainName.isEmpty {
                 Text(strainName)
                     .font(.system(.caption, design: .serif, weight: .semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.ttSecondary)
             }
 
-            // Setting + mood pills
             HStack(spacing: 4) {
                 Label(report.setting.rawValue, systemImage: report.setting.icon)
                     .font(.caption2)
+                    .foregroundStyle(Color.ttPrimary)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
-                    .background(Color.accentColor.opacity(0.12))
+                    .background(Color.teal.opacity(0.15))
                     .clipShape(Capsule())
 
                 ForEach(report.moods.prefix(2)) { mood in
                     Text(mood.rawValue)
                         .font(.caption2)
+                        .foregroundStyle(Color.ttSecondary)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
-                        .background(Color(.systemGray5))
+                        .background(Color.white.opacity(0.08))
                         .clipShape(Capsule())
                 }
             }
 
-            // Intensity bars
             HStack(spacing: 12) {
                 IntensityBar(label: "Visual", value: report.visualIntensity, color: .purple)
                 IntensityBar(label: "Body", value: report.bodyIntensity, color: .green)
@@ -56,7 +57,7 @@ struct TripReportCard: View {
 
             Text(report.highlights)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.ttSecondary)
                 .lineLimit(3)
 
             if report.wouldRepeat {
@@ -69,11 +70,7 @@ struct TripReportCard: View {
                 .foregroundStyle(.green)
             }
         }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
+        .darkGlassCard()
     }
 }
 
@@ -86,11 +83,11 @@ struct IntensityBar: View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label)
                 .font(.system(size: 9))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.ttSecondary)
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(Color(.systemGray5))
+                        .fill(Color.white.opacity(0.1))
                     RoundedRectangle(cornerRadius: 2)
                         .fill(color)
                         .frame(width: geo.size.width * CGFloat(value) / 5.0)

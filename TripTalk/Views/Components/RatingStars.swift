@@ -10,7 +10,7 @@ struct RatingStars: View {
             ForEach(1...maxRating, id: \.self) { index in
                 Image(systemName: starImage(for: index))
                     .font(.system(size: size))
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(Color.ttAccent)
             }
         }
     }
@@ -31,7 +31,7 @@ struct InteractiveRatingStars: View {
             ForEach(1...5, id: \.self) { index in
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .font(.system(size: size))
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(Color.ttAccent)
                     .onTapGesture { rating = index }
             }
         }

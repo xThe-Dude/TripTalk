@@ -6,7 +6,6 @@ struct StrainCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                // Substance icon
                 Image(systemName: strain.parentSubstance.icon)
                     .font(.title3)
                     .foregroundStyle(.white)
@@ -19,10 +18,10 @@ struct StrainCard: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(strain.name)
                         .font(.system(.headline, design: .serif))
+                        .foregroundStyle(Color.ttPrimary)
                         .lineLimit(1)
 
                     HStack(spacing: 6) {
-                        // Substance badge
                         Text(strain.parentSubstance.rawValue)
                             .font(.caption2)
                             .fontWeight(.semibold)
@@ -32,7 +31,6 @@ struct StrainCard: View {
                             .foregroundStyle(strain.parentSubstance.color)
                             .clipShape(Capsule())
 
-                        // Difficulty badge
                         Text(strain.difficulty.rawValue)
                             .font(.caption2)
                             .fontWeight(.medium)
@@ -46,36 +44,34 @@ struct StrainCard: View {
 
                 Spacer()
 
-                // Rating
                 VStack(alignment: .trailing, spacing: 2) {
                     HStack(spacing: 2) {
                         Image(systemName: "star.fill")
                             .font(.caption2)
-                            .foregroundStyle(.yellow)
+                            .foregroundStyle(Color.ttAccent)
                         Text(String(format: "%.1f", strain.averageRating))
                             .font(.caption)
                             .fontWeight(.semibold)
+                            .foregroundStyle(Color.ttPrimary)
                     }
                     Text("\(strain.reviewCount) reports")
                         .font(.caption2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                 }
             }
 
-            // Potency meter
             HStack(spacing: 3) {
                 Text("Potency")
                     .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.ttSecondary)
                 ForEach(1...4, id: \.self) { i in
                     Circle()
-                        .fill(i <= strain.potency.level ? strain.potency.color : Color(.systemGray4))
+                        .fill(i <= strain.potency.level ? strain.potency.color : Color.white.opacity(0.15))
                         .frame(width: 8, height: 8)
                 }
                 Spacer()
             }
 
-            // Effect tags
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
                     ForEach(strain.commonEffects.prefix(3)) { effect in
@@ -84,10 +80,6 @@ struct StrainCard: View {
                 }
             }
         }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
+        .darkGlassCard()
     }
 }

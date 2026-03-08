@@ -33,20 +33,25 @@ struct ServicesFilterSheet: View {
                     .labelsHidden()
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.ttSheetBg)
             .navigationTitle("Filter Services")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Reset") {
                         appState.servicesOfferingFilter = nil
                     }
+                    .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
+                        .foregroundStyle(Color.ttAccent)
                 }
             }
         }
         .presentationDetents([.medium, .large])
-        .presentationBackground(.ultraThinMaterial)
+        .presentationBackground(Color.ttSheetBg.opacity(0.95))
     }
 }

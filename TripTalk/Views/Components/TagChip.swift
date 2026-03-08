@@ -10,8 +10,9 @@ struct TagChip: View {
             .fontWeight(.medium)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(isSelected ? Color.accentColor : Color(.systemGray5))
-            .foregroundStyle(isSelected ? .white : .primary)
+            .background(isSelected ? Color.teal.opacity(0.35) : Color.teal.opacity(0.15))
+            .foregroundStyle(isSelected ? Color.ttPrimary : Color.ttSecondary)
             .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.teal.opacity(isSelected ? 0.4 : 0.2), lineWidth: 0.5))
     }
 }

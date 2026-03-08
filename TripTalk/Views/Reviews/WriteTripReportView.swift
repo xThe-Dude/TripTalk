@@ -40,6 +40,7 @@ struct WriteTripReportView: View {
 
                 Section("Intention") {
                     TextField("What was your intention?", text: $intention)
+                        .foregroundStyle(Color.ttPrimary)
                 }
 
                 Section("Experience Types") {
@@ -59,31 +60,37 @@ struct WriteTripReportView: View {
                         HStack {
                             Text("Visual")
                                 .font(.subheadline)
+                                .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $visualIntensity, in: 0...5, step: 1)
                                 .tint(.purple)
                             Text("\(Int(visualIntensity))")
                                 .font(.caption)
+                                .foregroundStyle(Color.ttSecondary)
                                 .frame(width: 20)
                         }
                         HStack {
                             Text("Body")
                                 .font(.subheadline)
+                                .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $bodyIntensity, in: 0...5, step: 1)
                                 .tint(.green)
                             Text("\(Int(bodyIntensity))")
                                 .font(.caption)
+                                .foregroundStyle(Color.ttSecondary)
                                 .frame(width: 20)
                         }
                         HStack {
                             Text("Emotional")
                                 .font(.subheadline)
+                                .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $emotionalIntensity, in: 0...5, step: 1)
                                 .tint(.pink)
                             Text("\(Int(emotionalIntensity))")
                                 .font(.caption)
+                                .foregroundStyle(Color.ttSecondary)
                                 .frame(width: 20)
                         }
                     }
@@ -105,10 +112,11 @@ struct WriteTripReportView: View {
                     ZStack(alignment: .topLeading) {
                         if highlights.isEmpty {
                             Text("Describe the highlights of your experience...")
-                                .foregroundStyle(.tertiary)
+                                .foregroundStyle(Color.ttSecondary.opacity(0.5))
                                 .padding(.top, 8)
                         }
                         TextEditor(text: $highlights)
+                            .foregroundStyle(Color.ttPrimary)
                             .frame(minHeight: 80)
                     }
                 }
@@ -117,16 +125,18 @@ struct WriteTripReportView: View {
                     ZStack(alignment: .topLeading) {
                         if safetyNotes.isEmpty {
                             Text("Any safety advice for others?")
-                                .foregroundStyle(.tertiary)
+                                .foregroundStyle(Color.ttSecondary.opacity(0.5))
                                 .padding(.top, 8)
                         }
                         TextEditor(text: $safetyNotes)
+                            .foregroundStyle(Color.ttPrimary)
                             .frame(minHeight: 60)
                     }
                 }
 
                 Section {
                     Toggle("Would you try this again?", isOn: $wouldRepeat)
+                        .foregroundStyle(Color.ttPrimary)
                 }
 
                 Section {
@@ -135,9 +145,10 @@ struct WriteTripReportView: View {
                             Text("Community Agreement")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
+                                .foregroundStyle(Color.ttPrimary)
                             Text("I confirm this report does not contain sourcing information, specific dosing instructions, or encouragement of illegal activity.")
                                 .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.ttSecondary)
                         }
                     }
                 }
@@ -150,20 +161,24 @@ struct WriteTripReportView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background { GradientBackground() }
+            .background(Color.ttSheetBg)
             .navigationTitle("Trip Report")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") { dismiss() }
+                        .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Submit") { submitReport() }
                         .disabled(rating == 0 || highlights.isEmpty || !antiSourcingAgreed)
                         .fontWeight(.bold)
+                        .foregroundStyle(Color.ttAccent)
                 }
             }
         }
+        .presentationBackground(Color.ttSheetBg.opacity(0.95))
     }
 
     private func submitReport() {

@@ -9,9 +9,23 @@ struct ServicesListView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 4) {
+                    // Custom search bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(Color.ttSecondary)
+                        TextField("Search services...", text: $state.servicesSearchText)
+                            .foregroundStyle(Color.ttPrimary)
+                    }
+                    .padding(12)
+                    .background(Color.white.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+
                     Text("Fort Collins • 50mi")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.ttSecondary)
                         .padding(.horizontal)
 
                     LazyVStack(spacing: 10) {
@@ -27,15 +41,16 @@ struct ServicesListView: View {
                 .padding(.vertical)
             }
             .background { GradientBackground() }
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationTitle("Services")
-            .searchable(text: $state.servicesSearchText, prompt: "Search services...")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showFilter = true
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
+                            .foregroundStyle(Color.ttPrimary)
                     }
                 }
             }

@@ -10,8 +10,10 @@ struct TripTalkApp: App {
             if ageVerified {
                 ContentView()
                     .environment(appState)
+                    .preferredColorScheme(.dark)
             } else {
                 AgeGateView()
+                    .preferredColorScheme(.dark)
             }
         }
     }

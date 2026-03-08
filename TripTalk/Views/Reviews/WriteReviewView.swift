@@ -24,13 +24,15 @@ struct WriteReviewView: View {
 
                 Section("Your Review") {
                     TextField("Title", text: $title)
+                        .foregroundStyle(Color.ttPrimary)
                     ZStack(alignment: .topLeading) {
                         if body_.isEmpty {
                             Text("Share your experience... What was the setting? How did it affect you? What insights did you gain?")
-                                .foregroundStyle(.tertiary)
+                                .foregroundStyle(Color.ttSecondary.opacity(0.5))
                                 .padding(.top, 8)
                         }
                         TextEditor(text: $body_)
+                            .foregroundStyle(Color.ttPrimary)
                             .frame(minHeight: 120)
                     }
                 }
@@ -53,9 +55,10 @@ struct WriteReviewView: View {
                             Text("Community Agreement")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
+                                .foregroundStyle(Color.ttPrimary)
                             Text("I confirm this review does not contain sourcing information, specific dosing instructions, or encouragement of illegal activity.")
                                 .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.ttSecondary)
                         }
                     }
                 }
@@ -68,12 +71,14 @@ struct WriteReviewView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background { GradientBackground() }
+            .background(Color.ttSheetBg)
             .navigationTitle("Write Review")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") { dismiss() }
+                        .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Submit") {
@@ -81,9 +86,11 @@ struct WriteReviewView: View {
                     }
                     .disabled(rating == 0 || title.isEmpty || body_.isEmpty || !antiSourcingAgreed)
                     .fontWeight(.bold)
+                    .foregroundStyle(Color.ttAccent)
                 }
             }
         }
+        .presentationBackground(Color.ttSheetBg.opacity(0.95))
     }
 
     private func submitReview() {

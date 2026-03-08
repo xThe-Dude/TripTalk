@@ -11,13 +11,14 @@ struct SubstanceCard: View {
                     .foregroundStyle(.white)
                     .frame(width: 44, height: 44)
                     .background(
-                        LinearGradient(colors: [.green, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 10))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(substance.name)
                         .font(.system(.headline, design: .serif))
+                        .foregroundStyle(Color.ttPrimary)
                         .lineLimit(1)
                     HStack(spacing: 4) {
                         Text(substance.category.rawValue)
@@ -25,13 +26,14 @@ struct SubstanceCard: View {
                             .fontWeight(.semibold)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.accentColor.opacity(0.15))
+                            .background(Color.teal.opacity(0.15))
+                            .foregroundStyle(Color.teal)
                             .clipShape(Capsule())
                         Spacer()
                         RatingStars(rating: substance.averageRating, size: 10)
                         Text(String(format: "%.1f", substance.averageRating))
                             .font(.caption2)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.ttSecondary)
                     }
                 }
             }
@@ -44,10 +46,6 @@ struct SubstanceCard: View {
                 }
             }
         }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.08), radius: 8, y: 4)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.3), lineWidth: 0.5))
+        .darkGlassCard()
     }
 }

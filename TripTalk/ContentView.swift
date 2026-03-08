@@ -20,10 +20,12 @@ struct ContentView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
         }
-        .tint(.accentColor)
+        .tint(Color.ttAccent)
         .onAppear {
             let appearance = UITabBarAppearance()
-            appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+            appearance.backgroundColor = UIColor(white: 0, alpha: 0.3)
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
