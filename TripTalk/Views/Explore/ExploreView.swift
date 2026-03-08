@@ -121,6 +121,9 @@ struct ExploreView: View {
                 }
                 .padding(.vertical)
             }
+            .refreshable {
+                try? await Task.sleep(for: .seconds(0.5))
+            }
             .background { GradientBackground() }
             .navigationTitle("Explore")
             .toolbarBackground(.hidden, for: .navigationBar)

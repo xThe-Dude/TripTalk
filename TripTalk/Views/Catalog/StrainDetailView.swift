@@ -264,18 +264,28 @@ struct StrainDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    appState.toggleSavedStrain(strain.id)
-                    Haptics.medium()
-                } label: {
-                    Image(systemName: appState.savedStrainIDs.contains(strain.id) ? "bookmark.fill" : "bookmark")
-                        .foregroundStyle(Color.ttPrimary)
+                HStack(spacing: 12) {
+                    ShareLink(item: strainShareText) {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
+                    Button {
+                        appState.toggleSavedStrain(strain.id)
+                        Haptics.medium()
+                    } label: {
+                        Image(systemName: appState.savedStrainIDs.contains(strain.id) ? "bookmark.fill" : "bookmark")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
                 }
             }
         }
         .sheet(isPresented: $showWriteTripReport) {
             WriteTripReportView(strainId: strain.id)
         }
+    }
+
+    private var strainShareText: String {
+        "Check out \(strain.name) on TripTalk — \(strain.parentSubstance.rawValue) variety, rated \(String(format: "%.1f", strain.averageRating))⭐ with \(strain.reviewCount) community reports. A harm-reduction resource for informed experiences."
     }
 
     /// Map effect names to contextual colors

@@ -126,17 +126,27 @@ struct ServiceDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    appState.toggleSavedService(service.id)
-                    Haptics.medium()
-                } label: {
-                    Image(systemName: appState.savedServiceIDs.contains(service.id) ? "bookmark.fill" : "bookmark")
-                        .foregroundStyle(Color.ttPrimary)
+                HStack(spacing: 12) {
+                    ShareLink(item: serviceShareText) {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
+                    Button {
+                        appState.toggleSavedService(service.id)
+                        Haptics.medium()
+                    } label: {
+                        Image(systemName: appState.savedServiceIDs.contains(service.id) ? "bookmark.fill" : "bookmark")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
                 }
             }
         }
         .sheet(isPresented: $showWriteReview) {
             WriteReviewView(serviceID: service.id)
         }
+    }
+
+    private var serviceShareText: String {
+        "Check out \(service.name) on TripTalk — \(service.locationString), rated \(String(format: "%.1f", service.averageRating))⭐\(service.isVerified ? " (Verified)" : ""). Find licensed psychedelic service centers near you."
     }
 }

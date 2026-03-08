@@ -67,6 +67,12 @@ struct ReviewCard: View {
                             .foregroundStyle(onReport != nil ? Color.orange.opacity(0.7) : Color.ttSecondary)
                     }
 
+                    ShareLink(item: "\(review.authorName)'s review: \"\(review.title)\" — Rated \(review.rating)/5⭐ on TripTalk.") {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                            .font(.caption)
+                            .foregroundStyle(Color.ttSecondary)
+                    }
+
                     Spacer()
                 }
                 .frame(minHeight: 44)

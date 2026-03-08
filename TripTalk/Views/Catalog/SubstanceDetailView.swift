@@ -167,12 +167,18 @@ struct SubstanceDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    appState.toggleSavedSubstance(substance.id)
-                    Haptics.medium()
-                } label: {
-                    Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
-                        .foregroundStyle(Color.ttPrimary)
+                HStack(spacing: 12) {
+                    ShareLink(item: substanceShareText) {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
+                    Button {
+                        appState.toggleSavedSubstance(substance.id)
+                        Haptics.medium()
+                    } label: {
+                        Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
+                            .foregroundStyle(Color.ttPrimary)
+                    }
                 }
             }
         }
@@ -182,6 +188,10 @@ struct SubstanceDetailView: View {
         .navigationDestination(for: Strain.self) { strain in
             StrainDetailView(strain: strain)
         }
+    }
+
+    private var substanceShareText: String {
+        "Learn about \(substance.name) on TripTalk — \(substance.category.rawValue). Safety information, effects, and community reviews. A harm-reduction resource for informed experiences."
     }
 
     private func jurisdictionColor(_ status: JurisdictionStatus) -> Color {

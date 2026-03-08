@@ -67,14 +67,24 @@ struct TripReportCard: View {
                     .foregroundStyle(Color.ttSecondary)
                     .lineLimit(3)
 
-                if report.wouldRepeat {
-                    HStack(spacing: 4) {
-                        Image(systemName: "arrow.trianglehead.2.counterclockwise")
-                            .font(.caption2)
-                        Text("Would repeat")
-                            .font(.caption2)
+                HStack(spacing: 16) {
+                    if report.wouldRepeat {
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.trianglehead.2.counterclockwise")
+                                .font(.caption2)
+                            Text("Would repeat")
+                                .font(.caption2)
+                        }
+                        .foregroundStyle(.green)
                     }
-                    .foregroundStyle(.green)
+
+                    Spacer()
+
+                    ShareLink(item: shareText) {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                            .font(.caption)
+                            .foregroundStyle(Color.ttSecondary)
+                    }
                 }
             }
             .padding(.leading, 10)
@@ -82,6 +92,10 @@ struct TripReportCard: View {
         .darkGlassCard()
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(report.authorName)'s trip report, rated \(report.rating) stars, \(report.setting.rawValue) setting\(report.wouldRepeat ? ", would repeat" : "")")
+    }
+
+    private var shareText: String {
+        "\(report.authorName)'s trip report\(!strainName.isEmpty ? " on \(strainName)" : "") — Rated \(report.rating)/5⭐, \(report.setting.rawValue) setting. Read more on TripTalk."
     }
 }
 

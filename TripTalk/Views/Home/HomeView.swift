@@ -165,6 +165,9 @@ struct HomeView: View {
                     .padding(.bottom, 20)
                 }
             }
+            .refreshable {
+                try? await Task.sleep(for: .seconds(0.5))
+            }
             .background { GradientBackground() }
             .navigationTitle("Home")
             .toolbarBackground(.hidden, for: .navigationBar)
