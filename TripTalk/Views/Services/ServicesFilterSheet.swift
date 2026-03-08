@@ -12,7 +12,7 @@ struct ServicesFilterSheet: View {
         @Bindable var state = appState
         NavigationStack {
             Form {
-                Section("Offerings") {
+                Section(header: Text("Offerings").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Offering", selection: $state.servicesOfferingFilter) {
                         Text("All").tag(nil as String?)
                         ForEach(allOfferings, id: \.self) { offering in
@@ -22,8 +22,9 @@ struct ServicesFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Jurisdiction") {
+                Section(header: Text("Jurisdiction").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Jurisdiction", selection: $state.selectedJurisdiction) {
                         ForEach(Jurisdiction.allCases) { j in
                             Text(j.rawValue).tag(j)
@@ -32,6 +33,7 @@ struct ServicesFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
             }
             .scrollContentBackground(.hidden)
             .background(Color.ttSheetBg)

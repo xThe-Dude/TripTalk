@@ -17,12 +17,13 @@ struct WriteReviewView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Rating") {
+                Section(header: Text("Rating").foregroundStyle(Color.ttSectionHeader)) {
                     InteractiveRatingStars(rating: $rating)
                         .frame(maxWidth: .infinity)
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Your Review") {
+                Section(header: Text("Your Review").foregroundStyle(Color.ttSectionHeader)) {
                     TextField("Title", text: $title)
                         .foregroundStyle(Color.ttPrimary)
                     ZStack(alignment: .topLeading) {
@@ -36,8 +37,9 @@ struct WriteReviewView: View {
                             .frame(minHeight: 120)
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Tags (select all that apply)") {
+                Section(header: Text("Tags (select all that apply)").foregroundStyle(Color.ttSectionHeader)) {
                     FlowLayout(spacing: 6) {
                         ForEach(EffectTag.allCases) { tag in
                             TagChip(text: tag.rawValue, isSelected: selectedTags.contains(tag))
@@ -48,6 +50,7 @@ struct WriteReviewView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
                 Section {
                     Toggle(isOn: $antiSourcingAgreed) {
@@ -62,12 +65,14 @@ struct WriteReviewView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
                 if showSuccess {
                     Section {
                         Label("Review submitted! Thank you for contributing.", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(.green)
                     }
+                    .listRowBackground(Color.green.opacity(0.08))
                 }
             }
             .scrollContentBackground(.hidden)

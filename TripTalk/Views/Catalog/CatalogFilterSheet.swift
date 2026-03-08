@@ -8,7 +8,7 @@ struct CatalogFilterSheet: View {
         @Bindable var state = appState
         NavigationStack {
             Form {
-                Section("Substance Type") {
+                Section(header: Text("Substance Type").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Substance", selection: $state.catalogSubstanceTypeFilter) {
                         Text("All").tag(nil as SubstanceType?)
                         ForEach(SubstanceType.allCases) { type in
@@ -18,8 +18,9 @@ struct CatalogFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Potency") {
+                Section(header: Text("Potency").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Potency", selection: $state.catalogPotencyFilter) {
                         Text("All").tag(nil as Potency?)
                         ForEach(Potency.allCases) { p in
@@ -29,8 +30,9 @@ struct CatalogFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Difficulty") {
+                Section(header: Text("Difficulty").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Difficulty", selection: $state.catalogDifficultyFilter) {
                         Text("All").tag(nil as Difficulty?)
                         ForEach(Difficulty.allCases) { d in
@@ -40,8 +42,9 @@ struct CatalogFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Effects") {
+                Section(header: Text("Effects").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Effect", selection: $state.catalogEffectFilter) {
                         Text("All").tag(nil as EffectTag?)
                         ForEach(EffectTag.allCases) { effect in
@@ -51,6 +54,7 @@ struct CatalogFilterSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
             }
             .scrollContentBackground(.hidden)
             .background(Color.ttSheetBg)

@@ -23,12 +23,13 @@ struct WriteTripReportView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Rating") {
+                Section(header: Text("Rating").foregroundStyle(Color.ttSectionHeader)) {
                     InteractiveRatingStars(rating: $rating)
                         .frame(maxWidth: .infinity)
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Setting") {
+                Section(header: Text("Setting").foregroundStyle(Color.ttSectionHeader)) {
                     Picker("Setting", selection: $setting) {
                         ForEach(TripSetting.allCases) { s in
                             Label(s.rawValue, systemImage: s.icon).tag(s)
@@ -37,13 +38,15 @@ struct WriteTripReportView: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Intention") {
+                Section(header: Text("Intention").foregroundStyle(Color.ttSectionHeader)) {
                     TextField("What was your intention?", text: $intention)
                         .foregroundStyle(Color.ttPrimary)
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Experience Types") {
+                Section(header: Text("Experience Types").foregroundStyle(Color.ttSectionHeader)) {
                     FlowLayout(spacing: 6) {
                         ForEach(ExperienceType.allCases) { type in
                             TagChip(text: type.rawValue, isSelected: selectedExperienceTypes.contains(type))
@@ -54,8 +57,9 @@ struct WriteTripReportView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Intensity") {
+                Section(header: Text("Intensity").foregroundStyle(Color.ttSectionHeader)) {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("Visual")
@@ -95,8 +99,9 @@ struct WriteTripReportView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Moods") {
+                Section(header: Text("Moods").foregroundStyle(Color.ttSectionHeader)) {
                     FlowLayout(spacing: 6) {
                         ForEach(MoodTag.allCases) { mood in
                             TagChip(text: mood.rawValue, isSelected: selectedMoods.contains(mood))
@@ -107,8 +112,9 @@ struct WriteTripReportView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("What stood out?") {
+                Section(header: Text("What stood out?").foregroundStyle(Color.ttSectionHeader)) {
                     ZStack(alignment: .topLeading) {
                         if highlights.isEmpty {
                             Text("Describe the highlights of your experience...")
@@ -120,8 +126,9 @@ struct WriteTripReportView: View {
                             .frame(minHeight: 80)
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
-                Section("Safety notes or tips?") {
+                Section(header: Text("Safety notes or tips?").foregroundStyle(Color.ttSectionHeader)) {
                     ZStack(alignment: .topLeading) {
                         if safetyNotes.isEmpty {
                             Text("Any safety advice for others?")
@@ -133,11 +140,13 @@ struct WriteTripReportView: View {
                             .frame(minHeight: 60)
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
                 Section {
                     Toggle("Would you try this again?", isOn: $wouldRepeat)
                         .foregroundStyle(Color.ttPrimary)
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
                 Section {
                     Toggle(isOn: $antiSourcingAgreed) {
@@ -152,12 +161,14 @@ struct WriteTripReportView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.white.opacity(0.05))
 
                 if showSuccess {
                     Section {
                         Label("Trip report submitted! Thank you.", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(.green)
                     }
+                    .listRowBackground(Color.green.opacity(0.08))
                 }
             }
             .scrollContentBackground(.hidden)

@@ -24,6 +24,7 @@ struct ReviewsFeedView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .tint(Color.ttAccent)
                     .padding(.horizontal)
 
                     // Filter chips

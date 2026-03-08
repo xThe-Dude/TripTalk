@@ -15,13 +15,17 @@ struct SubstanceDetailView: View {
         }
     }
 
+    private var heroColor: Color {
+        substanceType?.color ?? .teal
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 // Immersive hero
                 ZStack {
                     LinearGradient(
-                        colors: [.teal.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                        colors: [heroColor.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
                         startPoint: .top,
                         endPoint: .bottom
                     )
@@ -54,6 +58,7 @@ struct SubstanceDetailView: View {
                 .background(jurisdictionColor(status).opacity(0.15))
                 .foregroundStyle(jurisdictionColor(status))
                 .clipShape(Capsule())
+                .darkGlassCardElevated()
                 .padding(.horizontal)
 
                 // About
@@ -74,7 +79,7 @@ struct SubstanceDetailView: View {
                         .foregroundStyle(Color.ttPrimary)
                     FlowLayout(spacing: 6) {
                         ForEach(substance.effects) { effect in
-                            TagChip(text: effect.rawValue)
+                            TagChip(text: effect.rawValue, color: effectColor(for: effect.rawValue))
                         }
                     }
                 }
@@ -96,6 +101,7 @@ struct SubstanceDetailView: View {
                         }
                     }
                 }
+                .darkGlassCard()
                 .padding(.horizontal)
 
                 // Strains
@@ -146,6 +152,7 @@ struct SubstanceDetailView: View {
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
+                            .shadow(color: Color.teal.opacity(0.4), radius: 12, y: 4)
                     }
                 }
                 .padding(.horizontal)
@@ -183,6 +190,20 @@ struct SubstanceDetailView: View {
         case .illegal: return .red
         case .underReview: return .orange
         }
+    }
+
+    private func effectColor(for effectName: String) -> Color {
+        let lower = effectName.lowercased()
+        let visualKeywords = ["visual", "color", "geometric", "pattern", "fractal", "hallucin", "distortion", "trails", "synesthesia"]
+        let bodyKeywords = ["body", "tingling", "warmth", "nausea", "energy", "sedat", "relax", "heavy", "light"]
+        let emotionalKeywords = ["euphori", "empathy", "love", "anxiety", "fear", "joy", "bliss", "peace", "connect"]
+        let spiritualKeywords = ["spirit", "transcend", "ego", "mystical", "cosmic", "unity", "dissolv"]
+
+        if visualKeywords.contains(where: { lower.contains($0) }) { return .ttVisual }
+        if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
+        if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
+        if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
+        return .teal
     }
 }
 

@@ -8,39 +8,42 @@ struct ServiceDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Header
-                VStack(spacing: 8) {
-                    Image(systemName: service.imageSymbol)
-                        .font(.system(size: 44))
-                        .foregroundStyle(.white)
-                        .frame(width: 80, height: 80)
-                        .background(
-                            LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                // Immersive hero section
+                ZStack {
+                    LinearGradient(
+                        colors: [.teal.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 220)
+                    VStack(spacing: 8) {
+                        Image(systemName: service.imageSymbol)
+                            .font(.system(size: 50))
+                            .foregroundStyle(.white.opacity(0.9))
 
-                    HStack(spacing: 4) {
-                        Text(service.name)
-                            .font(.system(.title2, design: .serif, weight: .bold))
-                            .foregroundStyle(Color.ttPrimary)
-                        if service.isVerified {
-                            Image(systemName: "checkmark.seal.fill")
-                                .foregroundStyle(.blue)
+                        HStack(spacing: 4) {
+                            Text(service.name)
+                                .font(.system(.title2, design: .serif, weight: .bold))
+                                .foregroundStyle(Color.ttPrimary)
+                            if service.isVerified {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .foregroundStyle(.blue)
+                            }
+                        }
+
+                        HStack {
+                            RatingStars(rating: service.averageRating)
+                            Text(String(format: "%.1f", service.averageRating))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.ttSecondary)
+                            Text("(\(service.reviewCount) reviews)")
+                                .font(.subheadline)
+                                .foregroundStyle(Color.ttSecondary)
                         }
                     }
-
-                    HStack {
-                        RatingStars(rating: service.averageRating)
-                        Text(String(format: "%.1f", service.averageRating))
-                            .font(.subheadline)
-                            .foregroundStyle(Color.ttSecondary)
-                        Text("(\(service.reviewCount) reviews)")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.ttSecondary)
-                    }
+                    .padding(.vertical, 30)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
+                .ignoresSafeArea(edges: .top)
 
                 // Location
                 VStack(alignment: .leading, spacing: 6) {
@@ -51,7 +54,7 @@ struct ServiceDetailView: View {
                         .font(.subheadline)
                         .foregroundStyle(Color.ttSecondary)
                 }
-                .darkGlassCard()
+                .darkGlassCardElevated()
                 .padding(.horizontal)
 
                 // About
@@ -59,6 +62,7 @@ struct ServiceDetailView: View {
                     Text("About")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
                     Text(service.about)
                         .font(.body)
                         .foregroundStyle(Color.ttSecondary)
@@ -70,6 +74,7 @@ struct ServiceDetailView: View {
                     Text("Offerings")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
                     ForEach(service.offerings, id: \.self) { offering in
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.circle.fill")
@@ -88,6 +93,7 @@ struct ServiceDetailView: View {
                     Text("Reviews")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
 
                     ForEach(appState.reviewsFor(service: service.id).prefix(3)) { review in
                         ReviewCard(review: review)
@@ -105,6 +111,7 @@ struct ServiceDetailView: View {
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
+                            .shadow(color: Color.teal.opacity(0.4), radius: 12, y: 4)
                     }
                 }
                 .padding(.horizontal)

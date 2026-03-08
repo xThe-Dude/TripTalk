@@ -5,37 +5,33 @@ struct AgeGateView: View {
 
     var body: some View {
         ZStack {
-            // Deep immersive gradient
-            LinearGradient(
-                stops: [
-                    .init(color: Color(red: 0.04, green: 0.18, blue: 0.14), location: 0),
-                    .init(color: Color(red: 0.05, green: 0.12, blue: 0.22), location: 0.5),
-                    .init(color: Color(red: 0.08, green: 0.08, blue: 0.28), location: 1)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-
-            // Radial glow
-            RadialGradient(
-                colors: [Color.teal.opacity(0.2), .clear],
-                center: .center,
-                startRadius: 50,
-                endRadius: 400
-            )
-            .ignoresSafeArea()
+            GradientBackground(intensity: .immersive)
 
             VStack(spacing: 32) {
                 Spacer()
 
-                Image(systemName: "leaf.circle.fill")
-                    .font(.system(size: 80))
-                    .foregroundStyle(Color.ttPrimary)
+                ZStack {
+                    // Soft glow behind icon
+                    Circle()
+                        .fill(
+                            RadialGradient(
+                                colors: [Color.teal.opacity(0.25), .clear],
+                                center: .center,
+                                startRadius: 20,
+                                endRadius: 120
+                            )
+                        )
+                        .frame(width: 240, height: 240)
+
+                    Image(systemName: "leaf.circle.fill")
+                        .font(.system(size: 80))
+                        .foregroundStyle(Color.ttPrimary)
+                }
 
                 Text("TripTalk")
                     .font(.system(.largeTitle, design: .serif, weight: .bold))
                     .foregroundStyle(Color.ttPrimary)
+                    .tracking(2)
 
                 Text("A community for informed, respectful\nconversation about psychedelic experiences.")
                     .font(.body)
@@ -48,6 +44,7 @@ struct AgeGateView: View {
                     Text("TripTalk is for adults.")
                         .font(.headline)
                         .foregroundStyle(Color.ttPrimary)
+                        .opacity(0.6)
 
                     Button {
                         withAnimation { ageVerified = true }
@@ -61,13 +58,18 @@ struct AgeGateView: View {
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .shadow(color: Color.teal.opacity(0.4), radius: 16, y: 4)
                     }
                     .padding(.horizontal, 40)
 
-                    Text("By continuing you agree to our\nCommunity Guidelines.")
+                    (Text("By continuing you agree to our\n")
                         .font(.caption)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(Color.ttSecondary.opacity(0.7))
+                        .foregroundColor(Color.ttSecondary.opacity(0.7))
+                    +
+                    Text("Community Guidelines.")
+                        .font(.caption)
+                        .foregroundColor(Color.ttAccent))
+                    .multilineTextAlignment(.center)
                 }
 
                 Spacer()

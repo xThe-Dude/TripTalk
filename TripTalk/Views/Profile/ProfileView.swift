@@ -233,6 +233,7 @@ struct ProfileView: View {
                             .padding()
                             .background(Color.red.opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.3), lineWidth: 0.5))
                     }
                     .padding(.horizontal)
                 }
@@ -260,6 +261,7 @@ struct ProfileView: View {
             Text(title)
                 .font(.system(.title3, design: .serif, weight: .bold))
                 .foregroundStyle(Color.ttSectionHeader)
+                .tracking(0.5)
                 .padding(.horizontal)
             VStack(alignment: .leading, spacing: 4) {
                 content()
