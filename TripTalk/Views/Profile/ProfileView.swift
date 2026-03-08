@@ -39,9 +39,9 @@ struct ProfileView: View {
                     }
 
                     // Saved Strains
-                    profileSection("Saved Strains") {
+                    profileSection("Saved Varieties") {
                         if appState.savedStrainIDs.isEmpty {
-                            Text("No saved strains yet")
+                            Text("No saved varieties yet")
                                 .foregroundStyle(Color.ttSecondary)
                                 .padding(.vertical, 4)
                         } else {

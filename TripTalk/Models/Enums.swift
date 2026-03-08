@@ -90,8 +90,6 @@ enum SubstanceType: String, CaseIterable, Identifiable {
     case psilocybin = "Psilocybin"
     case ayahuasca = "Ayahuasca"
     case mescaline = "Mescaline"
-    case lsd = "LSD"
-    case mdma = "MDMA"
     case ketamine = "Ketamine"
     case other = "Other"
 
@@ -102,8 +100,6 @@ enum SubstanceType: String, CaseIterable, Identifiable {
         case .psilocybin: return "leaf.fill"
         case .ayahuasca: return "drop.fill"
         case .mescaline: return "sun.max.fill"
-        case .lsd: return "diamond.fill"
-        case .mdma: return "heart.circle.fill"
         case .ketamine: return "waveform.path.ecg"
         case .other: return "sparkle"
         }
@@ -114,8 +110,6 @@ enum SubstanceType: String, CaseIterable, Identifiable {
         case .psilocybin: return .green
         case .ayahuasca: return .purple
         case .mescaline: return .orange
-        case .lsd: return .blue
-        case .mdma: return .pink
         case .ketamine: return .teal
         case .other: return .gray
         }

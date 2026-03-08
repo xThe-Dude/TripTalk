@@ -10,8 +10,6 @@ struct SubstanceDetailView: View {
         case MockData.psilocybinID: return .psilocybin
         case MockData.ayahuascaID: return .ayahuasca
         case MockData.mescalineID: return .mescaline
-        case MockData.lsdID: return .lsd
-        case MockData.mdmaID: return .mdma
         case MockData.ketamineID: return .ketamine
         default: return nil
         }
@@ -105,7 +103,7 @@ struct SubstanceDetailView: View {
                     let relatedStrains = appState.strainsFor(substanceType: st)
                     if !relatedStrains.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Strains")
+                            Text("Varieties")
                                 .font(.system(.title3, design: .serif, weight: .bold))
                                 .foregroundStyle(Color.ttPrimary)
                             ForEach(relatedStrains) { strain in

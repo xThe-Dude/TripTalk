@@ -14,7 +14,7 @@ struct CatalogListView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(Color.ttSecondary)
-                        TextField("Search strains...", text: $state.catalogSearchText)
+                        TextField("Search varieties...", text: $state.catalogSearchText)
                             .foregroundStyle(Color.ttPrimary)
                     }
                     .padding(12)

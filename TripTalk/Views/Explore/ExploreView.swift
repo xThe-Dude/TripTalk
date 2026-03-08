@@ -12,7 +12,7 @@ struct ExploreView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(Color.ttSecondary)
-                        TextField("Search strains, services...", text: $searchText)
+                        TextField("Search varieties, services...", text: $searchText)
                             .foregroundStyle(Color.ttPrimary)
                     }
                     .padding(12)
@@ -21,8 +21,8 @@ struct ExploreView: View {
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
                     .padding(.horizontal)
 
-                    // Popular Strains
-                    sectionView("Popular Strains") {
+                    // Popular Varieties
+                    sectionView("Popular Varieties") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6)) { strain in
