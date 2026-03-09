@@ -1,6 +1,6 @@
 import Foundation
 
-struct Review: Identifiable, Hashable {
+struct Review: Identifiable, Hashable, Codable {
     let id: UUID
     let authorName: String
     let rating: Int

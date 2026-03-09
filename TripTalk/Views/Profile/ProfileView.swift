@@ -174,6 +174,9 @@ struct ProfileView: View {
                                 }
                             }
                             .tint(Color.ttAccent)
+                            .onChange(of: appState.selectedJurisdiction) {
+                                appState.updateJurisdiction(appState.selectedJurisdiction)
+                            }
                         }
                     }
                     .animateIn(delay: 0.7)
@@ -221,6 +224,19 @@ struct ProfileView: View {
                         }
                     }
                     .animateIn(delay: 0.8)
+
+                    // About
+                    profileSection("About") {
+                        HStack {
+                            Text("Version")
+                                .foregroundStyle(Color.ttPrimary)
+                            Spacer()
+                            Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                                .foregroundStyle(Color.ttSecondary)
+                        }
+                        .padding(.vertical, 2)
+                    }
+                    .animateIn(delay: 0.85)
 
                     // Reset
                     Button(role: .destructive) {

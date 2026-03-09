@@ -1,6 +1,6 @@
 import Foundation
 
-struct TripReport: Identifiable, Hashable {
+struct TripReport: Identifiable, Hashable, Codable {
     let id: UUID
     let strainId: UUID
     let rating: Int

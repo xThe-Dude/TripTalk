@@ -154,7 +154,7 @@ struct HomeView: View {
                     // MARK: - Community Stats
                     HStack(spacing: 0) {
                         Spacer()
-                        Text("12.4k trip reports • 847 varieties reviewed • Growing daily")
+                        Text("\(appState.tripReports.count) trip reports • \(appState.strains.count) varieties • Growing daily")
                             .font(.caption)
                             .foregroundStyle(Color.ttSecondary)
                             .multilineTextAlignment(.center)

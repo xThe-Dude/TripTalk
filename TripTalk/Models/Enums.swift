@@ -116,7 +116,7 @@ enum SubstanceType: String, CaseIterable, Identifiable {
     }
 }
 
-enum Potency: String, CaseIterable, Identifiable {
+enum Potency: String, CaseIterable, Identifiable, Codable {
     case mild = "Mild"
     case moderate = "Moderate"
     case strong = "Strong"
@@ -166,7 +166,7 @@ enum EmotionalTag: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-enum TripSetting: String, CaseIterable, Identifiable {
+enum TripSetting: String, CaseIterable, Identifiable, Codable {
     case nature = "Nature"
     case home = "Home"
     case ceremony = "Ceremony"
@@ -186,7 +186,7 @@ enum TripSetting: String, CaseIterable, Identifiable {
     }
 }
 
-enum ExperienceType: String, CaseIterable, Identifiable {
+enum ExperienceType: String, CaseIterable, Identifiable, Codable {
     case visual = "Visual"
     case physical = "Physical"
     case emotional = "Emotional"
@@ -195,7 +195,7 @@ enum ExperienceType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-enum MoodTag: String, CaseIterable, Identifiable {
+enum MoodTag: String, CaseIterable, Identifiable, Codable {
     case euphoric = "Euphoric"
     case calm = "Calm"
     case anxious = "Anxious"
@@ -208,7 +208,7 @@ enum MoodTag: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-enum Difficulty: String, CaseIterable, Identifiable {
+enum Difficulty: String, CaseIterable, Identifiable, Codable {
     case beginner = "Beginner Friendly"
     case intermediate = "Intermediate"
     case experienced = "Experienced"

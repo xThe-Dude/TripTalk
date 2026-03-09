@@ -32,6 +32,9 @@ struct ServicesFilterSheet: View {
                     }
                     .pickerStyle(.inline)
                     .labelsHidden()
+                    .onChange(of: appState.selectedJurisdiction) {
+                        appState.updateJurisdiction(appState.selectedJurisdiction)
+                    }
                 }
                 .listRowBackground(Color.white.opacity(0.05))
             }

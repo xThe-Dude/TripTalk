@@ -16,6 +16,18 @@ class AppState {
 
     var selectedJurisdiction: Jurisdiction = .colorado
 
+    // MARK: - Persistence Keys
+    private let savedStrainIDsKey = "savedStrainIDs"
+    private let savedSubstanceIDsKey = "savedSubstanceIDs"
+    private let savedServiceIDsKey = "savedServiceIDs"
+    private let userTripReportsKey = "userTripReports"
+    private let userReviewsKey = "userReviews"
+    private let jurisdictionKey = "selectedJurisdiction"
+
+    init() {
+        loadPersistedData()
+    }
+
     // Catalog filters
     var catalogSearchText: String = ""
     var catalogCategoryFilter: SubstanceCategory? = nil
@@ -84,16 +96,19 @@ class AppState {
     func toggleSavedSubstance(_ id: UUID) {
         if savedSubstanceIDs.contains(id) { savedSubstanceIDs.remove(id) }
         else { savedSubstanceIDs.insert(id) }
+        persistAll()
     }
 
     func toggleSavedService(_ id: UUID) {
         if savedServiceIDs.contains(id) { savedServiceIDs.remove(id) }
         else { savedServiceIDs.insert(id) }
+        persistAll()
     }
 
     func toggleSavedStrain(_ id: UUID) {
         if savedStrainIDs.contains(id) { savedStrainIDs.remove(id) }
         else { savedStrainIDs.insert(id) }
+        persistAll()
     }
 
     func reviewsFor(substance id: UUID) -> [Review] {
@@ -126,11 +141,18 @@ class AppState {
     func addReview(_ review: Review) {
         reviews.insert(review, at: 0)
         userReviews.insert(review, at: 0)
+        persistAll()
     }
 
     func addTripReport(_ report: TripReport) {
         tripReports.insert(report, at: 0)
         userTripReports.insert(report, at: 0)
+        persistAll()
+    }
+
+    func updateJurisdiction(_ jurisdiction: Jurisdiction) {
+        selectedJurisdiction = jurisdiction
+        persistAll()
     }
 
     func toggleHelpful(_ reviewID: UUID) {
@@ -151,5 +173,48 @@ class AppState {
         catalogDifficultyFilter = nil
         catalogEffectFilter = nil
         catalogSearchText = ""
+    }
+
+    // MARK: - Persistence
+
+    private func loadPersistedData() {
+        let defaults = UserDefaults.standard
+        if let data = defaults.data(forKey: savedStrainIDsKey),
+           let ids = try? JSONDecoder().decode(Set<UUID>.self, from: data) {
+            savedStrainIDs = ids
+        }
+        if let data = defaults.data(forKey: savedSubstanceIDsKey),
+           let ids = try? JSONDecoder().decode(Set<UUID>.self, from: data) {
+            savedSubstanceIDs = ids
+        }
+        if let data = defaults.data(forKey: savedServiceIDsKey),
+           let ids = try? JSONDecoder().decode(Set<UUID>.self, from: data) {
+            savedServiceIDs = ids
+        }
+        if let data = defaults.data(forKey: userTripReportsKey),
+           let reports = try? JSONDecoder().decode([TripReport].self, from: data) {
+            userTripReports = reports
+            tripReports.append(contentsOf: reports)
+        }
+        if let data = defaults.data(forKey: userReviewsKey),
+           let loadedReviews = try? JSONDecoder().decode([Review].self, from: data) {
+            userReviews = loadedReviews
+            reviews.append(contentsOf: loadedReviews)
+        }
+        if let raw = defaults.string(forKey: jurisdictionKey),
+           let j = Jurisdiction(rawValue: raw) {
+            selectedJurisdiction = j
+        }
+    }
+
+    private func persistAll() {
+        let defaults = UserDefaults.standard
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(savedStrainIDs) { defaults.set(data, forKey: savedStrainIDsKey) }
+        if let data = try? encoder.encode(savedSubstanceIDs) { defaults.set(data, forKey: savedSubstanceIDsKey) }
+        if let data = try? encoder.encode(savedServiceIDs) { defaults.set(data, forKey: savedServiceIDsKey) }
+        if let data = try? encoder.encode(userTripReports) { defaults.set(data, forKey: userTripReportsKey) }
+        if let data = try? encoder.encode(userReviews) { defaults.set(data, forKey: userReviewsKey) }
+        defaults.set(selectedJurisdiction.rawValue, forKey: jurisdictionKey)
     }
 }

@@ -64,13 +64,14 @@ struct AgeGateView: View {
                     .pressEffect()
                     .padding(.horizontal, 40)
 
-                    (Text("By continuing you agree to our\n")
-                        .font(.caption)
-                        .foregroundColor(Color.ttSecondary.opacity(0.7))
-                    +
-                    Text("Community Guidelines.")
-                        .font(.caption)
-                        .foregroundColor(Color.ttAccent))
+                    VStack(spacing: 4) {
+                        Text("By continuing you agree to our")
+                            .font(.caption)
+                            .foregroundStyle(Color.ttSecondary.opacity(0.7))
+                        Link("Community Guidelines", destination: URL(string: "https://xthe-dude.github.io/TripTalk/support.html")!)
+                            .font(.caption)
+                            .foregroundStyle(Color.ttAccent)
+                    }
                     .multilineTextAlignment(.center)
                 }
 
