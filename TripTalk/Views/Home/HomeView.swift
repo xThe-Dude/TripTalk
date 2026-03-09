@@ -8,7 +8,17 @@ struct HomeView: View {
         "Start low, go slow. Especially with unfamiliar varieties.",
         "Set and setting matter. A comfortable, safe environment can shape your entire experience.",
         "Having a trusted sitter present is one of the most important safety practices.",
-        "Integration is as important as the experience itself. Take time to reflect."
+        "Integration is as important as the experience itself. Take time to reflect.",
+        "Stay hydrated, but don't overdo it. Small sips of water are better than large amounts.",
+        "Start with a lower amount than you think you need. You can always explore deeper next time.",
+        "Let someone you trust know about your plans. A safety contact can make all the difference.",
+        "Your mindset matters. Take time to set a clear intention before any experience.",
+        "Journal your experiences afterward. Reflection is a powerful tool for integration.",
+        "Mixing substances significantly increases risk. When in doubt, keep it simple.",
+        "Research potential interactions with any medications you're taking.",
+        "Physical comfort matters. Prepare your space with blankets, water, and calming music.",
+        "If anxiety arises, remember: change your setting, breathe deeply, and it will pass.",
+        "Integration is as important as the experience itself. Give yourself time to process."
     ]
 
     private var tipOfTheDay: String {
@@ -31,7 +41,7 @@ struct HomeView: View {
                             .foregroundStyle(Color.ttPrimary)
                             .multilineTextAlignment(.center)
 
-                        Text("Your guide to informed experiences")
+                        Text("Your guide to informed, safer experiences")
                             .font(.subheadline)
                             .foregroundStyle(Color.ttSecondary)
                     }
@@ -40,7 +50,7 @@ struct HomeView: View {
                     .padding(.bottom, 8)
 
                     // MARK: - Featured Variety Spotlight
-                    if let featured = appState.strains.first {
+                    if let featured = appState.strains.isEmpty ? nil : appState.strains[Calendar.current.component(.day, from: Date()) % appState.strains.count] {
                         VStack(alignment: .leading, spacing: 0) {
                             ZStack(alignment: .bottomLeading) {
                                 LinearGradient(
@@ -129,7 +139,7 @@ struct HomeView: View {
                             }
                             Spacer()
                             quickLink(icon: "building.2.fill", label: "Services", color: .blue) {
-                                appState.selectedTab = 3
+                                appState.selectedTab = 4
                             }
                             Spacer()
                             quickLink(icon: "shield.fill", label: "Safety", color: .orange) {
@@ -191,7 +201,7 @@ struct HomeView: View {
                 }
             }
             .refreshable {
-                try? await Task.sleep(for: .seconds(0.5))
+                try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
             .navigationTitle("Home")

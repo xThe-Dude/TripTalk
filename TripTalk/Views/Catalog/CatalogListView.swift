@@ -61,7 +61,7 @@ struct CatalogListView: View {
                 .padding(.vertical)
             }
             .refreshable {
-                try? await Task.sleep(for: .seconds(0.5))
+                try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
             .toolbarBackground(.hidden, for: .navigationBar)

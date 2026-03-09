@@ -71,11 +71,7 @@ struct StrainCard: View {
                     Text("Potency")
                         .font(.caption2)
                         .foregroundStyle(Color.ttSecondary)
-                    ForEach(1...4, id: \.self) { i in
-                        Circle()
-                            .fill(i <= strain.potency.level ? strain.potency.color : Color.white.opacity(0.15))
-                            .frame(width: 8, height: 8)
-                    }
+                    PotencyDots(level: strain.potency.level, dotSize: 8, activeColor: strain.potency.color)
                     Spacer()
                 }
                 .accessibilityElement(children: .ignore)

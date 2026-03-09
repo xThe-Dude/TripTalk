@@ -45,6 +45,7 @@
 		AA000001AAAA4001AAAA0005 /* StrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0015 /* StrainDetailView.swift */; };
 		AA000001AAAA4001AAAA0006 /* WriteTripReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA4001AAAA0016 /* WriteTripReportView.swift */; };
 		HH000001HHHH4001HHHH0001 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = HH000001HHHH4001HHHH0011 /* HomeView.swift */; };
+		PD000002PD000002PD000002 /* PotencyDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = PD000001PD000001PD000001 /* PotencyDots.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		PP000001PP000001PP000001 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		PP000004PP000004PP000004 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		PP000007PP000007PP000007 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		PD000001PD000001PD000001 /* PotencyDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotencyDots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 				AA000001AAAA4001AAAA0013 /* StrainCard.swift */,
 				AA000001AAAA4001AAAA0014 /* TripReportCard.swift */,
 				PP000007PP000007PP000007 /* EmptyStateView.swift */,
+				PD000001PD000001PD000001 /* PotencyDots.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */,
 				PP000005PP000005PP000005 /* OnboardingView.swift in Sources */,
 				PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */,
+				PD000002PD000002PD000002 /* PotencyDots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,123 +9,9 @@ struct StrainDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Immersive hero — edge to edge
-                ZStack(alignment: .bottom) {
-                    LinearGradient(
-                        colors: [strain.parentSubstance.color.opacity(0.9), Color(red: 0.05, green: 0.12, blue: 0.22)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .frame(height: 260)
-
-                    VStack(spacing: 8) {
-                        Image(systemName: strain.parentSubstance.icon)
-                            .font(.system(size: 50))
-                            .foregroundStyle(.white.opacity(0.9))
-                        Text(strain.name)
-                            .font(.system(.largeTitle, design: .serif, weight: .bold))
-                            .foregroundStyle(Color.ttPrimary)
-                        Text(strain.species)
-                            .font(.subheadline)
-                            .foregroundStyle(Color.ttSecondary)
-                        Text(strain.parentSubstance.rawValue)
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background(.white.opacity(0.15))
-                            .clipShape(Capsule())
-                            .foregroundStyle(Color.ttPrimary)
-                    }
-                    .padding(.bottom, 30)
-                }
-                .ignoresSafeArea(edges: .top)
-
-                // Potency + Difficulty + Onset + Duration
-                HStack(spacing: 12) {
-                    VStack(spacing: 4) {
-                        Text("Potency")
-                            .font(.caption2)
-                            .foregroundStyle(Color.ttSecondary)
-                        HStack(spacing: 3) {
-                            ForEach(1...4, id: \.self) { i in
-                                Circle()
-                                    .fill(i <= strain.potency.level ? strain.potency.color : Color.white.opacity(0.15))
-                                    .frame(width: 10, height: 10)
-                            }
-                        }
-                        Text(strain.potency.rawValue)
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(strain.potency.color)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
-
-                    Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
-
-                    VStack(spacing: 4) {
-                        Text("Level")
-                            .font(.caption2)
-                            .foregroundStyle(Color.ttSecondary)
-                        Image(systemName: strain.difficulty == .beginner ? "checkmark.circle.fill" : strain.difficulty == .intermediate ? "exclamationmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .foregroundStyle(strain.difficulty.color)
-                        Text(strain.difficulty.rawValue)
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(strain.difficulty.color)
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
-
-                    VStack(spacing: 4) {
-                        Text("Onset")
-                            .font(.caption2)
-                            .foregroundStyle(Color.ttSecondary)
-                        Image(systemName: "clock")
-                            .foregroundStyle(Color.ttGlow)
-                        Text(strain.onset)
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(Color.ttPrimary)
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
-
-                    VStack(spacing: 4) {
-                        Text("Duration")
-                            .font(.caption2)
-                            .foregroundStyle(Color.ttSecondary)
-                        Image(systemName: "hourglass")
-                            .foregroundStyle(Color.ttGlow)
-                        Text(strain.duration)
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(Color.ttPrimary)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .darkGlassCardElevated()
-                .padding(.horizontal)
-                .animateIn(delay: 0.1)
-
-                // Intensity chart
-                let intensities = appState.averageIntensities(for: strain.id)
-                if intensities.visual > 0 || intensities.body > 0 || intensities.emotional > 0 {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Average Intensity")
-                            .font(.system(.title3, design: .serif, weight: .bold))
-                            .foregroundStyle(Color.ttPrimary)
-                        IntensityChartRow(label: "Visual", value: intensities.visual, color: .ttVisual)
-                        IntensityChartRow(label: "Body", value: intensities.body, color: .ttBody)
-                        IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .ttEmotional)
-                    }
-                    .padding(.horizontal)
-                    .animateIn(delay: 0.15)
-                }
+                heroSection
+                statsBar
+                intensitySection
 
                 // Effects
                 VStack(alignment: .leading, spacing: 8) {
@@ -303,6 +189,127 @@ struct StrainDetailView: View {
         }
         .sheet(isPresented: $showWriteTripReport) {
             WriteTripReportView(strainId: strain.id)
+        }
+    }
+
+    // MARK: - Extracted Sub-Views
+
+    private var heroSection: some View {
+        ZStack(alignment: .bottom) {
+            LinearGradient(
+                colors: [strain.parentSubstance.color.opacity(0.9), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 260)
+
+            VStack(spacing: 8) {
+                Image(systemName: strain.parentSubstance.icon)
+                    .font(.system(size: 50))
+                    .foregroundStyle(.white.opacity(0.9))
+                Text(strain.name)
+                    .font(.system(.largeTitle, design: .serif, weight: .bold))
+                    .foregroundStyle(Color.ttPrimary)
+                Text(strain.species)
+                    .font(.subheadline)
+                    .foregroundStyle(Color.ttSecondary)
+                Text(strain.parentSubstance.rawValue)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(.white.opacity(0.15))
+                    .clipShape(Capsule())
+                    .foregroundStyle(Color.ttPrimary)
+            }
+            .padding(.bottom, 30)
+        }
+        .ignoresSafeArea(edges: .top)
+        .visualEffect { content, proxy in
+            content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
+        }
+    }
+
+    private var statsBar: some View {
+        HStack(spacing: 12) {
+            VStack(spacing: 4) {
+                Text("Potency")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+                PotencyDots(level: strain.potency.level, dotSize: 10, activeColor: strain.potency.color)
+                Text(strain.potency.rawValue)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundStyle(strain.potency.color)
+            }
+            .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
+
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+
+            VStack(spacing: 4) {
+                Text("Level")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+                Image(systemName: strain.difficulty == .beginner ? "checkmark.circle.fill" : strain.difficulty == .intermediate ? "exclamationmark.circle.fill" : "exclamationmark.triangle.fill")
+                    .foregroundStyle(strain.difficulty.color)
+                Text(strain.difficulty.rawValue)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundStyle(strain.difficulty.color)
+            }
+            .frame(maxWidth: .infinity)
+
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+
+            VStack(spacing: 4) {
+                Text("Onset")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+                Image(systemName: "clock")
+                    .foregroundStyle(Color.ttGlow)
+                Text(strain.onset)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.ttPrimary)
+            }
+            .frame(maxWidth: .infinity)
+
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+
+            VStack(spacing: 4) {
+                Text("Duration")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+                Image(systemName: "hourglass")
+                    .foregroundStyle(Color.ttGlow)
+                Text(strain.duration)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.ttPrimary)
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .darkGlassCardElevated()
+        .padding(.horizontal)
+        .animateIn(delay: 0.1)
+    }
+
+    @ViewBuilder
+    private var intensitySection: some View {
+        let intensities = appState.averageIntensities(for: strain.id)
+        if intensities.visual > 0 || intensities.body > 0 || intensities.emotional > 0 {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Average Intensity")
+                    .font(.system(.title3, design: .serif, weight: .bold))
+                    .foregroundStyle(Color.ttPrimary)
+                IntensityChartRow(label: "Visual", value: intensities.visual, color: .ttVisual)
+                IntensityChartRow(label: "Body", value: intensities.body, color: .ttBody)
+                IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .ttEmotional)
+            }
+            .padding(.horizontal)
+            .animateIn(delay: 0.15)
         }
     }
 

@@ -32,8 +32,8 @@ struct CatalogFilterSheet: View {
                 }
                 .listRowBackground(Color.white.opacity(0.05))
 
-                Section(header: Text("Difficulty").foregroundStyle(Color.ttSectionHeader)) {
-                    Picker("Difficulty", selection: $state.catalogDifficultyFilter) {
+                Section(header: Text("Experience Level").foregroundStyle(Color.ttSectionHeader)) {
+                    Picker("Experience Level", selection: $state.catalogDifficultyFilter) {
                         Text("All").tag(nil as Difficulty?)
                         ForEach(Difficulty.allCases) { d in
                             Text(d.rawValue).tag(d as Difficulty?)

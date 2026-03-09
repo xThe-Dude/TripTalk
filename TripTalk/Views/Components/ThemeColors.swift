@@ -142,16 +142,41 @@ struct PressEffect: ViewModifier {
 // MARK: - Haptics
 
 enum Haptics {
-    static func light() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    private static let lightGen = UIImpactFeedbackGenerator(style: .light)
+    private static let mediumGen = UIImpactFeedbackGenerator(style: .medium)
+    private static let notifGen = UINotificationFeedbackGenerator()
+    private static let selGen = UISelectionFeedbackGenerator()
+
+    static func light() { lightGen.impactOccurred() }
+    static func medium() { mediumGen.impactOccurred() }
+    static func success() { notifGen.notificationOccurred(.success) }
+    static func selection() { selGen.selectionChanged() }
+}
+
+// MARK: - Shimmer
+
+struct ShimmerModifier: ViewModifier {
+    @State private var phase: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                LinearGradient(
+                    colors: [.clear, Color.white.opacity(0.08), .clear],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .rotationEffect(.degrees(20))
+                .offset(x: phase)
+                .animation(.linear(duration: 1.2).repeatForever(autoreverses: false), value: phase)
+            )
+            .clipped()
+            .onAppear { phase = 300 }
     }
-    static func medium() {
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    }
-    static func success() {
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-    }
-    static func selection() {
-        UISelectionFeedbackGenerator().selectionChanged()
+}
+
+extension View {
+    func shimmer() -> some View {
+        modifier(ShimmerModifier())
     }
 }

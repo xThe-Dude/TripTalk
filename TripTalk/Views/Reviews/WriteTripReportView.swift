@@ -163,7 +163,7 @@ struct WriteTripReportView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.ttPrimary)
-                            Text("I confirm this report does not contain sourcing information, specific dosing instructions, or encouragement of illegal activity.")
+                            Text("I confirm this is a genuine, harm-reduction-focused experience report")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
                         }
@@ -192,7 +192,7 @@ struct WriteTripReportView: View {
                     .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Submit") { submitReport() }
+                    Button("Share Report") { submitReport() }
                         .disabled(rating == 0 || highlights.isEmpty || !antiSourcingAgreed)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.ttAccent)
@@ -218,9 +218,10 @@ struct WriteTripReportView: View {
                         Text("Thank you!")
                             .font(.system(.title2, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
-                        Text("Your contribution helps the community.")
+                        Text("Thank you for sharing your experience. Your report helps others make informed decisions.")
                             .font(.subheadline)
                             .foregroundStyle(Color.ttSecondary)
+                            .multilineTextAlignment(.center)
                     }
                     .padding(32)
                     .background(.ultraThinMaterial)

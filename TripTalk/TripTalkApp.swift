@@ -34,7 +34,8 @@ struct TripTalkApp: App {
             .preferredColorScheme(.dark)
             .onAppear {
                 showOnboarding = !hasSeenOnboarding
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                Task {
+                    try? await Task.sleep(for: .seconds(1.8))
                     withAnimation(.easeOut(duration: 0.5)) {
                         showLaunch = false
                     }

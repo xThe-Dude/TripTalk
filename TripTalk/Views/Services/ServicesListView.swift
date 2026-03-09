@@ -13,7 +13,7 @@ struct ServicesListView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(Color.ttSecondary)
-                        TextField("Search services...", text: $state.servicesSearchText)
+                        TextField("Search service centers...", text: $state.servicesSearchText)
                             .foregroundStyle(Color.ttPrimary)
                     }
                     .padding(12)
@@ -58,7 +58,7 @@ struct ServicesListView: View {
                 .padding(.vertical)
             }
             .refreshable {
-                try? await Task.sleep(for: .seconds(0.5))
+                try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
             .toolbarBackground(.hidden, for: .navigationBar)

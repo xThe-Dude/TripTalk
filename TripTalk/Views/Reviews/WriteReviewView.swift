@@ -66,7 +66,7 @@ struct WriteReviewView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.ttPrimary)
-                            Text("I confirm this review does not contain sourcing information, specific dosing instructions, or encouragement of illegal activity.")
+                            Text("I confirm this is a genuine, harm-reduction-focused experience report")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
                         }
@@ -95,7 +95,7 @@ struct WriteReviewView: View {
                     .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Submit") {
+                    Button("Share Review") {
                         submitReview()
                     }
                     .disabled(rating == 0 || title.isEmpty || body_.isEmpty || !antiSourcingAgreed)
@@ -123,9 +123,10 @@ struct WriteReviewView: View {
                         Text("Thank you!")
                             .font(.system(.title2, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
-                        Text("Your contribution helps the community.")
+                        Text("Thank you for your review. Community feedback makes TripTalk better for everyone.")
                             .font(.subheadline)
                             .foregroundStyle(Color.ttSecondary)
+                            .multilineTextAlignment(.center)
                     }
                     .padding(32)
                     .background(.ultraThinMaterial)

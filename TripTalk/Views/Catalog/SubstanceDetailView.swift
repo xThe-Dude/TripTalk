@@ -45,6 +45,9 @@ struct SubstanceDetailView: View {
                     .padding(.vertical, 30)
                 }
                 .ignoresSafeArea(edges: .top)
+                .visualEffect { content, proxy in
+                    content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
+                }
 
                 // Jurisdiction pill
                 let status = substance.statusFor(appState.selectedJurisdiction)
@@ -68,6 +71,7 @@ struct SubstanceDetailView: View {
                     Text("About")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
                     Text(substance.about)
                         .font(.body)
                         .foregroundStyle(Color.ttSecondary)
@@ -80,6 +84,7 @@ struct SubstanceDetailView: View {
                     Text("Effects")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
                     FlowLayout(spacing: 6) {
                         ForEach(substance.effects) { effect in
                             TagChip(text: effect.rawValue, color: effectColor(for: effect.rawValue))
@@ -94,6 +99,7 @@ struct SubstanceDetailView: View {
                     Text("Safety Notes")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .tracking(0.5)
                     ForEach(substance.safetyNotes, id: \.self) { note in
                         HStack(alignment: .top, spacing: 8) {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -117,6 +123,7 @@ struct SubstanceDetailView: View {
                             Text("Varieties")
                                 .font(.system(.title3, design: .serif, weight: .bold))
                                 .foregroundStyle(Color.ttPrimary)
+                                .tracking(0.5)
                             ForEach(relatedStrains) { strain in
                                 NavigationLink(value: strain) {
                                     StrainCard(strain: strain)
@@ -135,6 +142,7 @@ struct SubstanceDetailView: View {
                         Text("Reviews")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
+                            .tracking(0.5)
                         Spacer()
                         RatingStars(rating: substance.averageRating)
                         Text("(\(substance.reviewCount))")

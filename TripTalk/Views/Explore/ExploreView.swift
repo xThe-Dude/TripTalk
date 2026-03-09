@@ -12,7 +12,7 @@ struct ExploreView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(Color.ttSecondary)
-                        TextField("Search varieties, services...", text: $searchText)
+                        TextField("Search varieties, substances...", text: $searchText)
                             .foregroundStyle(Color.ttPrimary)
                     }
                     .padding(12)
@@ -129,7 +129,7 @@ struct ExploreView: View {
                 .padding(.vertical)
             }
             .refreshable {
-                try? await Task.sleep(for: .seconds(0.5))
+                try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
             .navigationTitle("Explore")
@@ -198,13 +198,7 @@ struct MiniStrainCard: View {
 
             // Bottom info
             VStack(spacing: 4) {
-                HStack(spacing: 2) {
-                    ForEach(1...4, id: \.self) { i in
-                        Circle()
-                            .fill(i <= strain.potency.level ? strain.potency.color : Color.white.opacity(0.15))
-                            .frame(width: 5, height: 5)
-                    }
-                }
+                PotencyDots(level: strain.potency.level, dotSize: 5, activeColor: strain.potency.color)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
