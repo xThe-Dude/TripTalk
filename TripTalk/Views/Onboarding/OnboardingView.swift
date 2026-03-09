@@ -4,19 +4,31 @@ struct OnboardingView: View {
     var onComplete: () -> Void
     @State private var currentPage = 0
 
-    private let pages: [(icon: String, title: String, subtitle: String)] = [
-        ("leaf.fill", "Know Your Journey", "Access detailed variety profiles, community experiences, and evidence-based safety information — all in one place."),
-        ("person.3.fill", "Community Wisdom", "Learn from real experiences shared by a thoughtful, safety-focused community."),
-        ("shield.checkered", "Stay Safe", "Preparation guides, integration resources, and crisis support — because safety extends beyond the experience itself.")
+    private let pages: [(icon: String, title: String, subtitle: String, backgroundImage: String)] = [
+        ("leaf.fill", "Know Your Journey", "Access detailed variety profiles, community experiences, and evidence-based safety information — all in one place.", "onboarding_knowledge"),
+        ("person.3.fill", "Community Wisdom", "Learn from real experiences shared by a thoughtful, safety-focused community.", "onboarding_community"),
+        ("shield.checkered", "Stay Safe", "Preparation guides, integration resources, and crisis support — because safety extends beyond the experience itself.", "onboarding_safety")
     ]
 
     var body: some View {
         ZStack {
-            GradientBackground(intensity: .immersive)
+            TabView(selection: $currentPage) {
+                ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
+                    ZStack {
+                        // Full-bleed background image
+                        Image(page.backgroundImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                TabView(selection: $currentPage) {
-                    ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
+                        // Dark gradient overlay for readability
+                        LinearGradient(
+                            colors: [.black.opacity(0.3), .black.opacity(0.6)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .ignoresSafeArea()
+
                         VStack(spacing: 24) {
                             Spacer()
 
@@ -77,11 +89,11 @@ struct OnboardingView: View {
                                 Spacer().frame(height: 100)
                             }
                         }
-                        .tag(index)
                     }
+                    .tag(index)
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
             }
+            .tabViewStyle(.page(indexDisplayMode: .always))
         }
         .ignoresSafeArea()
     }

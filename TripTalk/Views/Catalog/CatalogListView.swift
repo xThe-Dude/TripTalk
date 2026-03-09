@@ -41,21 +41,53 @@ struct CatalogListView: View {
                     if appState.filteredStrains.isEmpty {
                         EmptyStateView(
                             icon: "magnifyingglass",
+                            imageName: "empty_search",
                             title: "No Results",
                             subtitle: "Try adjusting your filters or search terms"
                         )
                         .padding(.top, 40)
                     } else {
+                        let grouped = Dictionary(grouping: appState.filteredStrains, by: \.parentSubstance)
+                        let orderedTypes = SubstanceType.allCases.filter { grouped[$0] != nil }
                         LazyVStack(spacing: 10) {
-                            ForEach(Array(appState.filteredStrains.enumerated()), id: \.element.id) { index, strain in
-                                NavigationLink(value: strain) {
-                                    StrainCard(strain: strain)
+                            ForEach(orderedTypes) { type in
+                                // Category header banner
+                                ZStack(alignment: .bottomLeading) {
+                                    Image(type.categoryImageName)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 80)
+                                        .clipped()
+                                    LinearGradient(
+                                        colors: [.clear, .black.opacity(0.6)],
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                    HStack(spacing: 6) {
+                                        Image(systemName: type.icon)
+                                            .font(.caption)
+                                            .foregroundStyle(type.color)
+                                        Text(type.rawValue)
+                                            .font(.system(.subheadline, design: .serif, weight: .bold))
+                                            .foregroundStyle(.white)
+                                    }
+                                    .padding(.horizontal, 14)
+                                    .padding(.bottom, 10)
                                 }
-                                .buttonStyle(.plain)
-                                .animateIn(delay: min(Double(index) * 0.03, 0.3))
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .padding(.horizontal)
+
+                                ForEach(Array((grouped[type] ?? []).enumerated()), id: \.element.id) { index, strain in
+                                    NavigationLink(value: strain) {
+                                        StrainCard(strain: strain)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.horizontal)
+                                    .animateIn(delay: min(Double(index) * 0.03, 0.3))
+                                }
                             }
                         }
-                        .padding(.horizontal)
                     }
                 }
                 .padding(.vertical)

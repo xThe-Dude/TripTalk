@@ -28,7 +28,7 @@ struct ExploreView: View {
                             $0.parentSubstance.rawValue.localizedCaseInsensitiveContains(searchText)
                         }
                         if filtered.isEmpty {
-                            EmptyStateView(icon: "magnifyingglass", title: "No Results", subtitle: "Try a different search term")
+                            EmptyStateView(icon: "magnifyingglass", imageName: "empty_search", title: "No Results", subtitle: "Try a different search term")
                                 .padding(.top, 40)
                         } else {
                             LazyVStack(spacing: 10) {

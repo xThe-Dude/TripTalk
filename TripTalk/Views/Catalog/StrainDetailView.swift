@@ -196,17 +196,21 @@ struct StrainDetailView: View {
 
     private var heroSection: some View {
         ZStack(alignment: .bottom) {
+            Image(strain.heroImageName)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 260)
+                .clipped()
+
+            // Dark gradient overlay for text readability
             LinearGradient(
-                colors: [strain.parentSubstance.color.opacity(0.9), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                colors: [.clear, .black.opacity(0.3), .black.opacity(0.75)],
                 startPoint: .top,
                 endPoint: .bottom
             )
             .frame(height: 260)
 
             VStack(spacing: 8) {
-                Image(systemName: strain.parentSubstance.icon)
-                    .font(.system(size: 50))
-                    .foregroundStyle(.white.opacity(0.9))
                 Text(strain.name)
                     .font(.system(.largeTitle, design: .serif, weight: .bold))
                     .foregroundStyle(Color.ttPrimary)

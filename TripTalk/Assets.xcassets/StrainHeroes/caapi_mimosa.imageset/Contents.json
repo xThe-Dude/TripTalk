@@ -1,0 +1,13 @@
+{
+  "images": [
+    {
+      "filename": "caapi_mimosa.png",
+      "idiom": "universal",
+      "scale": "1x"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

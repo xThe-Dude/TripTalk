@@ -13,13 +13,10 @@ struct StrainCard: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Image(systemName: strain.parentSubstance.icon)
-                        .font(.title3)
-                        .foregroundStyle(.white)
-                        .frame(width: 40, height: 40)
-                        .background(
-                            LinearGradient(colors: [strain.parentSubstance.color, strain.parentSubstance.color.opacity(0.6)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
+                    Image(strain.heroImageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
 
                     VStack(alignment: .leading, spacing: 2) {

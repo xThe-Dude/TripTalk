@@ -114,6 +114,16 @@ enum SubstanceType: String, CaseIterable, Identifiable, Codable {
         case .other: return .gray
         }
     }
+
+    var categoryImageName: String {
+        switch self {
+        case .psilocybin: return "category_psilocybin"
+        case .ayahuasca: return "category_ayahuasca"
+        case .mescaline: return "category_mescaline"
+        case .ketamine: return "category_ketamine"
+        case .other: return "category_psilocybin"
+        }
+    }
 }
 
 enum Potency: String, CaseIterable, Identifiable, Codable {

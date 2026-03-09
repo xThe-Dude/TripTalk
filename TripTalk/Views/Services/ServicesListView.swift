@@ -38,6 +38,7 @@ struct ServicesListView: View {
                     if appState.filteredServices.isEmpty {
                         EmptyStateView(
                             icon: "magnifyingglass",
+                            imageName: "empty_services",
                             title: "No Results",
                             subtitle: "Try adjusting your filters or search terms"
                         )
