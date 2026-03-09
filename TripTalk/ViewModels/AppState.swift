@@ -15,6 +15,7 @@ class AppState {
     var userTripReports: [TripReport] = []
 
     var selectedJurisdiction: Jurisdiction = .colorado
+    var selectedTab: Int = 0
 
     // MARK: - Persistence Keys
     private let savedStrainIDsKey = "savedStrainIDs"
@@ -82,6 +83,9 @@ class AppState {
         if !servicesSearchText.isEmpty {
             result = result.filter { $0.name.localizedCaseInsensitiveContains(servicesSearchText) || $0.city.localizedCaseInsensitiveContains(servicesSearchText) }
         }
+        if let offering = servicesOfferingFilter {
+            result = result.filter { $0.offerings.contains(offering) }
+        }
         return result
     }
 
@@ -96,19 +100,19 @@ class AppState {
     func toggleSavedSubstance(_ id: UUID) {
         if savedSubstanceIDs.contains(id) { savedSubstanceIDs.remove(id) }
         else { savedSubstanceIDs.insert(id) }
-        persistAll()
+        saveSubstanceIDs()
     }
 
     func toggleSavedService(_ id: UUID) {
         if savedServiceIDs.contains(id) { savedServiceIDs.remove(id) }
         else { savedServiceIDs.insert(id) }
-        persistAll()
+        saveServiceIDs()
     }
 
     func toggleSavedStrain(_ id: UUID) {
         if savedStrainIDs.contains(id) { savedStrainIDs.remove(id) }
         else { savedStrainIDs.insert(id) }
-        persistAll()
+        saveStrainIDs()
     }
 
     func reviewsFor(substance id: UUID) -> [Review] {
@@ -141,18 +145,18 @@ class AppState {
     func addReview(_ review: Review) {
         reviews.insert(review, at: 0)
         userReviews.insert(review, at: 0)
-        persistAll()
+        saveReviews()
     }
 
     func addTripReport(_ report: TripReport) {
         tripReports.insert(report, at: 0)
         userTripReports.insert(report, at: 0)
-        persistAll()
+        saveTripReports()
     }
 
     func updateJurisdiction(_ jurisdiction: Jurisdiction) {
         selectedJurisdiction = jurisdiction
-        persistAll()
+        saveJurisdiction()
     }
 
     func toggleHelpful(_ reviewID: UUID) {
@@ -194,12 +198,18 @@ class AppState {
         if let data = defaults.data(forKey: userTripReportsKey),
            let reports = try? JSONDecoder().decode([TripReport].self, from: data) {
             userTripReports = reports
-            tripReports.append(contentsOf: reports)
+            let existingReportIds = Set(tripReports.map { $0.id })
+            for report in reports where !existingReportIds.contains(report.id) {
+                tripReports.append(report)
+            }
         }
         if let data = defaults.data(forKey: userReviewsKey),
            let loadedReviews = try? JSONDecoder().decode([Review].self, from: data) {
             userReviews = loadedReviews
-            reviews.append(contentsOf: loadedReviews)
+            let existingReviewIds = Set(reviews.map { $0.id })
+            for review in loadedReviews where !existingReviewIds.contains(review.id) {
+                reviews.append(review)
+            }
         }
         if let raw = defaults.string(forKey: jurisdictionKey),
            let j = Jurisdiction(rawValue: raw) {
@@ -207,14 +217,27 @@ class AppState {
         }
     }
 
-    private func persistAll() {
-        let defaults = UserDefaults.standard
-        let encoder = JSONEncoder()
-        if let data = try? encoder.encode(savedStrainIDs) { defaults.set(data, forKey: savedStrainIDsKey) }
-        if let data = try? encoder.encode(savedSubstanceIDs) { defaults.set(data, forKey: savedSubstanceIDsKey) }
-        if let data = try? encoder.encode(savedServiceIDs) { defaults.set(data, forKey: savedServiceIDsKey) }
-        if let data = try? encoder.encode(userTripReports) { defaults.set(data, forKey: userTripReportsKey) }
-        if let data = try? encoder.encode(userReviews) { defaults.set(data, forKey: userReviewsKey) }
-        defaults.set(selectedJurisdiction.rawValue, forKey: jurisdictionKey)
+    private func saveStrainIDs() {
+        if let data = try? JSONEncoder().encode(savedStrainIDs) { UserDefaults.standard.set(data, forKey: savedStrainIDsKey) }
+    }
+
+    private func saveSubstanceIDs() {
+        if let data = try? JSONEncoder().encode(savedSubstanceIDs) { UserDefaults.standard.set(data, forKey: savedSubstanceIDsKey) }
+    }
+
+    private func saveServiceIDs() {
+        if let data = try? JSONEncoder().encode(savedServiceIDs) { UserDefaults.standard.set(data, forKey: savedServiceIDsKey) }
+    }
+
+    private func saveTripReports() {
+        if let data = try? JSONEncoder().encode(userTripReports) { UserDefaults.standard.set(data, forKey: userTripReportsKey) }
+    }
+
+    private func saveReviews() {
+        if let data = try? JSONEncoder().encode(userReviews) { UserDefaults.standard.set(data, forKey: userReviewsKey) }
+    }
+
+    private func saveJurisdiction() {
+        UserDefaults.standard.set(selectedJurisdiction.rawValue, forKey: jurisdictionKey)
     }
 }

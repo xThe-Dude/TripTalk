@@ -13,6 +13,12 @@ struct WriteReviewView: View {
     @State private var selectedTags: Set<EffectTag> = []
     @State private var antiSourcingAgreed: Bool = false
     @State private var showSuccess: Bool = false
+    @State private var showDiscardAlert: Bool = false
+
+    private var hasContent: Bool {
+        rating > 0 || !title.isEmpty || !body_.isEmpty || !selectedTags.isEmpty
+    }
+    @State private var showSuccessOverlay: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -83,8 +89,10 @@ struct WriteReviewView: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
-                        .foregroundStyle(Color.ttAccent)
+                    Button("Cancel") {
+                        if hasContent { showDiscardAlert = true } else { dismiss() }
+                    }
+                    .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Submit") {
@@ -94,6 +102,37 @@ struct WriteReviewView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.ttAccent)
                 }
+            }
+            .alert("Discard Changes?", isPresented: $showDiscardAlert) {
+                Button("Discard", role: .destructive) { dismiss() }
+                Button("Keep Editing", role: .cancel) {}
+            } message: {
+                Text("You have unsaved changes that will be lost.")
+            }
+        }
+        .overlay {
+            if showSuccessOverlay {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                    VStack(spacing: 16) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.green)
+                            .scaleEffect(showSuccessOverlay ? 1.0 : 0.5)
+                        Text("Thank you!")
+                            .font(.system(.title2, design: .serif, weight: .bold))
+                            .foregroundStyle(Color.ttPrimary)
+                        Text("Your contribution helps the community.")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.ttSecondary)
+                    }
+                    .padding(32)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .transition(.scale.combined(with: .opacity))
+                }
+                .animation(.spring(response: 0.4, dampingFraction: 0.7), value: showSuccessOverlay)
             }
         }
         .presentationBackground(Color.ttSheetBg.opacity(0.95))
@@ -111,6 +150,7 @@ struct WriteReviewView: View {
         )
         appState.addReview(review)
         showSuccess = true
+        showSuccessOverlay = true
         Haptics.success()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             dismiss()

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(AppState.self) private var appState
+    @State private var showSafetyAlert = false
 
     private let tips = [
         "Start low, go slow. Especially with unfamiliar varieties.",
@@ -123,13 +124,21 @@ struct HomeView: View {
 
                         HStack(spacing: 0) {
                             Spacer()
-                            quickLink(icon: "leaf.fill", label: "Varieties", color: .green)
+                            quickLink(icon: "leaf.fill", label: "Varieties", color: .ttBody) {
+                                appState.selectedTab = 2
+                            }
                             Spacer()
-                            quickLink(icon: "building.2.fill", label: "Services", color: .blue)
+                            quickLink(icon: "building.2.fill", label: "Services", color: .blue) {
+                                appState.selectedTab = 3
+                            }
                             Spacer()
-                            quickLink(icon: "shield.fill", label: "Safety", color: .orange)
+                            quickLink(icon: "shield.fill", label: "Safety", color: .orange) {
+                                showSafetyAlert = true
+                            }
                             Spacer()
-                            quickLink(icon: "person.3.fill", label: "Community", color: .purple)
+                            quickLink(icon: "person.3.fill", label: "Community", color: .ttVisual) {
+                                appState.selectedTab = 1
+                            }
                             Spacer()
                         }
                     }
@@ -144,10 +153,18 @@ struct HomeView: View {
                             .padding(.horizontal)
 
                         ForEach(Array(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3).enumerated()), id: \.element.id) { index, report in
-                            let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? ""
-                            TripReportCard(report: report, strainName: strainName)
+                            if let strain = appState.strains.first(where: { $0.id == report.strainId }) {
+                                NavigationLink(value: strain) {
+                                    TripReportCard(report: report, strainName: strain.name)
+                                }
+                                .buttonStyle(.plain)
                                 .padding(.horizontal)
                                 .animateIn(delay: 0.3 + Double(index) * 0.05)
+                            } else {
+                                TripReportCard(report: report, strainName: "")
+                                    .padding(.horizontal)
+                                    .animateIn(delay: 0.3 + Double(index) * 0.05)
+                            }
                         }
                     }
 
@@ -163,6 +180,14 @@ struct HomeView: View {
                     .darkGlassCard()
                     .padding(.horizontal)
                     .padding(.bottom, 20)
+
+                    Text("TripTalk provides educational information only. This is not medical, legal, or therapeutic advice. Always consult qualified professionals. If you're in crisis, call 988 or text HOME to 741741.")
+                        .font(.caption2)
+                        .foregroundStyle(Color.ttTertiary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
                 }
             }
             .refreshable {
@@ -175,11 +200,23 @@ struct HomeView: View {
             .navigationDestination(for: Strain.self) { strain in
                 StrainDetailView(strain: strain)
             }
+            .alert("Crisis Resources", isPresented: $showSafetyAlert) {
+                Button("Call 988 Suicide & Crisis Lifeline") {
+                    if let url = URL(string: "tel:988") { UIApplication.shared.open(url) }
+                }
+                Button("Visit fireside-project.org") {
+                    if let url = URL(string: "https://firesideproject.org") { UIApplication.shared.open(url) }
+                }
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("If you or someone you know is in crisis:\n\n• 988 Suicide & Crisis Lifeline\n• Fireside Project Psychedelic Peer Support: 62-FIRESIDE")
+            }
         }
     }
 
     @ViewBuilder
-    private func quickLink(icon: String, label: String, color: Color) -> some View {
+    private func quickLink(icon: String, label: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
         VStack(spacing: 6) {
             ZStack {
                 // Glow behind
@@ -204,5 +241,7 @@ struct HomeView: View {
                 .font(.caption2)
                 .foregroundStyle(Color.ttSecondary)
         }
+        }
+        .buttonStyle(.plain)
     }
 }

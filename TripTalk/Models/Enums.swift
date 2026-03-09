@@ -86,7 +86,7 @@ enum ExploreSegment: String, CaseIterable, Identifiable {
 
 // MARK: - New Strain-Related Enums
 
-enum SubstanceType: String, CaseIterable, Identifiable {
+enum SubstanceType: String, CaseIterable, Identifiable, Codable {
     case psilocybin = "Psilocybin"
     case ayahuasca = "Ayahuasca"
     case mescaline = "Mescaline"
@@ -143,7 +143,7 @@ enum Potency: String, CaseIterable, Identifiable, Codable {
     }
 }
 
-enum BodyFeel: String, CaseIterable, Identifiable {
+enum BodyFeel: String, CaseIterable, Identifiable, Codable {
     case warm = "Warm"
     case heavy = "Heavy"
     case tingly = "Tingly"
@@ -154,7 +154,7 @@ enum BodyFeel: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-enum EmotionalTag: String, CaseIterable, Identifiable {
+enum EmotionalTag: String, CaseIterable, Identifiable, Codable {
     case calm = "Calm"
     case giggly = "Giggly"
     case profound = "Profound"

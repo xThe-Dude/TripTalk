@@ -34,7 +34,14 @@ struct InteractiveRatingStars: View {
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .font(.system(size: size))
                     .foregroundStyle(Color.ttAccent)
-                    .onTapGesture { rating = index; Haptics.light() }
+                    .scaleEffect(index <= rating ? 1.0 : 0.85)
+                    .animation(.spring(response: 0.2, dampingFraction: 0.6), value: rating)
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.2, dampingFraction: 0.6)) {
+                            rating = index
+                        }
+                        Haptics.light()
+                    }
             }
         }
         .accessibilityElement(children: .ignore)

@@ -8,7 +8,7 @@ struct ServicesListView: View {
         @Bindable var state = appState
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 12) {
                     // Custom search bar
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -23,21 +23,37 @@ struct ServicesListView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
 
-                    Text("Fort Collins • 50mi")
+                    Text("Showing services near you")
                         .font(.caption)
                         .foregroundStyle(Color.ttSecondary)
                         .padding(.horizontal)
 
-                    LazyVStack(spacing: 10) {
-                        ForEach(Array(appState.filteredServices.enumerated()), id: \.element.id) { index, service in
-                            NavigationLink(value: service) {
-                                ServiceCard(service: service)
+                    Text("Service centers shown are for demonstration purposes. Verify all information independently before visiting.")
+                        .font(.caption2)
+                        .foregroundStyle(Color.ttTertiary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.bottom, 4)
+
+                    if appState.filteredServices.isEmpty {
+                        EmptyStateView(
+                            icon: "magnifyingglass",
+                            title: "No Results",
+                            subtitle: "Try adjusting your filters or search terms"
+                        )
+                        .padding(.top, 40)
+                    } else {
+                        LazyVStack(spacing: 10) {
+                            ForEach(Array(appState.filteredServices.enumerated()), id: \.element.id) { index, service in
+                                NavigationLink(value: service) {
+                                    ServiceCard(service: service)
+                                }
+                                .buttonStyle(.plain)
+                                .animateIn(delay: min(Double(index) * 0.03, 0.3))
                             }
-                            .buttonStyle(.plain)
-                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                 .padding(.vertical)
             }

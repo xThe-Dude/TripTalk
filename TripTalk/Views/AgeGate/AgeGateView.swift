@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AgeGateView: View {
     @AppStorage("ageVerified") private var ageVerified = false
+    @State private var showUnderageAlert = false
 
     var body: some View {
         ZStack {
@@ -41,7 +42,7 @@ struct AgeGateView: View {
                 Spacer()
 
                 VStack(spacing: 16) {
-                    Text("TripTalk is for adults.")
+                    Text("TripTalk is for adults 21 and older.")
                         .font(.headline)
                         .foregroundStyle(Color.ttPrimary)
                         .opacity(0.6)
@@ -63,6 +64,19 @@ struct AgeGateView: View {
                     }
                     .pressEffect()
                     .padding(.horizontal, 40)
+
+                    Button {
+                        showUnderageAlert = true
+                    } label: {
+                        Text("I am under 21")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.ttSecondary)
+                    }
+                    .alert("Age Requirement", isPresented: $showUnderageAlert) {
+                        Button("OK") {}
+                    } message: {
+                        Text("TripTalk is only available to adults 21 and older. If you're struggling with substance use, please contact SAMHSA at 1-800-662-4357.")
+                    }
 
                     VStack(spacing: 4) {
                         Text("By continuing you agree to our")

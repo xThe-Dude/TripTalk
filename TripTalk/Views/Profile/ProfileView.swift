@@ -14,7 +14,7 @@ struct ProfileView: View {
                         Circle()
                             .fill(
                                 RadialGradient(
-                                    colors: [Color.teal.opacity(0.3), .clear],
+                                    colors: [Color.ttGlow.opacity(0.3), .clear],
                                     center: .center,
                                     startRadius: 30,
                                     endRadius: 100
@@ -102,7 +102,7 @@ struct ProfileView: View {
                                 NavigationLink(value: substance) {
                                     HStack {
                                         Image(systemName: substance.imageSymbol)
-                                            .foregroundStyle(Color.teal)
+                                            .foregroundStyle(Color.ttGlow)
                                         Text(substance.name)
                                             .foregroundStyle(Color.ttPrimary)
                                         Spacer()
@@ -127,7 +127,7 @@ struct ProfileView: View {
                                 NavigationLink(value: service) {
                                     HStack {
                                         Image(systemName: service.imageSymbol)
-                                            .foregroundStyle(Color.teal)
+                                            .foregroundStyle(Color.ttGlow)
                                         Text(service.name)
                                             .foregroundStyle(Color.ttPrimary)
                                         Spacer()
@@ -141,7 +141,7 @@ struct ProfileView: View {
                             }
                         }
                     }
-                    .animateIn(delay: 0.5)
+                    .animateIn(delay: 0.35)
 
                     // My Reviews
                     profileSection("My Reviews") {
@@ -160,7 +160,7 @@ struct ProfileView: View {
                             }
                         }
                     }
-                    .animateIn(delay: 0.6)
+                    .animateIn(delay: 0.35)
 
                     // Settings
                     profileSection("Settings") {
@@ -179,14 +179,14 @@ struct ProfileView: View {
                             }
                         }
                     }
-                    .animateIn(delay: 0.7)
+                    .animateIn(delay: 0.4)
 
                     // Links
                     profileSection("Info") {
-                        Link(destination: URL(string: "https://example.com/guidelines")!) {
+                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/support.html")!) {
                             HStack {
                                 Image(systemName: "doc.text")
-                                    .foregroundStyle(Color.teal)
+                                    .foregroundStyle(Color.ttGlow)
                                 Text("Community Guidelines")
                                     .foregroundStyle(Color.ttPrimary)
                                 Spacer()
@@ -196,10 +196,10 @@ struct ProfileView: View {
                             }
                             .padding(.vertical, 2)
                         }
-                        Link(destination: URL(string: "https://example.com/privacy")!) {
+                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/privacy.html")!) {
                             HStack {
                                 Image(systemName: "hand.raised")
-                                    .foregroundStyle(Color.teal)
+                                    .foregroundStyle(Color.ttGlow)
                                 Text("Privacy Policy")
                                     .foregroundStyle(Color.ttPrimary)
                                 Spacer()
@@ -209,10 +209,10 @@ struct ProfileView: View {
                             }
                             .padding(.vertical, 2)
                         }
-                        Link(destination: URL(string: "https://example.com/terms")!) {
+                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/support.html")!) {
                             HStack {
                                 Image(systemName: "doc.plaintext")
-                                    .foregroundStyle(Color.teal)
+                                    .foregroundStyle(Color.ttGlow)
                                 Text("Terms of Service")
                                     .foregroundStyle(Color.ttPrimary)
                                 Spacer()
@@ -223,7 +223,51 @@ struct ProfileView: View {
                             .padding(.vertical, 2)
                         }
                     }
-                    .animateIn(delay: 0.8)
+                    .animateIn(delay: 0.4)
+
+                    // Crisis Resources
+                    profileSection("Crisis Resources") {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Link(destination: URL(string: "tel:988")!) {
+                                HStack {
+                                    Image(systemName: "phone.circle.fill")
+                                        .foregroundStyle(.green)
+                                    VStack(alignment: .leading) {
+                                        Text("988 Suicide & Crisis Lifeline")
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.ttPrimary)
+                                        Text("Call or text 988")
+                                            .font(.caption)
+                                            .foregroundStyle(Color.ttSecondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                        .foregroundStyle(Color.ttTertiary)
+                                }
+                            }
+                            Divider().overlay(Color.white.opacity(0.05))
+                            Link(destination: URL(string: "tel:6232737654")!) {
+                                HStack {
+                                    Image(systemName: "heart.circle.fill")
+                                        .foregroundStyle(Color.ttVisual)
+                                    VStack(alignment: .leading) {
+                                        Text("Fireside Project")
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.ttPrimary)
+                                        Text("Psychedelic peer support: 62-FIRESIDE")
+                                            .font(.caption)
+                                            .foregroundStyle(Color.ttSecondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                        .foregroundStyle(Color.ttTertiary)
+                                }
+                            }
+                        }
+                    }
+                    .animateIn(delay: 0.4)
 
                     // About
                     profileSection("About") {
@@ -236,7 +280,7 @@ struct ProfileView: View {
                         }
                         .padding(.vertical, 2)
                     }
-                    .animateIn(delay: 0.85)
+                    .animateIn(delay: 0.4)
 
                     // Reset
                     Button(role: .destructive) {

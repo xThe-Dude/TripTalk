@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = 0
+    @Environment(AppState.self) private var appState
 
     var body: some View {
-        TabView(selection: $selectedTab) {
+        @Bindable var state = appState
+        TabView(selection: $state.selectedTab) {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
@@ -31,7 +32,7 @@ struct ContentView: View {
                 }
                 .tag(4)
         }
-        .animation(.easeInOut(duration: 0.2), value: selectedTab)
+        .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
         .tint(Color.ttAccent)
         .onAppear {
             let appearance = UITabBarAppearance()

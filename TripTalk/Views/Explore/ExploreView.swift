@@ -111,9 +111,16 @@ struct ExploreView: View {
                     sectionView("Recent Trip Reports") {
                         VStack(spacing: 10) {
                             ForEach(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(4)) { report in
-                                let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? ""
-                                TripReportCard(report: report, strainName: strainName)
+                                if let strain = appState.strains.first(where: { $0.id == report.strainId }) {
+                                    NavigationLink(value: strain) {
+                                        TripReportCard(report: report, strainName: strain.name)
+                                    }
+                                    .buttonStyle(.plain)
                                     .padding(.horizontal)
+                                } else {
+                                    TripReportCard(report: report, strainName: "")
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                     }

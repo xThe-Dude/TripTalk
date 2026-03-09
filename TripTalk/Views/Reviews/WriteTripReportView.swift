@@ -19,6 +19,12 @@ struct WriteTripReportView: View {
     @State private var wouldRepeat: Bool = true
     @State private var antiSourcingAgreed: Bool = false
     @State private var showSuccess: Bool = false
+    @State private var showDiscardAlert: Bool = false
+
+    private var hasContent: Bool {
+        rating > 0 || !highlights.isEmpty || !intention.isEmpty || !safetyNotes.isEmpty || !selectedMoods.isEmpty || !selectedExperienceTypes.isEmpty
+    }
+    @State private var showSuccessOverlay: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -68,7 +74,7 @@ struct WriteTripReportView: View {
                                 .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $visualIntensity, in: 0...5, step: 1)
-                                .tint(.purple)
+                                .tint(Color.ttVisual)
                             Text("\(Int(visualIntensity))")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
@@ -80,7 +86,7 @@ struct WriteTripReportView: View {
                                 .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $bodyIntensity, in: 0...5, step: 1)
-                                .tint(.green)
+                                .tint(Color.ttBody)
                             Text("\(Int(bodyIntensity))")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
@@ -92,7 +98,7 @@ struct WriteTripReportView: View {
                                 .foregroundStyle(Color.ttPrimary)
                                 .frame(width: 70, alignment: .leading)
                             Slider(value: $emotionalIntensity, in: 0...5, step: 1)
-                                .tint(.pink)
+                                .tint(Color.ttEmotional)
                             Text("\(Int(emotionalIntensity))")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
@@ -180,8 +186,10 @@ struct WriteTripReportView: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
-                        .foregroundStyle(Color.ttAccent)
+                    Button("Cancel") {
+                        if hasContent { showDiscardAlert = true } else { dismiss() }
+                    }
+                    .foregroundStyle(Color.ttAccent)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Submit") { submitReport() }
@@ -189,6 +197,37 @@ struct WriteTripReportView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(Color.ttAccent)
                 }
+            }
+            .alert("Discard Changes?", isPresented: $showDiscardAlert) {
+                Button("Discard", role: .destructive) { dismiss() }
+                Button("Keep Editing", role: .cancel) {}
+            } message: {
+                Text("You have unsaved changes that will be lost.")
+            }
+        }
+        .overlay {
+            if showSuccessOverlay {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                    VStack(spacing: 16) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.green)
+                            .scaleEffect(showSuccessOverlay ? 1.0 : 0.5)
+                        Text("Thank you!")
+                            .font(.system(.title2, design: .serif, weight: .bold))
+                            .foregroundStyle(Color.ttPrimary)
+                        Text("Your contribution helps the community.")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.ttSecondary)
+                    }
+                    .padding(32)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .transition(.scale.combined(with: .opacity))
+                }
+                .animation(.spring(response: 0.4, dampingFraction: 0.7), value: showSuccessOverlay)
             }
         }
         .presentationBackground(Color.ttSheetBg.opacity(0.95))
@@ -214,6 +253,7 @@ struct WriteTripReportView: View {
         )
         appState.addTripReport(report)
         showSuccess = true
+        showSuccessOverlay = true
         Haptics.success()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { dismiss() }
     }

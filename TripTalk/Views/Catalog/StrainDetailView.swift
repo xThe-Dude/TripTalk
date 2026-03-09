@@ -4,6 +4,7 @@ struct StrainDetailView: View {
     @Environment(AppState.self) private var appState
     let strain: Strain
     @State private var showWriteTripReport = false
+    @State private var bookmarkBounce = false
 
     var body: some View {
         ScrollView {
@@ -84,7 +85,7 @@ struct StrainDetailView: View {
                             .font(.caption2)
                             .foregroundStyle(Color.ttSecondary)
                         Image(systemName: "clock")
-                            .foregroundStyle(Color.teal)
+                            .foregroundStyle(Color.ttGlow)
                         Text(strain.onset)
                             .font(.caption2)
                             .fontWeight(.medium)
@@ -99,7 +100,7 @@ struct StrainDetailView: View {
                             .font(.caption2)
                             .foregroundStyle(Color.ttSecondary)
                         Image(systemName: "hourglass")
-                            .foregroundStyle(Color.teal)
+                            .foregroundStyle(Color.ttGlow)
                         Text(strain.duration)
                             .font(.caption2)
                             .fontWeight(.medium)
@@ -109,6 +110,7 @@ struct StrainDetailView: View {
                 }
                 .darkGlassCardElevated()
                 .padding(.horizontal)
+                .animateIn(delay: 0.1)
 
                 // Intensity chart
                 let intensities = appState.averageIntensities(for: strain.id)
@@ -117,11 +119,12 @@ struct StrainDetailView: View {
                         Text("Average Intensity")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
-                        IntensityChartRow(label: "Visual", value: intensities.visual, color: .purple)
-                        IntensityChartRow(label: "Body", value: intensities.body, color: .green)
-                        IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .pink)
+                        IntensityChartRow(label: "Visual", value: intensities.visual, color: .ttVisual)
+                        IntensityChartRow(label: "Body", value: intensities.body, color: .ttBody)
+                        IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .ttEmotional)
                     }
                     .padding(.horizontal)
+                    .animateIn(delay: 0.15)
                 }
 
                 // Effects
@@ -136,6 +139,7 @@ struct StrainDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.2)
 
                 // Body Feel
                 VStack(alignment: .leading, spacing: 8) {
@@ -149,6 +153,7 @@ struct StrainDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.25)
 
                 // Emotional Profile
                 VStack(alignment: .leading, spacing: 8) {
@@ -162,6 +167,7 @@ struct StrainDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.3)
 
                 // About
                 VStack(alignment: .leading, spacing: 6) {
@@ -173,6 +179,7 @@ struct StrainDetailView: View {
                         .foregroundStyle(Color.ttSecondary)
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.3)
 
                 // Community Photos
                 VStack(alignment: .leading, spacing: 8) {
@@ -206,6 +213,7 @@ struct StrainDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.3)
 
                 // Trip Reports
                 VStack(alignment: .leading, spacing: 8) {
@@ -254,6 +262,12 @@ struct StrainDetailView: View {
                     .pressEffect()
                 }
                 .padding(.horizontal)
+
+                Text("For educational purposes only. Not medical advice.")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttTertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 12)
             }
             .padding(.bottom)
         }
@@ -272,9 +286,17 @@ struct StrainDetailView: View {
                     Button {
                         appState.toggleSavedStrain(strain.id)
                         Haptics.medium()
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                            bookmarkBounce = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            bookmarkBounce = false
+                        }
                     } label: {
                         Image(systemName: appState.savedStrainIDs.contains(strain.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
+                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
                     }
                 }
             }
@@ -300,7 +322,7 @@ struct StrainDetailView: View {
         if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
         if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
         if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
-        return nil ?? .teal
+        return .ttGlow
     }
 }
 

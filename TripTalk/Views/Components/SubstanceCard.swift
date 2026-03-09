@@ -7,7 +7,7 @@ struct SubstanceCard: View {
         HStack(spacing: 0) {
             // Accent bar left edge
             RoundedRectangle(cornerRadius: 1)
-                .fill(Color.teal)
+                .fill(Color.ttGlow)
                 .frame(width: 2)
                 .padding(.vertical, 8)
 
@@ -33,8 +33,8 @@ struct SubstanceCard: View {
                                 .fontWeight(.semibold)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
-                                .background(Color.teal.opacity(0.15))
-                                .foregroundStyle(Color.teal)
+                                .background(Color.ttGlow.opacity(0.15))
+                                .foregroundStyle(Color.ttGlow)
                                 .clipShape(Capsule())
                             Spacer()
                             RatingStars(rating: substance.averageRating, size: 10)

@@ -38,16 +38,25 @@ struct CatalogListView: View {
                         .padding(.horizontal)
                     }
 
-                    LazyVStack(spacing: 10) {
-                        ForEach(Array(appState.filteredStrains.enumerated()), id: \.element.id) { index, strain in
-                            NavigationLink(value: strain) {
-                                StrainCard(strain: strain)
+                    if appState.filteredStrains.isEmpty {
+                        EmptyStateView(
+                            icon: "magnifyingglass",
+                            title: "No Results",
+                            subtitle: "Try adjusting your filters or search terms"
+                        )
+                        .padding(.top, 40)
+                    } else {
+                        LazyVStack(spacing: 10) {
+                            ForEach(Array(appState.filteredStrains.enumerated()), id: \.element.id) { index, strain in
+                                NavigationLink(value: strain) {
+                                    StrainCard(strain: strain)
+                                }
+                                .buttonStyle(.plain)
+                                .animateIn(delay: min(Double(index) * 0.03, 0.3))
                             }
-                            .buttonStyle(.plain)
-                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                 .padding(.vertical)
             }
@@ -99,7 +108,7 @@ struct SubstanceTypePill: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(isSelected ? (type?.color ?? Color.teal) : Color.white.opacity(0.08))
+            .background(isSelected ? (type?.color ?? Color.ttGlow) : Color.white.opacity(0.08))
             .foregroundStyle(isSelected ? .white : Color.ttSecondary)
             .clipShape(Capsule())
             .overlay(Capsule().stroke(Color.white.opacity(isSelected ? 0 : 0.1), lineWidth: 0.5))

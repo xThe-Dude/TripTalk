@@ -42,7 +42,7 @@ struct TripReportCard: View {
                         .foregroundStyle(Color.ttPrimary)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 3)
-                        .background(Color.teal.opacity(0.15))
+                        .background(Color.ttGlow.opacity(0.15))
                         .clipShape(Capsule())
 
                     ForEach(report.moods.prefix(2)) { mood in
@@ -57,9 +57,9 @@ struct TripReportCard: View {
                 }
 
                 HStack(spacing: 12) {
-                    IntensityBar(label: "Visual", value: report.visualIntensity, color: .purple)
-                    IntensityBar(label: "Body", value: report.bodyIntensity, color: .green)
-                    IntensityBar(label: "Emotion", value: report.emotionalIntensity, color: .pink)
+                    IntensityBar(label: "Visual", value: report.visualIntensity, color: .ttVisual)
+                    IntensityBar(label: "Body", value: report.bodyIntensity, color: .ttBody)
+                    IntensityBar(label: "Emotion", value: report.emotionalIntensity, color: .ttEmotional)
                 }
 
                 Text(report.highlights)

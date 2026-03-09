@@ -9,7 +9,7 @@ struct ReviewCard: View {
         HStack(spacing: 0) {
             // Accent bar left edge
             RoundedRectangle(cornerRadius: 1)
-                .fill(Color.teal)
+                .fill(Color.ttGlow)
                 .frame(width: 2)
                 .padding(.vertical, 8)
 
@@ -56,7 +56,7 @@ struct ReviewCard: View {
                     } label: {
                         Label("\(review.helpfulCount)", systemImage: "hand.thumbsup")
                             .font(.caption)
-                            .foregroundStyle(onHelpful != nil ? Color.teal : Color.ttSecondary)
+                            .foregroundStyle(onHelpful != nil ? Color.ttGlow : Color.ttSecondary)
                     }
 
                     Button {

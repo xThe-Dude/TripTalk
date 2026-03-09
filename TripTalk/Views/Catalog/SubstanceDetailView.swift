@@ -4,6 +4,7 @@ struct SubstanceDetailView: View {
     @Environment(AppState.self) private var appState
     let substance: Substance
     @State private var showWriteReview = false
+    @State private var bookmarkBounce = false
 
     private var substanceType: SubstanceType? {
         switch substance.id {
@@ -60,6 +61,7 @@ struct SubstanceDetailView: View {
                 .clipShape(Capsule())
                 .darkGlassCardElevated()
                 .padding(.horizontal)
+                .animateIn(delay: 0.1)
 
                 // About
                 VStack(alignment: .leading, spacing: 6) {
@@ -71,6 +73,7 @@ struct SubstanceDetailView: View {
                         .foregroundStyle(Color.ttSecondary)
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.15)
 
                 // Effects
                 VStack(alignment: .leading, spacing: 8) {
@@ -84,6 +87,7 @@ struct SubstanceDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.2)
 
                 // Safety
                 VStack(alignment: .leading, spacing: 8) {
@@ -103,6 +107,7 @@ struct SubstanceDetailView: View {
                 }
                 .darkGlassCard()
                 .padding(.horizontal)
+                .animateIn(delay: 0.25)
 
                 // Strains
                 if let st = substanceType {
@@ -120,6 +125,7 @@ struct SubstanceDetailView: View {
                             }
                         }
                         .padding(.horizontal)
+                        .animateIn(delay: 0.3)
                     }
                 }
 
@@ -157,6 +163,12 @@ struct SubstanceDetailView: View {
                     .pressEffect()
                 }
                 .padding(.horizontal)
+
+                Text("For educational purposes only. Not medical advice.")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttTertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 12)
             }
             .padding(.bottom)
         }
@@ -175,9 +187,17 @@ struct SubstanceDetailView: View {
                     Button {
                         appState.toggleSavedSubstance(substance.id)
                         Haptics.medium()
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                            bookmarkBounce = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            bookmarkBounce = false
+                        }
                     } label: {
                         Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
+                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
                     }
                 }
             }
@@ -215,7 +235,7 @@ struct SubstanceDetailView: View {
         if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
         if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
         if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
-        return .teal
+        return .ttGlow
     }
 }
 

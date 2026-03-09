@@ -4,6 +4,7 @@ struct ServiceDetailView: View {
     @Environment(AppState.self) private var appState
     let service: ServiceCenter
     @State private var showWriteReview = false
+    @State private var bookmarkBounce = false
 
     var body: some View {
         ScrollView {
@@ -56,6 +57,7 @@ struct ServiceDetailView: View {
                 }
                 .darkGlassCardElevated()
                 .padding(.horizontal)
+                .animateIn(delay: 0.1)
 
                 // About
                 VStack(alignment: .leading, spacing: 6) {
@@ -68,6 +70,7 @@ struct ServiceDetailView: View {
                         .foregroundStyle(Color.ttSecondary)
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.15)
 
                 // Offerings
                 VStack(alignment: .leading, spacing: 8) {
@@ -87,6 +90,7 @@ struct ServiceDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .animateIn(delay: 0.2)
 
                 // Reviews
                 VStack(alignment: .leading, spacing: 8) {
@@ -134,9 +138,17 @@ struct ServiceDetailView: View {
                     Button {
                         appState.toggleSavedService(service.id)
                         Haptics.medium()
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                            bookmarkBounce = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            bookmarkBounce = false
+                        }
                     } label: {
                         Image(systemName: appState.savedServiceIDs.contains(service.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
+                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
                     }
                 }
             }
