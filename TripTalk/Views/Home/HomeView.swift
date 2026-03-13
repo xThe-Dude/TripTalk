@@ -49,18 +49,20 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     // MARK: - Welcome Header
                     VStack(spacing: 8) {
-                        Image(systemName: "leaf.fill")
-                            .font(.system(size: 36))
-                            .foregroundStyle(Color.ttAccent.opacity(0.7))
-
                         Text("Welcome to TripTalk")
                             .font(.system(.largeTitle, design: .serif, weight: .bold))
-                            .foregroundStyle(Color.ttPrimary)
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [Color.ttPrimary, Color.ttGlow],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
                             .multilineTextAlignment(.center)
 
                         Text("Your guide to informed, safer experiences")
                             .font(.subheadline)
-                            .foregroundStyle(Color.ttSecondary)
+                            .foregroundStyle(Color.ttTertiary)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 20)

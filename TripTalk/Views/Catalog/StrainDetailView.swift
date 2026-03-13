@@ -251,11 +251,12 @@ struct StrainDetailView: View {
                     .fontWeight(.medium)
                     .foregroundStyle(strain.potency.color)
             }
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
 
             VStack(spacing: 4) {
                 Text("Level")
@@ -268,9 +269,10 @@ struct StrainDetailView: View {
                     .fontWeight(.medium)
                     .foregroundStyle(strain.difficulty.color)
             }
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
 
             VStack(spacing: 4) {
                 Text("Onset")
@@ -282,10 +284,12 @@ struct StrainDetailView: View {
                     .font(.caption2)
                     .fontWeight(.medium)
                     .foregroundStyle(Color.ttPrimary)
+                    .minimumScaleFactor(0.8)
             }
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.15))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
 
             VStack(spacing: 4) {
                 Text("Duration")
@@ -297,7 +301,9 @@ struct StrainDetailView: View {
                     .font(.caption2)
                     .fontWeight(.medium)
                     .foregroundStyle(Color.ttPrimary)
+                    .minimumScaleFactor(0.8)
             }
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
         }
         .darkGlassCardElevated()
@@ -361,13 +367,14 @@ struct IntensityChartRow: View {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(color)
                         .frame(width: geo.size.width * value / 5.0)
+                        .animation(.easeOut(duration: 0.6), value: value)
                 }
             }
-            .frame(height: 8)
-            Text(String(format: "%.1f", value))
+            .frame(height: 10)
+            Text(String(format: "%.1f/5", value))
                 .font(.caption2)
                 .foregroundStyle(Color.ttSecondary)
-                .frame(width: 24, alignment: .trailing)
+                .frame(width: 36, alignment: .trailing)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(label) intensity: \(String(format: "%.1f", value)) out of 5")

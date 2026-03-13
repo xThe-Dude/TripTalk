@@ -62,7 +62,7 @@ struct ReviewCard: View {
                     Button {
                         onReport?()
                     } label: {
-                        Label("Report", systemImage: "flag")
+                        Label("Flag", systemImage: "flag")
                             .font(.caption)
                             .foregroundStyle(onReport != nil ? Color.orange.opacity(0.7) : Color.ttSecondary)
                     }
@@ -80,6 +80,7 @@ struct ReviewCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(review.authorName), \(review.title), rated \(review.rating) stars, \(review.helpfulCount) people found helpful")
     }

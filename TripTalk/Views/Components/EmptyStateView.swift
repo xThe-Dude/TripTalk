@@ -24,6 +24,8 @@ struct EmptyStateView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 150, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
             } else {
                 ZStack {
                     Circle()

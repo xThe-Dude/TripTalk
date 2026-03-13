@@ -18,6 +18,7 @@ struct StrainCard: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60, height: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(strain.name)
@@ -85,6 +86,7 @@ struct StrainCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(strain.name), \(strain.parentSubstance.rawValue), potency \(strain.potency.rawValue), rated \(String(format: "%.1f", strain.averageRating)) stars, \(strain.reviewCount) reports")
     }

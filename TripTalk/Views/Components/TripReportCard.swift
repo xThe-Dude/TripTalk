@@ -70,7 +70,7 @@ struct TripReportCard: View {
                 HStack(spacing: 16) {
                     if report.wouldRepeat {
                         HStack(spacing: 4) {
-                            Image(systemName: "arrow.trianglehead.2.counterclockwise")
+                            Image(systemName: "checkmark.circle.fill")
                                 .font(.caption2)
                             Text("Would repeat")
                                 .font(.caption2)
@@ -90,6 +90,7 @@ struct TripReportCard: View {
             .padding(.leading, 10)
         }
         .darkGlassCard()
+        .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(report.authorName)'s trip report, rated \(report.rating) stars, \(report.setting.rawValue) setting\(report.wouldRepeat ? ", would repeat" : "")")
     }
