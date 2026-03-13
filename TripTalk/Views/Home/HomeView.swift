@@ -3,23 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(AppState.self) private var appState
     @State private var showSafetyAlert = false
-    @State private var bannerIndex = 0
-
-    private let bannerNames = [
-        "home_spring", "home_summer", "home_autumn", "home_winter",
-        "home_mindfulness", "home_botanical", "home_healing", "home_stargazing"
-    ]
-    private let bannerLabels: [String: String] = [
-        "home_spring": "Renewal & Growth",
-        "home_summer": "Desert Wisdom",
-        "home_autumn": "Reflection",
-        "home_winter": "Stillness",
-        "home_mindfulness": "Inner Peace",
-        "home_botanical": "Natural Knowledge",
-        "home_healing": "Safe Space",
-        "home_stargazing": "Infinite Wonder"
-    ]
-    private let bannerTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    
 
     private let tips = [
         "Start low, go slow. Especially with unfamiliar varieties.",
@@ -67,43 +51,6 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.top, 20)
                     .padding(.bottom, 8)
-
-                    // MARK: - Hero Banner Carousel
-                    TabView(selection: $bannerIndex) {
-                        ForEach(Array(bannerNames.enumerated()), id: \.offset) { index, name in
-                            ZStack(alignment: .bottom) {
-                                Image(name)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 200)
-                                    .clipped()
-                                LinearGradient(
-                                    colors: [.clear, .black.opacity(0.5)],
-                                    startPoint: .center,
-                                    endPoint: .bottom
-                                )
-                                if let label = bannerLabels[name] {
-                                    Text(label)
-                                        .font(.caption.weight(.semibold))
-                                        .foregroundStyle(.white)
-                                        .shadow(color: .black.opacity(0.6), radius: 4, y: 1)
-                                        .padding(.bottom, 28)
-                                }
-                            }
-                            .tag(index)
-                        }
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .always))
-                    .frame(height: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal)
-                    .onReceive(bannerTimer) { _ in
-                        withAnimation(.easeInOut(duration: 0.5)) {
-                            bannerIndex = (bannerIndex + 1) % bannerNames.count
-                        }
-                    }
-                    .animateIn(delay: 0.05)
 
                     // MARK: - Featured Variety Spotlight
                     if let featured = appState.strains.isEmpty ? nil : appState.strains[Calendar.current.component(.day, from: Date()) % appState.strains.count] {
