@@ -14,12 +14,14 @@ struct OnboardingView: View {
         ZStack {
             TabView(selection: $currentPage) {
                 ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
+                    GeometryReader { geo in
                     ZStack {
                         // Full-bleed background image
                         Image(page.backgroundImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .ignoresSafeArea()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .clipped()
 
                         // Dark gradient overlay for readability
                         LinearGradient(
@@ -27,7 +29,6 @@ struct OnboardingView: View {
                             startPoint: .top,
                             endPoint: .bottom
                         )
-                        .ignoresSafeArea()
 
                         VStack(spacing: 24) {
                             Spacer()
@@ -99,6 +100,8 @@ struct OnboardingView: View {
                                 Spacer().frame(height: 100)
                             }
                         }
+                    }
+                    .frame(width: geo.size.width, height: geo.size.height)
                     }
                     .tag(index)
                 }
