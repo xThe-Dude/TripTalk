@@ -9,6 +9,16 @@ struct HomeView: View {
         "home_spring", "home_summer", "home_autumn", "home_winter",
         "home_mindfulness", "home_botanical", "home_healing", "home_stargazing"
     ]
+    private let bannerLabels: [String: String] = [
+        "home_spring": "Renewal & Growth",
+        "home_summer": "Desert Wisdom",
+        "home_autumn": "Reflection",
+        "home_winter": "Stillness",
+        "home_mindfulness": "Inner Peace",
+        "home_botanical": "Natural Knowledge",
+        "home_healing": "Safe Space",
+        "home_stargazing": "Infinite Wonder"
+    ]
     private let bannerTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     private let tips = [
@@ -71,6 +81,13 @@ struct HomeView: View {
                                     startPoint: .center,
                                     endPoint: .bottom
                                 )
+                                if let label = bannerLabels[name] {
+                                    Text(label)
+                                        .font(.caption.weight(.semibold))
+                                        .foregroundStyle(.white)
+                                        .shadow(color: .black.opacity(0.6), radius: 4, y: 1)
+                                        .padding(.bottom, 28)
+                                }
                             }
                             .tag(index)
                         }
@@ -117,7 +134,7 @@ struct HomeView: View {
                                     Text(featured.description)
                                         .font(.caption)
                                         .foregroundStyle(Color.ttSecondary)
-                                        .lineLimit(2)
+                                        .lineLimit(3)
 
                                     NavigationLink(value: featured) {
                                         Text("Learn more")
@@ -234,7 +251,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
                         .padding(.top, 16)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 90)
                 }
             }
             .refreshable {

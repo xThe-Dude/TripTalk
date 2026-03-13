@@ -291,7 +291,8 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal)
                 }
-                .padding(.vertical)
+                .padding(.top)
+                .padding(.bottom, 90)
             }
             .background { GradientBackground() }
             .toolbarBackground(.hidden, for: .navigationBar)

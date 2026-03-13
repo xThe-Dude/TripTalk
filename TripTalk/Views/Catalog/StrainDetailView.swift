@@ -155,7 +155,7 @@ struct StrainDetailView: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, 12)
             }
-            .padding(.bottom)
+            .padding(.bottom, 90)
         }
         .background { GradientBackground() }
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -204,7 +204,7 @@ struct StrainDetailView: View {
 
             // Dark gradient overlay for text readability
             LinearGradient(
-                colors: [.clear, .black.opacity(0.3), .black.opacity(0.75)],
+                colors: [.clear, .clear, .black.opacity(0.4), .black.opacity(0.85)],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -214,6 +214,7 @@ struct StrainDetailView: View {
                 Text(strain.name)
                     .font(.system(.largeTitle, design: .serif, weight: .bold))
                     .foregroundStyle(Color.ttPrimary)
+                    .shadow(color: .black.opacity(0.6), radius: 6, y: 2)
                 Text(strain.species)
                     .font(.subheadline)
                     .foregroundStyle(Color.ttSecondary)
@@ -228,6 +229,7 @@ struct StrainDetailView: View {
             }
             .padding(.bottom, 30)
         }
+        .frame(maxWidth: .infinity)
         .ignoresSafeArea(edges: .top)
         .visualEffect { content, proxy in
             content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
@@ -312,6 +314,7 @@ struct StrainDetailView: View {
                 IntensityChartRow(label: "Body", value: intensities.body, color: .ttBody)
                 IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .ttEmotional)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             .animateIn(delay: 0.15)
         }

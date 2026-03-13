@@ -126,7 +126,8 @@ struct ExploreView: View {
                     }
                     } // end else (no search)
                 }
-                .padding(.vertical)
+                .padding(.top)
+                .padding(.bottom, 90)
             }
             .refreshable {
                 try? await Task.sleep(for: .seconds(0.8))

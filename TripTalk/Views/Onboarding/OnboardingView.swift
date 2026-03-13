@@ -23,7 +23,7 @@ struct OnboardingView: View {
 
                         // Dark gradient overlay for readability
                         LinearGradient(
-                            colors: [.black.opacity(0.3), .black.opacity(0.6)],
+                            colors: [.black.opacity(0.4), .black.opacity(0.75)],
                             startPoint: .top,
                             endPoint: .bottom
                         )
@@ -59,12 +59,16 @@ struct OnboardingView: View {
                                 .font(.system(.largeTitle, design: .serif, weight: .bold))
                                 .foregroundStyle(Color.ttPrimary)
                                 .tracking(1)
+                                .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
 
                             Text(page.subtitle)
                                 .font(.body)
                                 .foregroundStyle(Color.ttSecondary)
                                 .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .lineLimit(nil)
                                 .padding(.horizontal, 40)
+                                .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
 
                             Spacer()
 
@@ -74,13 +78,19 @@ struct OnboardingView: View {
                                     onComplete()
                                 } label: {
                                     Text("Get Started")
-                                        .font(.headline)
+                                        .font(.title3.weight(.semibold))
                                         .foregroundStyle(.white)
                                         .frame(maxWidth: .infinity)
                                         .padding(.vertical, 16)
-                                        .background(Color.ttAccent)
+                                        .background(
+                                            LinearGradient(
+                                                colors: [.teal, .green.opacity(0.8)],
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            )
+                                        )
                                         .clipShape(Capsule())
-                                        .shadow(color: Color.ttAccent.opacity(0.4), radius: 12, y: 4)
+                                        .shadow(color: .teal.opacity(0.4), radius: 12, y: 4)
                                 }
                                 .pressEffect()
                                 .padding(.horizontal, 40)
