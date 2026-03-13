@@ -195,41 +195,44 @@ struct StrainDetailView: View {
     // MARK: - Extracted Sub-Views
 
     private var heroSection: some View {
-        ZStack(alignment: .bottom) {
-            Image(strain.heroImageName)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 260)
-                .clipped()
+        GeometryReader { geo in
+            ZStack(alignment: .bottom) {
+                Image(strain.heroImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: geo.size.width, height: 260)
+                    .clipped()
 
-            // Dark gradient overlay for text readability
-            LinearGradient(
-                colors: [.clear, .clear, .black.opacity(0.4), .black.opacity(0.85)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .frame(height: 260)
+                // Dark gradient overlay for text readability
+                LinearGradient(
+                    colors: [.clear, .clear, .black.opacity(0.4), .black.opacity(0.85)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(width: geo.size.width, height: 260)
 
-            VStack(spacing: 8) {
-                Text(strain.name)
-                    .font(.system(.largeTitle, design: .serif, weight: .bold))
-                    .foregroundStyle(Color.ttPrimary)
-                    .shadow(color: .black.opacity(0.6), radius: 6, y: 2)
-                Text(strain.species)
-                    .font(.subheadline)
-                    .foregroundStyle(Color.ttSecondary)
-                Text(strain.parentSubstance.rawValue)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .background(.white.opacity(0.15))
-                    .clipShape(Capsule())
-                    .foregroundStyle(Color.ttPrimary)
+                VStack(spacing: 8) {
+                    Text(strain.name)
+                        .font(.system(.largeTitle, design: .serif, weight: .bold))
+                        .foregroundStyle(Color.ttPrimary)
+                        .shadow(color: .black.opacity(0.6), radius: 6, y: 2)
+                    Text(strain.species)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.ttSecondary)
+                    Text(strain.parentSubstance.rawValue)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background(.white.opacity(0.15))
+                        .clipShape(Capsule())
+                        .foregroundStyle(Color.ttPrimary)
+                }
+                .padding(.bottom, 30)
             }
-            .padding(.bottom, 30)
         }
-        .frame(maxWidth: .infinity)
+        .frame(height: 260)
+        .clipped()
         .ignoresSafeArea(edges: .top)
         .visualEffect { content, proxy in
             content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
