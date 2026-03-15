@@ -75,7 +75,7 @@ struct TripReportCard: View {
                             Text("Would repeat")
                                 .font(.caption2)
                         }
-                        .foregroundStyle(.green)
+                        .foregroundStyle(Color.ttBody)
                     }
 
                     Spacer()
@@ -110,16 +110,15 @@ struct IntensityBar: View {
             Text(label)
                 .font(.caption2)
                 .foregroundStyle(Color.ttSecondary)
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 3)
-                        .fill(Color.white.opacity(0.1))
-                    RoundedRectangle(cornerRadius: 3)
-                        .fill(color)
-                        .frame(width: geo.size.width * CGFloat(value) / 5.0)
-                }
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(Color.white.opacity(0.1))
+                    .frame(height: 6)
+                Capsule()
+                    .fill(color)
+                    .frame(height: 6)
+                    .scaleEffect(x: CGFloat(value) / 5.0, anchor: .leading)
             }
-            .frame(height: 6)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(label) intensity: \(value) out of 5")

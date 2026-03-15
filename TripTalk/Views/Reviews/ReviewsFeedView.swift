@@ -42,13 +42,12 @@ struct ReviewsFeedView: View {
 
                     // Reviews
                     LazyVStack(spacing: 10) {
-                        ForEach(Array(filteredReviews.enumerated()), id: \.element.id) { index, review in
+                        ForEach(filteredReviews) { review in
                             ReviewCard(
                                 review: review,
                                 onHelpful: { appState.toggleHelpful(review.id) },
                                 onReport: { appState.reportReview(review.id) }
                             )
-                            .animateIn(delay: min(Double(index) * 0.03, 0.3))
                         }
                     }
                     .padding(.horizontal)

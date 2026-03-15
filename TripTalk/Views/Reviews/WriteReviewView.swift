@@ -12,13 +12,13 @@ struct WriteReviewView: View {
     @State private var body_: String = ""
     @State private var selectedTags: Set<EffectTag> = []
     @State private var antiSourcingAgreed: Bool = false
-    @State private var showSuccess: Bool = false
     @State private var showDiscardAlert: Bool = false
 
     private var hasContent: Bool {
         rating > 0 || !title.isEmpty || !body_.isEmpty || !selectedTags.isEmpty
     }
     @State private var showSuccessOverlay: Bool = false
+    @State private var checkmarkVisible: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -37,10 +37,12 @@ struct WriteReviewView: View {
                             Text("Share your experience... What was the setting? How did it affect you? What insights did you gain?")
                                 .foregroundStyle(Color.ttSecondary.opacity(0.5))
                                 .padding(.top, 8)
+                                .accessibilityHidden(true)
                         }
                         TextEditor(text: $body_)
                             .foregroundStyle(Color.ttPrimary)
                             .frame(minHeight: 120)
+                            .accessibilityLabel("Review body")
                     }
                 }
                 .listRowBackground(Color.white.opacity(0.05))
@@ -54,6 +56,8 @@ struct WriteReviewView: View {
                                     if selectedTags.contains(tag) { selectedTags.remove(tag) }
                                     else { selectedTags.insert(tag) }
                                 }
+                                .accessibilityAddTraits(.isButton)
+                                .accessibilityHint(selectedTags.contains(tag) ? "Double-tap to deselect" : "Double-tap to select")
                         }
                     }
                 }
@@ -74,13 +78,6 @@ struct WriteReviewView: View {
                 }
                 .listRowBackground(Color.white.opacity(0.05))
 
-                if showSuccess {
-                    Section {
-                        Label("Review submitted! Thank you for contributing.", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                    }
-                    .listRowBackground(Color.green.opacity(0.08))
-                }
             }
             .scrollContentBackground(.hidden)
             .background(Color.ttSheetBg)
@@ -119,7 +116,10 @@ struct WriteReviewView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 60))
                             .foregroundStyle(.green)
-                            .scaleEffect(showSuccessOverlay ? 1.0 : 0.5)
+                            .scaleEffect(checkmarkVisible ? 1.0 : 0.3)
+                            .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.1), value: checkmarkVisible)
+                            .onAppear { checkmarkVisible = true }
+                            .onDisappear { checkmarkVisible = false }
                         Text("Thank you!")
                             .font(.system(.title2, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
@@ -150,10 +150,13 @@ struct WriteReviewView: View {
             serviceID: serviceID
         )
         appState.addReview(review)
-        showSuccess = true
-        showSuccessOverlay = true
         Haptics.success()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        UIAccessibility.post(notification: .announcement, argument: "Review submitted. Thank you for contributing.")
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+            showSuccessOverlay = true
+        }
+        Task {
+            try? await Task.sleep(for: .milliseconds(1500))
             dismiss()
         }
     }

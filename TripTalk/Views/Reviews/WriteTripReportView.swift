@@ -18,13 +18,13 @@ struct WriteTripReportView: View {
     @State private var safetyNotes: String = ""
     @State private var wouldRepeat: Bool = true
     @State private var antiSourcingAgreed: Bool = false
-    @State private var showSuccess: Bool = false
     @State private var showDiscardAlert: Bool = false
 
     private var hasContent: Bool {
         rating > 0 || !highlights.isEmpty || !intention.isEmpty || !safetyNotes.isEmpty || !selectedMoods.isEmpty || !selectedExperienceTypes.isEmpty
     }
     @State private var showSuccessOverlay: Bool = false
+    @State private var checkmarkVisible: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -171,7 +171,7 @@ struct WriteTripReportView: View {
                 }
                 .listRowBackground(Color.white.opacity(0.05))
 
-                if showSuccess {
+                if showSuccessOverlay {
                     Section {
                         Label("Trip report submitted! Thank you.", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(.green)
@@ -214,7 +214,10 @@ struct WriteTripReportView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 60))
                             .foregroundStyle(.green)
-                            .scaleEffect(showSuccessOverlay ? 1.0 : 0.5)
+                            .scaleEffect(checkmarkVisible ? 1.0 : 0.3)
+                            .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.1), value: checkmarkVisible)
+                            .onAppear { checkmarkVisible = true }
+                            .onDisappear { checkmarkVisible = false }
                         Text("Thank you!")
                             .font(.system(.title2, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
@@ -253,9 +256,11 @@ struct WriteTripReportView: View {
             date: Date()
         )
         appState.addTripReport(report)
-        showSuccess = true
         showSuccessOverlay = true
         Haptics.success()
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+            showSuccessOverlay = true
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { dismiss() }
     }
 }

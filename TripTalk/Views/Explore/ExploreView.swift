@@ -46,12 +46,11 @@ struct ExploreView: View {
                     sectionView("Popular Varieties") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(Array(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6).enumerated()), id: \.element.id) { index, strain in
+                                ForEach(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6)) { strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
-                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
@@ -59,16 +58,15 @@ struct ExploreView: View {
                     }
                     .animateIn(delay: 0.1)
 
-                    // Beginner Friendly
-                    sectionView("Beginner Friendly") {
+                    // Lower Intensity
+                    sectionView("Lower Intensity") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(Array(appState.strains.filter { $0.difficulty == .beginner }.enumerated()), id: \.element.id) { index, strain in
+                                ForEach(appState.strains.filter { $0.difficulty == .beginner }) { strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
-                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
@@ -80,12 +78,11 @@ struct ExploreView: View {
                     sectionView("Most Visual") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(Array(appState.strains.filter { $0.commonEffects.contains(.visualDistortions) }.sorted(by: { $0.averageRating > $1.averageRating }).prefix(6).enumerated()), id: \.element.id) { index, strain in
+                                ForEach(appState.strains.filter { $0.commonEffects.contains(.visualDistortions) }.sorted(by: { $0.averageRating > $1.averageRating }).prefix(6)) { strain in
                                     NavigationLink(value: strain) {
                                         MiniStrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
-                                    .animateIn(delay: 0.1 + Double(index) * 0.03)
                                 }
                             }
                             .padding(.horizontal)
@@ -152,7 +149,7 @@ struct ExploreView: View {
     private func sectionView<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.system(.title2, design: .serif, weight: .bold))
+                .font(.system(.title3, design: .serif, weight: .bold))
                 .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)
@@ -215,27 +212,7 @@ struct MiniStrainCard: View {
             .padding(.vertical, 6)
         }
         .frame(width: 140)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.07))
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
-                )
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(
-                    LinearGradient(
-                        colors: [Color.white.opacity(0.2), Color.white.opacity(0.05)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 0.5
-                )
-        )
-        .shadow(color: .black.opacity(0.2), radius: 12, y: 6)
+        .darkGlassCard()
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(strain.name), rated \(String(format: "%.1f", strain.averageRating)) stars")
     }

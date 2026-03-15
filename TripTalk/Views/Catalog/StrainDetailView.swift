@@ -2,9 +2,9 @@ import SwiftUI
 
 struct StrainDetailView: View {
     @Environment(AppState.self) private var appState
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let strain: Strain
     @State private var showWriteTripReport = false
-    @State private var bookmarkBounce = false
 
     var body: some View {
         ScrollView {
@@ -18,9 +18,10 @@ struct StrainDetailView: View {
                     Text("Effects")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.commonEffects) { effect in
-                            TagChip(text: effect.rawValue, color: effectColor(for: effect.rawValue))
+                            TagChip(text: effect.rawValue, color: Color.forEffect(effect.rawValue))
                         }
                     }
                 }
@@ -32,6 +33,7 @@ struct StrainDetailView: View {
                     Text("Body Feel")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.bodyFeel) { feel in
                             TagChip(text: feel.rawValue, color: .ttBody)
@@ -46,6 +48,7 @@ struct StrainDetailView: View {
                     Text("Emotional Profile")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
                         ForEach(strain.emotionalProfile) { tag in
                             TagChip(text: tag.rawValue, color: .ttEmotional)
@@ -60,6 +63,7 @@ struct StrainDetailView: View {
                     Text("About")
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
+                        .accessibilityAddTraits(.isHeader)
                     Text(strain.description)
                         .font(.body)
                         .foregroundStyle(Color.ttSecondary)
@@ -73,6 +77,7 @@ struct StrainDetailView: View {
                         Text("Community Photos")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
+                            .accessibilityAddTraits(.isHeader)
                         Spacer()
                         Text("\(strain.communityPhotoCount)")
                             .font(.caption)
@@ -93,10 +98,13 @@ struct StrainDetailView: View {
                                     .overlay {
                                         Image(systemName: "photo")
                                             .foregroundStyle(Color.ttSecondary)
+                                            .accessibilityHidden(true)
                                     }
                             }
                         }
                     }
+                    .accessibilityLabel("\(strain.communityPhotoCount) community photos")
+                    .accessibilityElement(children: .ignore)
                 }
                 .padding(.horizontal)
                 .animateIn(delay: 0.3)
@@ -107,6 +115,7 @@ struct StrainDetailView: View {
                         Text("Trip Reports")
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
+                            .accessibilityAddTraits(.isHeader)
                         Spacer()
                         RatingStars(rating: strain.averageRating)
                         Text("(\(strain.reviewCount))")
@@ -119,6 +128,7 @@ struct StrainDetailView: View {
                         TripReportCard(report: report)
                     }
 
+                    // TODO: implement full trip reports list view before re-enabling this button
                     if reports.count > 3 {
                         Button {
                         } label: {
@@ -129,6 +139,8 @@ struct StrainDetailView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                         }
+                        .disabled(true)
+                        .accessibilityHidden(true)
                     }
 
                     Button {
@@ -139,7 +151,7 @@ struct StrainDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -172,18 +184,13 @@ struct StrainDetailView: View {
                     Button {
                         appState.toggleSavedStrain(strain.id)
                         Haptics.medium()
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                            bookmarkBounce = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            bookmarkBounce = false
-                        }
                     } label: {
                         Image(systemName: appState.savedStrainIDs.contains(strain.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
-                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
-                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
+                            .symbolEffect(.bounce, value: appState.savedStrainIDs.contains(strain.id))
                     }
+                    .accessibilityLabel(appState.savedStrainIDs.contains(strain.id) ? "Remove from saved" : "Save variety")
+                    .accessibilityAddTraits(appState.savedStrainIDs.contains(strain.id) ? .isSelected : [])
                 }
             }
         }
@@ -234,9 +241,7 @@ struct StrainDetailView: View {
         .frame(height: 260)
         .clipped()
         .ignoresSafeArea(edges: .top)
-        .visualEffect { content, proxy in
-            content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
-        }
+        .modifier(ParallaxIfMotionAllowed(reduceMotion: reduceMotion))
     }
 
     private var statsBar: some View {
@@ -256,7 +261,7 @@ struct StrainDetailView: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25)).accessibilityHidden(true)
 
             VStack(spacing: 4) {
                 Text("Level")
@@ -271,8 +276,10 @@ struct StrainDetailView: View {
             }
             .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Experience level: \(strain.difficulty.rawValue)")
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25)).accessibilityHidden(true)
 
             VStack(spacing: 4) {
                 Text("Onset")
@@ -288,8 +295,10 @@ struct StrainDetailView: View {
             }
             .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Onset: \(strain.onset)")
 
-            Divider().frame(height: 40).overlay(Color.white.opacity(0.25))
+            Divider().frame(height: 40).overlay(Color.white.opacity(0.25)).accessibilityHidden(true)
 
             VStack(spacing: 4) {
                 Text("Duration")
@@ -305,6 +314,8 @@ struct StrainDetailView: View {
             }
             .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Duration: \(strain.duration)")
         }
         .darkGlassCardElevated()
         .padding(.horizontal)
@@ -319,6 +330,7 @@ struct StrainDetailView: View {
                 Text("Average Intensity")
                     .font(.system(.title3, design: .serif, weight: .bold))
                     .foregroundStyle(Color.ttPrimary)
+                    .accessibilityAddTraits(.isHeader)
                 IntensityChartRow(label: "Visual", value: intensities.visual, color: .ttVisual)
                 IntensityChartRow(label: "Body", value: intensities.body, color: .ttBody)
                 IntensityChartRow(label: "Emotional", value: intensities.emotional, color: .ttEmotional)
@@ -333,19 +345,20 @@ struct StrainDetailView: View {
         "Check out \(strain.name) on TripTalk — \(strain.parentSubstance.rawValue) variety, rated \(String(format: "%.1f", strain.averageRating))⭐ with \(strain.reviewCount) community reports. A harm-reduction resource for informed experiences."
     }
 
-    /// Map effect names to contextual colors
-    private func effectColor(for effectName: String) -> Color {
-        let lower = effectName.lowercased()
-        let visualKeywords = ["visual", "color", "geometric", "pattern", "fractal", "hallucin", "distortion", "trails", "synesthesia"]
-        let bodyKeywords = ["body", "tingling", "warmth", "nausea", "energy", "sedat", "relax", "heavy", "light"]
-        let emotionalKeywords = ["euphori", "empathy", "love", "anxiety", "fear", "joy", "bliss", "peace", "connect"]
-        let spiritualKeywords = ["spirit", "transcend", "ego", "mystical", "cosmic", "unity", "dissolv"]
+}
 
-        if visualKeywords.contains(where: { lower.contains($0) }) { return .ttVisual }
-        if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
-        if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
-        if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
-        return .ttGlow
+/// Conditionally applies parallax offset when reduce motion is off.
+private struct ParallaxIfMotionAllowed: ViewModifier {
+    let reduceMotion: Bool
+
+    func body(content: Content) -> some View {
+        if reduceMotion {
+            content
+        } else {
+            content.visualEffect { c, proxy in
+                c.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
+            }
+        }
     }
 }
 

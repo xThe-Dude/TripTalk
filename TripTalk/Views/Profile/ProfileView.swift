@@ -25,7 +25,7 @@ struct ProfileView: View {
                         Image(systemName: "person.circle.fill")
                             .font(.system(size: 70))
                             .foregroundStyle(
-                                LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
                             )
                     }
 
@@ -203,7 +203,7 @@ struct ProfileView: View {
                             }
                             .padding(.vertical, 2)
                         }
-                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/support.html")!) {
+                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/terms.html")!) {
                             HStack {
                                 Image(systemName: "doc.plaintext")
                                     .foregroundStyle(Color.ttGlow)
@@ -241,7 +241,7 @@ struct ProfileView: View {
                                 }
                             }
                             Divider().overlay(Color.white.opacity(0.05))
-                            Link(destination: URL(string: "tel:6232737654")!) {
+                            Link(destination: URL(string: "tel:6234737433")!) {
                                 HStack {
                                     Image(systemName: "heart.circle.fill")
                                         .foregroundStyle(Color.ttVisual)
@@ -249,7 +249,7 @@ struct ProfileView: View {
                                         Text("Fireside Project")
                                             .font(.subheadline)
                                             .foregroundStyle(Color.ttPrimary)
-                                        Text("Psychedelic peer support: 62-FIRESIDE")
+                                        Text("Psychedelic peer support: (623) 473-7433")
                                             .font(.caption)
                                             .foregroundStyle(Color.ttSecondary)
                                     }
@@ -315,7 +315,7 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.system(.title3, design: .serif, weight: .bold))
-                .foregroundStyle(Color.ttSectionHeader)
+                .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)
             VStack(alignment: .leading, spacing: 4) {

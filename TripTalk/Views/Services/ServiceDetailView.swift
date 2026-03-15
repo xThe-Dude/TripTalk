@@ -4,7 +4,6 @@ struct ServiceDetailView: View {
     @Environment(AppState.self) private var appState
     let service: ServiceCenter
     @State private var showWriteReview = false
-    @State private var bookmarkBounce = false
 
     var body: some View {
         ScrollView {
@@ -12,15 +11,16 @@ struct ServiceDetailView: View {
                 // Immersive hero section
                 ZStack {
                     LinearGradient(
-                        colors: [.teal.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
+                        colors: [Color.ttGlow.opacity(0.8), Color(red: 0.05, green: 0.12, blue: 0.22)],
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: 220)
+                    .frame(height: 260)
                     VStack(spacing: 8) {
                         Image(systemName: service.imageSymbol)
                             .font(.system(size: 50))
                             .foregroundStyle(.white.opacity(0.9))
+                            .accessibilityHidden(true)
 
                         HStack(spacing: 4) {
                             Text(service.name)
@@ -65,6 +65,7 @@ struct ServiceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
                     Text(service.about)
                         .font(.body)
                         .foregroundStyle(Color.ttSecondary)
@@ -78,6 +79,7 @@ struct ServiceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
                     ForEach(service.offerings, id: \.self) { offering in
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.circle.fill")
@@ -98,6 +100,7 @@ struct ServiceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
 
                     ForEach(appState.reviewsFor(service: service.id).prefix(3)) { review in
                         ReviewCard(review: review)
@@ -111,7 +114,7 @@ struct ServiceDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -138,18 +141,13 @@ struct ServiceDetailView: View {
                     Button {
                         appState.toggleSavedService(service.id)
                         Haptics.medium()
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                            bookmarkBounce = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            bookmarkBounce = false
-                        }
                     } label: {
                         Image(systemName: appState.savedServiceIDs.contains(service.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
-                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
-                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
+                            .symbolEffect(.bounce, value: appState.savedServiceIDs.contains(service.id))
                     }
+                    .accessibilityLabel(appState.savedServiceIDs.contains(service.id) ? "Remove from saved" : "Save service center")
+                    .accessibilityAddTraits(appState.savedServiceIDs.contains(service.id) ? .isSelected : [])
                 }
             }
         }

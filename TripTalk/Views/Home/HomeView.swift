@@ -11,14 +11,14 @@ struct HomeView: View {
         "Having a trusted sitter present is one of the most important safety practices.",
         "Integration is as important as the experience itself. Take time to reflect.",
         "Stay hydrated, but don't overdo it. Small sips of water are better than large amounts.",
-        "Start with a lower amount than you think you need. You can always explore deeper next time.",
+        "Thoroughly research any substance before an experience, and consult a healthcare provider when possible. Preparation is a core harm-reduction practice.",
         "Let someone you trust know about your plans. A safety contact can make all the difference.",
         "Your mindset matters. Take time to set a clear intention before any experience.",
         "Journal your experiences afterward. Reflection is a powerful tool for integration.",
         "Mixing substances significantly increases risk. When in doubt, keep it simple.",
         "Research potential interactions with any medications you're taking.",
         "Physical comfort matters. Prepare your space with blankets, water, and calming music.",
-        "If anxiety arises, remember: change your setting, breathe deeply, and it will pass.",
+        "If anxiety arises, grounding techniques can help: slow your breathing, change your environment, and focus on something familiar. If distress persists or escalates, call the Fireside Project at (623) 473-7433 or dial 988.",
         "Integration is as important as the experience itself. Give yourself time to process."
     ]
 
@@ -217,12 +217,12 @@ struct HomeView: View {
                 Button("Call 988 Suicide & Crisis Lifeline") {
                     if let url = URL(string: "tel:988") { UIApplication.shared.open(url) }
                 }
-                Button("Visit fireside-project.org") {
+                Button("Visit firesideproject.org") {
                     if let url = URL(string: "https://firesideproject.org") { UIApplication.shared.open(url) }
                 }
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("If you or someone you know is in crisis:\n\n• 988 Suicide & Crisis Lifeline\n• Fireside Project Psychedelic Peer Support: 62-FIRESIDE")
+                Text("If you or someone you know is in crisis:\n\n• 988 Suicide & Crisis Lifeline\n• Fireside Project Psychedelic Peer Support: (623) 473-7433")
             }
         }
     }

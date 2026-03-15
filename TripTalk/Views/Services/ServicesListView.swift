@@ -23,7 +23,7 @@ struct ServicesListView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
 
-                    Text("Showing services near you")
+                    Text("Featured service centers")
                         .font(.caption)
                         .foregroundStyle(Color.ttSecondary)
                         .padding(.horizontal)
@@ -45,12 +45,11 @@ struct ServicesListView: View {
                         .padding(.top, 40)
                     } else {
                         LazyVStack(spacing: 10) {
-                            ForEach(Array(appState.filteredServices.enumerated()), id: \.element.id) { index, service in
+                            ForEach(appState.filteredServices) { service in
                                 NavigationLink(value: service) {
                                     ServiceCard(service: service)
                                 }
                                 .buttonStyle(.plain)
-                                .animateIn(delay: min(Double(index) * 0.03, 0.3))
                             }
                         }
                         .padding(.horizontal)

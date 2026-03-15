@@ -78,13 +78,12 @@ struct CatalogListView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 14))
                                 .padding(.horizontal)
 
-                                ForEach(Array((grouped[type] ?? []).enumerated()), id: \.element.id) { index, strain in
+                                ForEach(grouped[type] ?? []) { strain in
                                     NavigationLink(value: strain) {
                                         StrainCard(strain: strain)
                                     }
                                     .buttonStyle(.plain)
                                     .padding(.horizontal)
-                                    .animateIn(delay: min(Double(index) * 0.03, 0.3))
                                 }
                             }
                         }

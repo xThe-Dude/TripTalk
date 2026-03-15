@@ -1,6 +1,7 @@
 import SwiftUI
 
 @Observable
+@MainActor
 class AppState {
     var substances: [Substance] = MockData.substances
     var services: [ServiceCenter] = MockData.services
@@ -31,7 +32,6 @@ class AppState {
 
     // Catalog filters
     var catalogSearchText: String = ""
-    var catalogCategoryFilter: SubstanceCategory? = nil
     var catalogEffectFilter: EffectTag? = nil
     var catalogSubstanceTypeFilter: SubstanceType? = nil
     var catalogPotencyFilter: Potency? = nil
@@ -43,20 +43,6 @@ class AppState {
 
     // Reviews
     var reviewSortOption: ReviewSortOption = .recent
-
-    var filteredSubstances: [Substance] {
-        var result = substances
-        if !catalogSearchText.isEmpty {
-            result = result.filter { $0.name.localizedCaseInsensitiveContains(catalogSearchText) }
-        }
-        if let cat = catalogCategoryFilter {
-            result = result.filter { $0.category == cat }
-        }
-        if let effect = catalogEffectFilter {
-            result = result.filter { $0.effects.contains(effect) }
-        }
-        return result
-    }
 
     var filteredStrains: [Strain] {
         var result = strains

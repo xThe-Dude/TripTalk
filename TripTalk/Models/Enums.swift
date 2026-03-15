@@ -75,15 +75,6 @@ enum ReviewSortOption: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-enum ExploreSegment: String, CaseIterable, Identifiable {
-    case all = "All"
-    case substances = "Substances"
-    case services = "Services"
-    case articles = "Articles"
-
-    var id: String { rawValue }
-}
-
 // MARK: - New Strain-Related Enums
 
 enum SubstanceType: String, CaseIterable, Identifiable, Codable {
@@ -231,5 +222,24 @@ enum Difficulty: String, CaseIterable, Identifiable, Codable {
         case .intermediate: return .yellow
         case .experienced: return .red
         }
+    }
+}
+
+// MARK: - Effect Color Mapping (shared between SubstanceDetailView and StrainDetailView)
+
+extension Color {
+    /// Maps an effect name string to a contextual color.
+    static func forEffect(_ effectName: String) -> Color {
+        let lower = effectName.lowercased()
+        let visualKeywords = ["visual", "color", "geometric", "pattern", "fractal", "hallucin", "distortion", "trails", "synesthesia"]
+        let bodyKeywords = ["body", "tingling", "warmth", "nausea", "energy", "sedat", "relax", "heavy", "light"]
+        let emotionalKeywords = ["euphori", "empathy", "love", "anxiety", "fear", "joy", "bliss", "peace", "connect"]
+        let spiritualKeywords = ["spirit", "transcend", "ego", "mystical", "cosmic", "unity", "dissolv"]
+
+        if visualKeywords.contains(where: { lower.contains($0) }) { return .ttVisual }
+        if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
+        if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
+        if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
+        return .ttGlow
     }
 }

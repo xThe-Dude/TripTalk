@@ -2,9 +2,9 @@ import SwiftUI
 
 struct SubstanceDetailView: View {
     @Environment(AppState.self) private var appState
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let substance: Substance
     @State private var showWriteReview = false
-    @State private var bookmarkBounce = false
 
     private var substanceType: SubstanceType? {
         switch substance.id {
@@ -30,11 +30,12 @@ struct SubstanceDetailView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: 240)
+                    .frame(height: 260)
                     VStack(spacing: 8) {
                         Image(systemName: substance.imageSymbol)
                             .font(.system(size: 50))
                             .foregroundStyle(.white.opacity(0.9))
+                            .accessibilityHidden(true)
                         Text(substance.name)
                             .font(.system(.largeTitle, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
@@ -45,9 +46,7 @@ struct SubstanceDetailView: View {
                     .padding(.vertical, 30)
                 }
                 .ignoresSafeArea(edges: .top)
-                .visualEffect { content, proxy in
-                    content.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
-                }
+                .modifier(SubstanceParallaxIfMotionAllowed(reduceMotion: reduceMotion))
 
                 // Jurisdiction pill
                 let status = substance.statusFor(appState.selectedJurisdiction)
@@ -72,6 +71,7 @@ struct SubstanceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
                     Text(substance.about)
                         .font(.body)
                         .foregroundStyle(Color.ttSecondary)
@@ -85,9 +85,10 @@ struct SubstanceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
                         ForEach(substance.effects) { effect in
-                            TagChip(text: effect.rawValue, color: effectColor(for: effect.rawValue))
+                            TagChip(text: effect.rawValue, color: Color.forEffect(effect.rawValue))
                         }
                     }
                 }
@@ -100,6 +101,7 @@ struct SubstanceDetailView: View {
                         .font(.system(.title3, design: .serif, weight: .bold))
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
+                        .accessibilityAddTraits(.isHeader)
                     ForEach(substance.safetyNotes, id: \.self) { note in
                         HStack(alignment: .top, spacing: 8) {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -124,6 +126,7 @@ struct SubstanceDetailView: View {
                                 .font(.system(.title3, design: .serif, weight: .bold))
                                 .foregroundStyle(Color.ttPrimary)
                                 .tracking(0.5)
+                                .accessibilityAddTraits(.isHeader)
                             ForEach(relatedStrains) { strain in
                                 NavigationLink(value: strain) {
                                     StrainCard(strain: strain)
@@ -143,6 +146,7 @@ struct SubstanceDetailView: View {
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.5)
+                            .accessibilityAddTraits(.isHeader)
                         Spacer()
                         RatingStars(rating: substance.averageRating)
                         Text("(\(substance.reviewCount))")
@@ -162,7 +166,7 @@ struct SubstanceDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.teal, .blue.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -195,18 +199,13 @@ struct SubstanceDetailView: View {
                     Button {
                         appState.toggleSavedSubstance(substance.id)
                         Haptics.medium()
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                            bookmarkBounce = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            bookmarkBounce = false
-                        }
                     } label: {
                         Image(systemName: appState.savedSubstanceIDs.contains(substance.id) ? "bookmark.fill" : "bookmark")
                             .foregroundStyle(Color.ttPrimary)
-                            .scaleEffect(bookmarkBounce ? 1.3 : 1.0)
-                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: bookmarkBounce)
+                            .symbolEffect(.bounce, value: appState.savedSubstanceIDs.contains(substance.id))
                     }
+                    .accessibilityLabel(appState.savedSubstanceIDs.contains(substance.id) ? "Remove from saved" : "Save substance")
+                    .accessibilityAddTraits(appState.savedSubstanceIDs.contains(substance.id) ? .isSelected : [])
                 }
             }
         }
@@ -224,26 +223,27 @@ struct SubstanceDetailView: View {
 
     private func jurisdictionColor(_ status: JurisdictionStatus) -> Color {
         switch status {
-        case .legal: return .green
+        case .legal: return Color.ttBody
         case .decriminalized: return Color.ttAccent
-        case .medicalOnly: return .blue
-        case .illegal: return .red
-        case .underReview: return .orange
+        case .medicalOnly: return Color.ttGlow.opacity(0.9)
+        case .illegal: return Color.red.opacity(0.8)
+        case .underReview: return Color.orange.opacity(0.8)
         }
     }
 
-    private func effectColor(for effectName: String) -> Color {
-        let lower = effectName.lowercased()
-        let visualKeywords = ["visual", "color", "geometric", "pattern", "fractal", "hallucin", "distortion", "trails", "synesthesia"]
-        let bodyKeywords = ["body", "tingling", "warmth", "nausea", "energy", "sedat", "relax", "heavy", "light"]
-        let emotionalKeywords = ["euphori", "empathy", "love", "anxiety", "fear", "joy", "bliss", "peace", "connect"]
-        let spiritualKeywords = ["spirit", "transcend", "ego", "mystical", "cosmic", "unity", "dissolv"]
+}
 
-        if visualKeywords.contains(where: { lower.contains($0) }) { return .ttVisual }
-        if bodyKeywords.contains(where: { lower.contains($0) }) { return .ttBody }
-        if emotionalKeywords.contains(where: { lower.contains($0) }) { return .ttEmotional }
-        if spiritualKeywords.contains(where: { lower.contains($0) }) { return .ttSpiritual }
-        return .ttGlow
+private struct SubstanceParallaxIfMotionAllowed: ViewModifier {
+    let reduceMotion: Bool
+
+    func body(content: Content) -> some View {
+        if reduceMotion {
+            content
+        } else {
+            content.visualEffect { c, proxy in
+                c.offset(y: min(0, proxy.frame(in: .scrollView).minY * 0.3))
+            }
+        }
     }
 }
 

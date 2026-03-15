@@ -3,15 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @Environment(AppState.self) private var appState
 
-    init() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-        appearance.backgroundColor = UIColor(white: 0, alpha: 0.45)
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-    }
-
     var body: some View {
         @Bindable var state = appState
         TabView(selection: $state.selectedTab) {
