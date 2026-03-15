@@ -1,6 +1,5 @@
 import Foundation
 import Supabase
-import Auth
 
 @Observable
 @MainActor

@@ -9,8 +9,6 @@ class AppState {
     var strains: [Strain] = MockData.strains
     var tripReports: [TripReport] = MockData.tripReports
 
-    let authService = AuthService()
-
     var savedSubstanceIDs: Set<UUID> = []
     var savedServiceIDs: Set<UUID> = []
     var savedStrainIDs: Set<UUID> = []
@@ -30,17 +28,6 @@ class AppState {
 
     init() {
         loadPersistedData()
-        Task { await loadFromSupabase() }
-    }
-
-    func loadFromSupabase() async {
-        do {
-            let dbStrains = try await StrainRepository().fetchAll()
-            self.strains = dbStrains.map { $0.toStrain() }
-        } catch {
-            print("Supabase fetch failed, using MockData: \(error)")
-            // strains already initialized from MockData
-        }
     }
 
     // Catalog filters
