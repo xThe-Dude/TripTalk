@@ -162,7 +162,7 @@ struct ProfileView: View {
                             Text("Jurisdiction")
                                 .foregroundStyle(Color.ttPrimary)
                             Spacer()
-                            Picker("", selection: $state.selectedJurisdiction) {
+                            Picker("Jurisdiction", selection: $state.selectedJurisdiction) {
                                 ForEach(Jurisdiction.allCases) { j in
                                     Text(j.rawValue).tag(j)
                                 }
@@ -240,6 +240,7 @@ struct ProfileView: View {
                                         .foregroundStyle(Color.ttTertiary)
                                 }
                             }
+                            .accessibilityHint("Double-tap to call 988")
                             Divider().overlay(Color.white.opacity(0.05))
                             Link(destination: URL(string: "tel:6234737433")!) {
                                 HStack {
@@ -259,6 +260,7 @@ struct ProfileView: View {
                                         .foregroundStyle(Color.ttTertiary)
                                 }
                             }
+                            .accessibilityHint("Double-tap to call the Fireside Project psychedelic peer support line")
                         }
                     }
                     .animateIn(delay: 0.4)
@@ -318,6 +320,7 @@ struct ProfileView: View {
                 .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)
+                .accessibilityAddTraits(.isHeader)
             VStack(alignment: .leading, spacing: 4) {
                 content()
             }

@@ -73,6 +73,8 @@ struct ServicesListView: View {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                             .foregroundStyle(Color.ttPrimary)
                     }
+                    .accessibilityLabel("Filter services")
+                    .accessibilityHint("Opens filter options")
                 }
             }
             .sheet(isPresented: $showFilter) {

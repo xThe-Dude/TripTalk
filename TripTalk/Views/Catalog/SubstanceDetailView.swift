@@ -196,6 +196,7 @@ struct SubstanceDetailView: View {
                         Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(Color.ttPrimary)
                     }
+                    .accessibilityLabel("Share \(substance.name)")
                     Button {
                         appState.toggleSavedSubstance(substance.id)
                         Haptics.medium()
@@ -204,7 +205,7 @@ struct SubstanceDetailView: View {
                             .foregroundStyle(Color.ttPrimary)
                             .symbolEffect(.bounce, value: appState.savedSubstanceIDs.contains(substance.id))
                     }
-                    .accessibilityLabel(appState.savedSubstanceIDs.contains(substance.id) ? "Remove from saved" : "Save substance")
+                    .accessibilityLabel(appState.savedSubstanceIDs.contains(substance.id) ? "Remove \(substance.name) from saved" : "Save \(substance.name)")
                     .accessibilityAddTraits(appState.savedSubstanceIDs.contains(substance.id) ? .isSelected : [])
                 }
             }

@@ -138,6 +138,7 @@ struct ServiceDetailView: View {
                         Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(Color.ttPrimary)
                     }
+                    .accessibilityLabel("Share \(service.name)")
                     Button {
                         appState.toggleSavedService(service.id)
                         Haptics.medium()
@@ -146,7 +147,7 @@ struct ServiceDetailView: View {
                             .foregroundStyle(Color.ttPrimary)
                             .symbolEffect(.bounce, value: appState.savedServiceIDs.contains(service.id))
                     }
-                    .accessibilityLabel(appState.savedServiceIDs.contains(service.id) ? "Remove from saved" : "Save service center")
+                    .accessibilityLabel(appState.savedServiceIDs.contains(service.id) ? "Remove \(service.name) from saved" : "Save \(service.name)")
                     .accessibilityAddTraits(appState.savedServiceIDs.contains(service.id) ? .isSelected : [])
                 }
             }

@@ -153,6 +153,7 @@ struct ExploreView: View {
                 .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)
+                .accessibilityAddTraits(.isHeader)
             content()
         }
     }

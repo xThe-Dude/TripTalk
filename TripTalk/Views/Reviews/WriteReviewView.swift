@@ -3,6 +3,7 @@ import SwiftUI
 struct WriteReviewView: View {
     @Environment(AppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var substanceID: UUID? = nil
     var serviceID: UUID? = nil
@@ -131,9 +132,12 @@ struct WriteReviewView: View {
                     .padding(32)
                     .background(.ultraThinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .transition(.scale.combined(with: .opacity))
+                    .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
                 }
-                .animation(.spring(response: 0.4, dampingFraction: 0.7), value: showSuccessOverlay)
+                .animation(
+                    reduceMotion ? .easeInOut(duration: 0.2) : .spring(response: 0.4, dampingFraction: 0.7),
+                    value: showSuccessOverlay
+                )
             }
         }
         .presentationBackground(Color.ttSheetBg.opacity(0.95))

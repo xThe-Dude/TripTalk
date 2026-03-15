@@ -22,6 +22,6 @@ struct TagChip: View {
             .overlay(Capsule().stroke(chipColor.opacity(isSelected ? 0.5 : 0.2), lineWidth: 0.5))
             .shadow(color: isSelected ? chipColor.opacity(0.3) : .clear, radius: 6, y: 0)
             .accessibilityLabel(text)
-            .accessibilityAddTraits(isSelected ? .isSelected : [])
+            .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }

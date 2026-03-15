@@ -32,9 +32,11 @@ struct ReviewsFeedView: View {
                         HStack(spacing: 6) {
                             TagChip(text: "All", isSelected: selectedEffectFilter == nil)
                                 .onTapGesture { Haptics.selection(); selectedEffectFilter = nil }
+                                .accessibilityHint(selectedEffectFilter == nil ? "Double-tap to deselect" : "Double-tap to select")
                             ForEach([EffectTag.spiritualExperience, .introspection, .euphoria, .creativity, .empathy]) { tag in
                                 TagChip(text: tag.rawValue, isSelected: selectedEffectFilter == tag)
                                     .onTapGesture { Haptics.selection(); selectedEffectFilter = tag }
+                                    .accessibilityHint(selectedEffectFilter == tag ? "Double-tap to deselect" : "Double-tap to select")
                             }
                         }
                         .padding(.horizontal)

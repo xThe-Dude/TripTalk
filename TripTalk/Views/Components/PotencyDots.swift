@@ -14,5 +14,7 @@ struct PotencyDots: View {
                     .frame(width: dotSize, height: dotSize)
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Potency: level \(level) of \(maxLevel)")
     }
 }

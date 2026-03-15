@@ -43,6 +43,7 @@ struct HomeView: View {
                                 )
                             )
                             .multilineTextAlignment(.center)
+                            .accessibilityAddTraits(.isHeader)
 
                         Text("Your guide to informed, safer experiences")
                             .font(.subheadline)
@@ -134,6 +135,7 @@ struct HomeView: View {
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.8)
                             .padding(.horizontal)
+                            .accessibilityAddTraits(.isHeader)
 
                         HStack(spacing: 0) {
                             Spacer()
@@ -163,6 +165,7 @@ struct HomeView: View {
                             .font(.system(.title3, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.8)
+                            .accessibilityAddTraits(.isHeader)
                             .padding(.horizontal)
 
                         ForEach(Array(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3).enumerated()), id: \.element.id) { index, report in

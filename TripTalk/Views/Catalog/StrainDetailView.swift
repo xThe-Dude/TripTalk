@@ -181,6 +181,7 @@ struct StrainDetailView: View {
                         Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(Color.ttPrimary)
                     }
+                    .accessibilityLabel("Share \(strain.name)")
                     Button {
                         appState.toggleSavedStrain(strain.id)
                         Haptics.medium()
@@ -189,7 +190,7 @@ struct StrainDetailView: View {
                             .foregroundStyle(Color.ttPrimary)
                             .symbolEffect(.bounce, value: appState.savedStrainIDs.contains(strain.id))
                     }
-                    .accessibilityLabel(appState.savedStrainIDs.contains(strain.id) ? "Remove from saved" : "Save variety")
+                    .accessibilityLabel(appState.savedStrainIDs.contains(strain.id) ? "Remove \(strain.name) from saved" : "Save \(strain.name)")
                     .accessibilityAddTraits(appState.savedStrainIDs.contains(strain.id) ? .isSelected : [])
                 }
             }

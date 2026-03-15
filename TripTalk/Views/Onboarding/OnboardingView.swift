@@ -22,6 +22,7 @@ struct OnboardingView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: geo.size.width)
                                 .clipped()
+                                .accessibilityHidden(true)
                         }
                         .ignoresSafeArea()
 
@@ -32,6 +33,7 @@ struct OnboardingView: View {
                             endPoint: .bottom
                         )
                         .ignoresSafeArea()
+                        .accessibilityHidden(true)
 
                         VStack(spacing: 24) {
                             Spacer()
@@ -58,12 +60,14 @@ struct OnboardingView: View {
                                         )
                                     )
                             }
+                            .accessibilityHidden(true)
 
                             Text(page.title)
                                 .font(.system(.largeTitle, design: .serif, weight: .bold))
                                 .foregroundStyle(Color.ttPrimary)
                                 .tracking(1)
                                 .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
+                                .accessibilityAddTraits(.isHeader)
 
                             Text(page.subtitle)
                                 .font(.body)
@@ -105,6 +109,8 @@ struct OnboardingView: View {
                         }
                     }
                     .tag(index)
+                    .accessibilityElement(children: .contain)
+                    .accessibilityLabel("Page \(index + 1) of \(pages.count): \(page.title). \(page.subtitle)")
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))

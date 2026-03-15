@@ -91,8 +91,17 @@ struct TripReportCard: View {
         }
         .darkGlassCard()
         .contentShape(Rectangle())
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(report.authorName)'s trip report, rated \(report.rating) stars, \(report.setting.rawValue) setting\(report.wouldRepeat ? ", would repeat" : "")")
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityDescription)
+    }
+
+    private var accessibilityDescription: String {
+        var desc = "\(report.authorName)'s trip report"
+        if !strainName.isEmpty { desc += " on \(strainName)" }
+        desc += ", rated \(report.rating) out of 5 stars"
+        desc += ", \(report.setting.rawValue) setting"
+        if report.wouldRepeat { desc += ", would repeat" }
+        return desc
     }
 
     private var shareText: String {

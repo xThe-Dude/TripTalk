@@ -106,6 +106,8 @@ struct CatalogListView: View {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                             .foregroundStyle(Color.ttPrimary)
                     }
+                    .accessibilityLabel("Filter catalog")
+                    .accessibilityHint("Opens filter options")
                 }
             }
             .sheet(isPresented: $showFilter) {

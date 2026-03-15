@@ -6,8 +6,8 @@ extension Color {
     static let ttPrimary = Color(red: 0.95, green: 0.94, blue: 0.91)
     // Secondary text: muted sage
     static let ttSecondary = Color(red: 0.7, green: 0.75, blue: 0.72)
-    // Tertiary text: even more muted for timestamps etc
-    static let ttTertiary = Color(red: 0.5, green: 0.54, blue: 0.52)
+    // Tertiary text: even more muted for timestamps etc (≥4.5:1 on glass card surfaces)
+    static let ttTertiary = Color(red: 0.62, green: 0.66, blue: 0.64)
     // Accent: soft gold/champagne
     static let ttAccent = Color(red: 0.85, green: 0.78, blue: 0.55)
     // Card background
@@ -157,21 +157,26 @@ enum Haptics {
 
 struct ShimmerModifier: ViewModifier {
     @State private var phase: CGFloat = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
             .overlay(
-                LinearGradient(
-                    colors: [.clear, Color.white.opacity(0.08), .clear],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-                .rotationEffect(.degrees(20))
-                .offset(x: phase)
-                .animation(.linear(duration: 1.2).repeatForever(autoreverses: false), value: phase)
+                Group {
+                    if !reduceMotion {
+                        LinearGradient(
+                            colors: [.clear, Color.white.opacity(0.08), .clear],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .rotationEffect(.degrees(20))
+                        .offset(x: phase)
+                        .animation(.linear(duration: 1.2).repeatForever(autoreverses: false), value: phase)
+                    }
+                }
             )
             .clipped()
-            .onAppear { phase = 300 }
+            .onAppear { if !reduceMotion { phase = 300 } }
     }
 }
 
