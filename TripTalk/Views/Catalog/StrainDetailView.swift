@@ -167,7 +167,7 @@ struct StrainDetailView: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, 12)
             }
-            .padding(.bottom, 90)
+            .padding(.bottom, 120)
         }
         .background { GradientBackground() }
         .toolbarBackground(.hidden, for: .navigationBar)
