@@ -47,6 +47,17 @@
 		PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000001PP000001PP000001 /* LaunchScreenView.swift */; };
 		PP000005PP000005PP000005 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000004PP000004PP000004 /* OnboardingView.swift */; };
 		PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000007PP000007PP000007 /* EmptyStateView.swift */; };
+		CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */; };
+		CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB020001CCSB020001CCSB0201 /* AuthService.swift */; };
+		CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */; };
+		CCSB040002CCSB040002CCSB0402 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB040001CCSB040001CCSB0401 /* ReviewRepository.swift */; };
+		CCSB050002CCSB050002CCSB0502 /* TripReportRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB050001CCSB050001CCSB0501 /* TripReportRepository.swift */; };
+		CCSB060002CCSB060002CCSB0602 /* ServiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB060001CCSB060001CCSB0601 /* ServiceRepository.swift */; };
+		CCSB070002CCSB070002CCSB0702 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB070001CCSB070001CCSB0701 /* BookmarkRepository.swift */; };
+		CCSB080002CCSB080002CCSB0802 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB080001CCSB080001CCSB0801 /* StorageService.swift */; };
+		CCSB090002CCSB090002CCSB0902 /* CrisisTapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */; };
+		CCSB100002CCSB100002CCSB1002 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB100001CCSB100001CCSB1001 /* SignInView.swift */; };
+		CCSB110002CCSB110002CCSB1102 /* DBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB110001CCSB110001CCSB1101 /* DBModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +104,17 @@
 		PP000001PP000001PP000001 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		PP000004PP000004PP000004 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		PP000007PP000007PP000007 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
+		CCSB020001CCSB020001CCSB0201 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainRepository.swift; sourceTree = "<group>"; };
+		CCSB040001CCSB040001CCSB0401 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
+		CCSB050001CCSB050001CCSB0501 /* TripReportRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReportRepository.swift; sourceTree = "<group>"; };
+		CCSB060001CCSB060001CCSB0601 /* ServiceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRepository.swift; sourceTree = "<group>"; };
+		CCSB070001CCSB070001CCSB0701 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
+		CCSB080001CCSB080001CCSB0801 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrisisTapService.swift; sourceTree = "<group>"; };
+		CCSB100001CCSB100001CCSB1001 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		CCSB110001CCSB110001CCSB1101 /* DBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,18 +128,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-			isa = PBXGroup;
-			children = (
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
+
 		0BF182184A1247798123C383 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +197,7 @@
 				CC8BB7C5881747B49C6DD390 /* ViewModels */,
 				792A90C4BCFE455FAB7AFB51 /* Views */,
 				7C4F223D5C0D461B82424664 /* Assets.xcassets */,
+				CCSVCGRP001CCSVGRP001CCSV /* Services */,
 			);
 			path = TripTalk;
 			sourceTree = "<group>";
@@ -203,6 +215,7 @@
 				6779E0522B564559B7BBEE13 /* Profile */,
 				1FE7B6DB9D1746059F19182E /* Reviews */,
 				20089FF7C568410B9E5F92D4 /* Services */,
+				CCAUTGRP001CCAUTGRP001CCAU /* Auth */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +253,7 @@
 				0D9BEAB8136B438A92F6655A /* Substance.swift */,
 				AA000001AAAA4001AAAA0011 /* Strain.swift */,
 				AA000001AAAA4001AAAA0012 /* TripReport.swift */,
+				CCSB110001CCSB110001CCSB1101 /* DBModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,6 +307,30 @@
 				PP000004PP000004PP000004 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		CCSVCGRP001CCSVGRP001CCSV /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */,
+				CCSB020001CCSB020001CCSB0201 /* AuthService.swift */,
+				CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */,
+				CCSB040001CCSB040001CCSB0401 /* ReviewRepository.swift */,
+				CCSB050001CCSB050001CCSB0501 /* TripReportRepository.swift */,
+				CCSB060001CCSB060001CCSB0601 /* ServiceRepository.swift */,
+				CCSB070001CCSB070001CCSB0701 /* BookmarkRepository.swift */,
+				CCSB080001CCSB080001CCSB0801 /* StorageService.swift */,
+				CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CCAUTGRP001CCAUTGRP001CCAU /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CCSB100001CCSB100001CCSB1001 /* SignInView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +435,17 @@
 				PP000005PP000005PP000005 /* OnboardingView.swift in Sources */,
 				PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */,
 				PD000002PD000002PD000002 /* PotencyDots.swift in Sources */,
+				CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */,
+				CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */,
+				CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */,
+				CCSB040002CCSB040002CCSB0402 /* ReviewRepository.swift in Sources */,
+				CCSB050002CCSB050002CCSB0502 /* TripReportRepository.swift in Sources */,
+				CCSB060002CCSB060002CCSB0602 /* ServiceRepository.swift in Sources */,
+				CCSB070002CCSB070002CCSB0702 /* BookmarkRepository.swift in Sources */,
+				CCSB080002CCSB080002CCSB0802 /* StorageService.swift in Sources */,
+				CCSB090002CCSB090002CCSB0902 /* CrisisTapService.swift in Sources */,
+				CCSB100002CCSB100002CCSB1002 /* SignInView.swift in Sources */,
+				CCSB110002CCSB110002CCSB1102 /* DBModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
