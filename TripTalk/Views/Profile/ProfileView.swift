@@ -30,12 +30,18 @@ struct ProfileView: View {
                     }
 
                     VStack(spacing: 4) {
-                        Text("Explorer")
+                        Text(appState.auth.profile?.displayName ?? "Explorer")
                             .font(.system(.title2, design: .serif, weight: .bold))
                             .foregroundStyle(Color.ttPrimary)
-                        Text("Fort Collins, CO")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.ttSecondary)
+                        if let bio = appState.auth.profile?.bio, !bio.isEmpty {
+                            Text(bio)
+                                .font(.subheadline)
+                                .foregroundStyle(Color.ttSecondary)
+                        } else {
+                            Text(appState.auth.isAuthenticated ? "Signed In" : "Guest Mode")
+                                .font(.subheadline)
+                                .foregroundStyle(Color.ttSecondary)
+                        }
                     }
                     .animateIn(delay: 0.1)
 
@@ -277,6 +283,37 @@ struct ProfileView: View {
                         .padding(.vertical, 2)
                     }
                     .animateIn(delay: 0.4)
+
+                    // Account
+                    if appState.auth.isAuthenticated {
+                        Button {
+                            Task { await appState.auth.signOut() }
+                        } label: {
+                            Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                                .font(.subheadline)
+                                .foregroundStyle(.orange)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.orange.opacity(0.1))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.orange.opacity(0.3), lineWidth: 0.5))
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        Button {
+                            UserDefaults.standard.set(false, forKey: "guest_mode")
+                        } label: {
+                            Label("Sign In to Sync Data", systemImage: "person.badge.plus")
+                                .font(.subheadline)
+                                .foregroundStyle(.teal)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.teal.opacity(0.1))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.teal.opacity(0.3), lineWidth: 0.5))
+                        }
+                        .padding(.horizontal)
+                    }
 
                     // Reset
                     Button(role: .destructive) {

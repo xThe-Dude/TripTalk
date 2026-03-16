@@ -18,6 +18,11 @@ class AppState {
     var selectedJurisdiction: Jurisdiction = .colorado
     var selectedTab: Int = 0
 
+    // MARK: - Supabase
+    let auth = AuthService()
+    var isLoadingFromServer = false
+    var serverError: String?
+
     // MARK: - Persistence Keys
     private let savedStrainIDsKey = "savedStrainIDs"
     private let savedSubstanceIDsKey = "savedSubstanceIDs"
@@ -28,6 +33,62 @@ class AppState {
 
     init() {
         loadPersistedData()
+        Task {
+            await auth.restoreSession()
+            await loadFromSupabase()
+        }
+    }
+
+    // MARK: - Supabase Data Loading
+
+    func loadFromSupabase() async {
+        isLoadingFromServer = true
+        serverError = nil
+
+        // Try loading strains from server
+        do {
+            let serverStrains = try await StrainRepository().fetchAll()
+            if !serverStrains.isEmpty {
+                strains = serverStrains
+            }
+        } catch {
+            // Keep MockData — silent fallback
+        }
+
+        // Try loading services
+        do {
+            let serverServices = try await ServiceRepository().fetchAll()
+            if !serverServices.isEmpty {
+                services = serverServices
+            }
+        } catch {
+            // Keep MockData
+        }
+
+        // Try loading reviews
+        do {
+            let serverReviews = try await ReviewRepository().fetchAll()
+            if !serverReviews.isEmpty {
+                // Merge: server reviews + local user reviews
+                let serverIds = Set(serverReviews.map(\.id))
+                let localOnly = userReviews.filter { !serverIds.contains($0.id) }
+                reviews = serverReviews + localOnly
+            }
+        } catch {
+            // Keep MockData + local reviews
+        }
+
+        // Load bookmarks if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            do {
+                let serverBookmarks = try await BookmarkRepository().fetchAll(userId: uid)
+                savedStrainIDs = serverBookmarks
+            } catch {
+                // Keep local bookmarks
+            }
+        }
+
+        isLoadingFromServer = false
     }
 
     // Catalog filters
@@ -99,6 +160,21 @@ class AppState {
         if savedStrainIDs.contains(id) { savedStrainIDs.remove(id) }
         else { savedStrainIDs.insert(id) }
         saveStrainIDs()
+
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            Task {
+                do {
+                    if savedStrainIDs.contains(id) {
+                        try await BookmarkRepository().add(userId: uid, strainId: id)
+                    } else {
+                        try await BookmarkRepository().remove(userId: uid, strainId: id)
+                    }
+                } catch {
+                    // Local state already updated — server sync failed silently
+                }
+            }
+        }
     }
 
     func reviewsFor(substance id: UUID) -> [Review] {
@@ -132,12 +208,58 @@ class AppState {
         reviews.insert(review, at: 0)
         userReviews.insert(review, at: 0)
         saveReviews()
+
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            Task {
+                do {
+                    let insert = ReviewInsert(
+                        authorId: uid,
+                        strainId: review.substanceID,
+                        serviceId: review.serviceID,
+                        rating: review.rating,
+                        title: review.title,
+                        body: review.body,
+                        tags: review.tags.map(\.rawValue)
+                    )
+                    try await ReviewRepository().create(insert)
+                } catch {
+                    // Saved locally, server sync failed
+                }
+            }
+        }
     }
 
     func addTripReport(_ report: TripReport) {
         tripReports.insert(report, at: 0)
         userTripReports.insert(report, at: 0)
         saveTripReports()
+
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            Task {
+                do {
+                    let insert = TripReportInsert(
+                        authorId: uid,
+                        strainId: report.strainId,
+                        rating: report.rating,
+                        setting: report.setting.rawValue.lowercased(),
+                        intention: report.intention.isEmpty ? nil : report.intention,
+                        experienceTypes: report.experienceTypes.map(\.rawValue),
+                        visualIntensity: report.visualIntensity,
+                        bodyIntensity: report.bodyIntensity,
+                        emotionalIntensity: report.emotionalIntensity,
+                        moods: report.moods.map(\.rawValue),
+                        highlights: report.highlights,
+                        safetyNotes: report.safetyNotes.isEmpty ? nil : report.safetyNotes,
+                        wouldRepeat: report.wouldRepeat
+                    )
+                    try await TripReportRepository().create(insert)
+                } catch {
+                    // Saved locally, server sync failed
+                }
+            }
+        }
     }
 
     func updateJurisdiction(_ jurisdiction: Jurisdiction) {
@@ -149,11 +271,32 @@ class AppState {
         if let idx = reviews.firstIndex(where: { $0.id == reviewID }) {
             reviews[idx].helpfulCount += 1
         }
+
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated {
+            Task {
+                try? await ReviewRepository().markHelpful(reviewID)
+            }
+        }
     }
 
     func reportReview(_ reviewID: UUID) {
         if let idx = reviews.firstIndex(where: { $0.id == reviewID }) {
             reviews[idx].isReported = true
+        }
+
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            Task {
+                let insert = ContentReportInsert(
+                    reporterId: uid,
+                    reviewId: reviewID,
+                    tripReportId: nil,
+                    reason: "other",
+                    details: nil
+                )
+                let _ = try? await SupabaseClient.shared.post("content_reports", body: insert)
+            }
         }
     }
 

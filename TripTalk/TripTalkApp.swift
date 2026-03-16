@@ -4,6 +4,7 @@ import SwiftUI
 struct TripTalkApp: App {
     @AppStorage("ageVerified") private var ageVerified = false
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @AppStorage("guest_mode") private var guestMode = false
     @State private var appState = AppState()
     @State private var showLaunch = true
     @State private var showOnboarding: Bool?
@@ -21,8 +22,20 @@ struct TripTalkApp: App {
         WindowGroup {
             ZStack {
                 if ageVerified {
-                    ContentView()
+                    if !appState.auth.isAuthenticated && !guestMode {
+                        SignInView(
+                            onContinueAsGuest: {
+                                guestMode = true
+                            },
+                            onSignedIn: {
+                                // Auth state already set — view will update
+                            }
+                        )
                         .environment(appState)
+                    } else {
+                        ContentView()
+                            .environment(appState)
+                    }
                 } else if showOnboarding == false {
                     AgeGateView()
                 } else if showOnboarding == true {
