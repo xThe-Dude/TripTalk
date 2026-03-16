@@ -13,9 +13,9 @@ struct Strain: Identifiable, Hashable {
     let onset: String
     let duration: String
     let difficulty: Difficulty
-    let averageRating: Double
-    let reviewCount: Int
-    let communityPhotoCount: Int
+    var averageRating: Double
+    var reviewCount: Int
+    var communityPhotoCount: Int
 
     var heroImageName: String {
         switch name {

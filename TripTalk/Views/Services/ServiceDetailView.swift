@@ -125,6 +125,7 @@ struct ServiceDetailView: View {
                 .padding(.horizontal)
             }
             .padding(.vertical)
+            .padding(.bottom, 70)
         }
         .background { GradientBackground() }
         .toolbarBackground(.hidden, for: .navigationBar)

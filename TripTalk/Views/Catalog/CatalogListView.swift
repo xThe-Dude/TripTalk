@@ -73,7 +73,7 @@ struct CatalogListView: View {
                                             .foregroundStyle(.white)
                                     }
                                     .padding(.horizontal, 14)
-                                    .padding(.bottom, 10)
+                                    .padding(.bottom, 90)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 14))
                                 .padding(.horizontal)

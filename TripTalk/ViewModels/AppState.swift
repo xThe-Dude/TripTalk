@@ -33,6 +33,7 @@ class AppState {
 
     init() {
         loadPersistedData()
+        recomputeStrainStats()
         Task {
             await auth.restoreSession()
             await loadFromSupabase()
@@ -89,6 +90,21 @@ class AppState {
         }
 
         isLoadingFromServer = false
+        recomputeStrainStats()
+    }
+
+    /// Recompute averageRating and reviewCount from local trip reports
+    private func recomputeStrainStats() {
+        for i in strains.indices {
+            let strainId = strains[i].id
+            let reports = tripReports.filter { $0.strainId == strainId }
+            let strainReviews = reviews.filter { $0.substanceID == strainId }
+            let allRatings = reports.map(\.rating) + strainReviews.map(\.rating)
+            if !allRatings.isEmpty {
+                strains[i].averageRating = Double(allRatings.reduce(0, +)) / Double(allRatings.count)
+                strains[i].reviewCount = allRatings.count
+            }
+        }
     }
 
     // Catalog filters
