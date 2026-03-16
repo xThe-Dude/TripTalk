@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		077260E92F68624A006FF800 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E02F68624A006FF800 /* BookmarkRepository.swift */; };
-		077260EA2F68624A006FF800 /* TripReportRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E72F68624A006FF800 /* TripReportRepository.swift */; };
-		077260EB2F68624A006FF800 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260DF2F68624A006FF800 /* AuthService.swift */; };
-		077260EC2F68624A006FF800 /* CrisisTapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E12F68624A006FF800 /* CrisisTapService.swift */; };
-		077260ED2F68624A006FF800 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E42F68624A006FF800 /* StorageService.swift */; };
-		077260EE2F68624A006FF800 /* StrainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E52F68624A006FF800 /* StrainRepository.swift */; };
-		077260EF2F68624A006FF800 /* ServiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E32F68624A006FF800 /* ServiceRepository.swift */; };
-		077260F02F68624A006FF800 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E22F68624A006FF800 /* ReviewRepository.swift */; };
-		077260F12F68624A006FF800 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260E62F68624A006FF800 /* SupabaseClient.swift */; };
-		077260F42F68626F006FF800 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260F22F68626F006FF800 /* SignInView.swift */; };
-		077260F62F68628C006FF800 /* DBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077260F52F68628C006FF800 /* DBModels.swift */; };
 		078D759B2F673FA4000DCE81 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 078D759A2F673FA4000DCE81 /* PrivacyInfo.xcprivacy */; };
 		0A71A294D6C44CC58B7BE30F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F3659A67AC4DEE9FB804B5 /* Review.swift */; };
 		0EA565B5D84E4766B608810F /* ServiceCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */; };
@@ -61,17 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		077260DF2F68624A006FF800 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		077260E02F68624A006FF800 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
-		077260E12F68624A006FF800 /* CrisisTapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrisisTapService.swift; sourceTree = "<group>"; };
-		077260E22F68624A006FF800 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
-		077260E32F68624A006FF800 /* ServiceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRepository.swift; sourceTree = "<group>"; };
-		077260E42F68624A006FF800 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		077260E52F68624A006FF800 /* StrainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainRepository.swift; sourceTree = "<group>"; };
-		077260E62F68624A006FF800 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
-		077260E72F68624A006FF800 /* TripReportRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReportRepository.swift; sourceTree = "<group>"; };
-		077260F22F68626F006FF800 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		077260F52F68628C006FF800 /* DBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModels.swift; sourceTree = "<group>"; };
 		077260F72F6862B5006FF800 /* TripTalkRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TripTalkRelease.entitlements; sourceTree = "<group>"; };
 		077260F82F6862BE006FF800 /* TripTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TripTalk.entitlements; sourceTree = "<group>"; };
 		078D759A2F673FA4000DCE81 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -128,26 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		077260E82F68624A006FF800 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				077260DF2F68624A006FF800 /* AuthService.swift */,
-				077260E02F68624A006FF800 /* BookmarkRepository.swift */,
-				077260E12F68624A006FF800 /* CrisisTapService.swift */,
-				077260E22F68624A006FF800 /* ReviewRepository.swift */,
-				077260E32F68624A006FF800 /* ServiceRepository.swift */,
-				077260E42F68624A006FF800 /* StorageService.swift */,
-				077260E52F68624A006FF800 /* StrainRepository.swift */,
-				077260E62F68624A006FF800 /* SupabaseClient.swift */,
-				077260E72F68624A006FF800 /* TripReportRepository.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		077260F32F68626F006FF800 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				077260F22F68626F006FF800 /* SignInView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -300,9 +266,6 @@
 		E6DF1D07AA6F494FA6BF210B = {
 			isa = PBXGroup;
 			children = (
-				077260F52F68628C006FF800 /* DBModels.swift */,
-				077260F32F68626F006FF800 /* Auth */,
-				077260E82F68624A006FF800 /* Services */,
 				6B0DF16D691940369258BA47 /* TripTalk */,
 				89DEB0DDA9A04789A8815F52 /* Products */,
 			);
@@ -416,18 +379,7 @@
 				AA111111111111111111AAA1 /* GradientBackground.swift in Sources */,
 				AA333333333333333333AAA3 /* ThemedCard.swift in Sources */,
 				BB111111111111111111BBB1 /* ThemeColors.swift in Sources */,
-				077260E92F68624A006FF800 /* BookmarkRepository.swift in Sources */,
-				077260EA2F68624A006FF800 /* TripReportRepository.swift in Sources */,
-				077260EB2F68624A006FF800 /* AuthService.swift in Sources */,
-				077260EC2F68624A006FF800 /* CrisisTapService.swift in Sources */,
-				077260ED2F68624A006FF800 /* StorageService.swift in Sources */,
-				077260EE2F68624A006FF800 /* StrainRepository.swift in Sources */,
-				077260F62F68628C006FF800 /* DBModels.swift in Sources */,
-				077260EF2F68624A006FF800 /* ServiceRepository.swift in Sources */,
-				077260F02F68624A006FF800 /* ReviewRepository.swift in Sources */,
-				077260F12F68624A006FF800 /* SupabaseClient.swift in Sources */,
 				C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */,
-				077260F42F68626F006FF800 /* SignInView.swift in Sources */,
 				EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */,
 				55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */,
 				3DF18703F6F84B40BD999F38 /* WriteReviewView.swift in Sources */,
