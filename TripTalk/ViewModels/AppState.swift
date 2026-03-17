@@ -17,6 +17,9 @@ class AppState {
 
     var selectedJurisdiction: Jurisdiction = .colorado
     var selectedTab: Int = 0
+    var deepLinkStrainId: UUID?
+    var deepLinkServiceId: UUID?
+    var showCrisisSheet: Bool = false
 
     // MARK: - Supabase
     let auth = AuthService()

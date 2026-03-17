@@ -52,6 +52,25 @@ struct TripTalkApp: App {
                 }
             }
             .preferredColorScheme(.dark)
+            .onOpenURL { url in
+                guard ageVerified, appState.auth.isAuthenticated || guestMode else { return }
+                if let destination = DeepLinkHandler.parse(url) {
+                    switch destination {
+                    case .strain(let id):
+                        appState.selectedTab = 2 // Catalog
+                        appState.deepLinkStrainId = id
+                    case .service(let id):
+                        appState.selectedTab = 4 // Services
+                        appState.deepLinkServiceId = id
+                    case .crisis:
+                        appState.showCrisisSheet = true
+                    case .home:
+                        appState.selectedTab = 0
+                    case .substance:
+                        break // Not wired to navigation yet
+                    }
+                }
+            }
             .onAppear {
                 showOnboarding = !hasSeenOnboarding
                 Task {

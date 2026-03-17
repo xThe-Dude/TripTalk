@@ -55,6 +55,7 @@
 		CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */; };
 		4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */; };
 		3433713D463145ED8DACECA5 /* BlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03744768D048F39DC266BB /* BlockService.swift */; };
+		CD91FEF735B44825AD55BC84 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A803DE37764949B9B8B3D4 /* DeepLinkHandler.swift */; };
 		8B443F68B19144489E77AC04 /* DataExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB2CA05FE134B878ED56591 /* DataExportService.swift */; };
 		CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB020001CCSB020001CCSB0201 /* AuthService.swift */; };
 		CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */; };
@@ -120,6 +121,7 @@
 		CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFilter.swift; sourceTree = "<group>"; };
 		9A03744768D048F39DC266BB /* BlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockService.swift; sourceTree = "<group>"; };
+		B7A803DE37764949B9B8B3D4 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		DCB2CA05FE134B878ED56591 /* DataExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExportService.swift; sourceTree = "<group>"; };
 		CCSB020001CCSB020001CCSB0201 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainRepository.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */,
 				4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */,
 				9A03744768D048F39DC266BB /* BlockService.swift */,
+				B7A803DE37764949B9B8B3D4 /* DeepLinkHandler.swift */,
 				DCB2CA05FE134B878ED56591 /* DataExportService.swift */,
 				CCSB020001CCSB020001CCSB0201 /* AuthService.swift */,
 				CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */,
@@ -467,6 +470,7 @@
 				CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */,
 				4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */,
 				3433713D463145ED8DACECA5 /* BlockService.swift in Sources */,
+				CD91FEF735B44825AD55BC84 /* DeepLinkHandler.swift in Sources */,
 				8B443F68B19144489E77AC04 /* DataExportService.swift in Sources */,
 				CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */,
 				CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */,
@@ -545,6 +549,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TripTalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TripTalk;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
@@ -623,6 +628,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TripTalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TripTalk;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
