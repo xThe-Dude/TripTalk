@@ -196,8 +196,10 @@ final class SupabaseClient: Sendable {
     private func checkResponse(_ response: URLResponse, _ data: Data) throws {
         guard let http = response as? HTTPURLResponse else { return }
         guard (200...299).contains(http.statusCode) else {
-            let body = String(data: data, encoding: .utf8) ?? "no body"
-            throw SupabaseError.httpError(http.statusCode, body)
+            let raw = String(data: data, encoding: .utf8) ?? "no body"
+            // Sanitize: truncate and strip potential PII from error responses
+            let sanitized = String(raw.prefix(200))
+            throw SupabaseError.httpError(http.statusCode, sanitized)
         }
     }
 }

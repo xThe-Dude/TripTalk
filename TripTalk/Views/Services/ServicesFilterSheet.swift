@@ -47,6 +47,7 @@ struct ServicesFilterSheet: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Reset") {
                         appState.servicesOfferingFilter = nil
+                        appState.selectedJurisdiction = .colorado
                     }
                     .foregroundStyle(Color.ttAccent)
                 }
