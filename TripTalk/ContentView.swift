@@ -39,5 +39,10 @@ struct ContentView: View {
         }
         .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
         .tint(Color.ttAccent)
+        .overlay(alignment: .bottomTrailing) {
+            CrisisButton()
+                .padding(.trailing, 16)
+                .padding(.bottom, 90)
+        }
     }
 }

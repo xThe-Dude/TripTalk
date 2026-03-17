@@ -47,6 +47,7 @@
 		PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000001PP000001PP000001 /* LaunchScreenView.swift */; };
 		PP000005PP000005PP000005 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000004PP000004PP000004 /* OnboardingView.swift */; };
 		PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000007PP000007PP000007 /* EmptyStateView.swift */; };
+		4FC3E81FC9660F4C8F853E5D /* CrisisButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */; };
 		CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */; };
 		4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */; };
 		CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB020001CCSB020001CCSB0201 /* AuthService.swift */; };
@@ -105,6 +106,7 @@
 		PP000001PP000001PP000001 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		PP000004PP000004PP000004 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		PP000007PP000007PP000007 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrisisButton.swift; sourceTree = "<group>"; };
 		CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFilter.swift; sourceTree = "<group>"; };
 		CCSB020001CCSB020001CCSB0201 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				AA000001AAAA4001AAAA0013 /* StrainCard.swift */,
 				AA000001AAAA4001AAAA0014 /* TripReportCard.swift */,
 				PP000007PP000007PP000007 /* EmptyStateView.swift */,
+				4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */,
 				PD000001PD000001PD000001 /* PotencyDots.swift */,
 			);
 			path = Components;
@@ -437,6 +440,7 @@
 				PP000002PP000002PP000002 /* LaunchScreenView.swift in Sources */,
 				PP000005PP000005PP000005 /* OnboardingView.swift in Sources */,
 				PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */,
+				4FC3E81FC9660F4C8F853E5D /* CrisisButton.swift in Sources */,
 				PD000002PD000002PD000002 /* PotencyDots.swift in Sources */,
 				CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */,
 				4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */,
