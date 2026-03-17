@@ -5,6 +5,8 @@ struct ProfileView: View {
     @State private var showDeleteConfirm = false
     @State private var isDeletingAccount = false
     @State private var showEditProfile = false
+    @State private var showExportShare = false
+    @State private var exportURL: URL?
 
     var body: some View {
         @Bindable var state = appState
@@ -196,8 +198,33 @@ struct ProfileView: View {
                                 appState.updateJurisdiction(appState.selectedJurisdiction)
                             }
                         }
+                        Button {
+                            if let data = DataExportService.exportUserData(from: appState) {
+                                let url = DataExportService.exportFileURL()
+                                try? data.write(to: url)
+                                exportURL = url
+                                showExportShare = true
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundStyle(Color.ttGlow)
+                                Text("Export My Data")
+                                    .foregroundStyle(Color.ttPrimary)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption2)
+                                    .foregroundStyle(Color.ttSecondary)
+                            }
+                            .padding(.vertical, 2)
+                        }
                     }
                     .animateIn(delay: 0.4)
+                    .sheet(isPresented: $showExportShare) {
+                        if let url = exportURL {
+                            ShareSheet(items: [url])
+                        }
+                    }
 
                     // Links
                     profileSection("Info") {
