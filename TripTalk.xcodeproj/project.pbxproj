@@ -40,6 +40,7 @@
 		D8756BFEDA294F8482039729 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D86B056EF1F4E73A8E47A52 /* AppState.swift */; };
 		E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39887C56594152B9946131 /* ServiceDetailView.swift */; };
 		EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */; };
+		5B3A28168F07DA49E39B61D7 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA6074650E2F04A4FAFFC76 /* EditProfileView.swift */; };
 		F19832AD45184A23919CE563 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64219E045F345F688B6A83F /* ContentView.swift */; };
 		FC15101A35CE4280B1509348 /* TripTalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81D19EA050647A789E5A906 /* TripTalkApp.swift */; };
 		HH000001HHHH4001HHHH0001 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = HH000001HHHH4001HHHH0011 /* HomeView.swift */; };
@@ -80,6 +81,7 @@
 		820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCenter.swift; sourceTree = "<group>"; };
 		8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsFeedView.swift; sourceTree = "<group>"; };
 		A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5AA6074650E2F04A4FAFFC76 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0011 /* Strain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strain.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0012 /* TripReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReport.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0013 /* StrainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainCard.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */,
+				5AA6074650E2F04A4FAFFC76 /* EditProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				BB111111111111111111BBB1 /* ThemeColors.swift in Sources */,
 				C33422FE575A4917AFD1AF91 /* ExploreView.swift in Sources */,
 				EC618ED68E484E6C9F990005 /* ProfileView.swift in Sources */,
+				5B3A28168F07DA49E39B61D7 /* EditProfileView.swift in Sources */,
 				55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */,
 				3DF18703F6F84B40BD999F38 /* WriteReviewView.swift in Sources */,
 				E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */,

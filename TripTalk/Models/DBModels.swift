@@ -4,10 +4,10 @@ import Foundation
 
 struct DBProfile: Codable {
     let id: UUID
-    let displayName: String
+    var displayName: String
     let avatarUrl: String?
-    let bio: String?
-    let experienceLevel: String?
+    var bio: String?
+    var experienceLevel: String?
     let joinedAt: Date
     let isBanned: Bool
     let reportCount: Int

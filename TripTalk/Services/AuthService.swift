@@ -73,6 +73,18 @@ class AuthService {
     var userId: UUID?
     var profile: DBProfile?
     var isAuthenticated: Bool { accessToken != nil && userId != nil }
+    var displayName: String? {
+        get { profile?.displayName }
+        set { profile?.displayName = newValue ?? "Anonymous" }
+    }
+    var bio: String? {
+        get { profile?.bio }
+        set { profile?.bio = newValue }
+    }
+    var experienceLevel: String? {
+        get { profile?.experienceLevel }
+        set { profile?.experienceLevel = newValue }
+    }
     var authError: String?
 
     private let client = SupabaseClient.shared

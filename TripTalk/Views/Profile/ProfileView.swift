@@ -4,6 +4,7 @@ struct ProfileView: View {
     @Environment(AppState.self) private var appState
     @State private var showDeleteConfirm = false
     @State private var isDeletingAccount = false
+    @State private var showEditProfile = false
 
     var body: some View {
         @Bindable var state = appState
@@ -46,6 +47,21 @@ struct ProfileView: View {
                         }
                     }
                     .animateIn(delay: 0.1)
+
+                    if appState.auth.isAuthenticated {
+                        Button {
+                            showEditProfile = true
+                        } label: {
+                            Label("Edit Profile", systemImage: "pencil")
+                                .font(.subheadline.weight(.medium))
+                                .foregroundStyle(Color.ttAccent)
+                        }
+                        .padding(.top, 4)
+                        .sheet(isPresented: $showEditProfile) {
+                            EditProfileView()
+                                .environment(appState)
+                        }
+                    }
 
                     // Saved Strains
                     profileSection("Saved Varieties") {
