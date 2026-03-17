@@ -110,12 +110,12 @@ struct ExploreView: View {
                             ForEach(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(4)) { report in
                                 if let strain = appState.strains.first(where: { $0.id == report.strainId }) {
                                     NavigationLink(value: strain) {
-                                        TripReportCard(report: report, strainName: strain.name)
+                                        TripReportCard(report: report, strainName: strain.name, onReport: { reason in appState.reportTripReport(report.id, reason: reason) })
                                     }
                                     .buttonStyle(.plain)
                                     .padding(.horizontal)
                                 } else {
-                                    TripReportCard(report: report, strainName: "")
+                                    TripReportCard(report: report, strainName: "", onReport: { reason in appState.reportTripReport(report.id, reason: reason) })
                                         .padding(.horizontal)
                                 }
                             }

@@ -171,13 +171,13 @@ struct HomeView: View {
                         ForEach(Array(appState.tripReports.sorted(by: { $0.date > $1.date }).prefix(3).enumerated()), id: \.element.id) { index, report in
                             if let strain = appState.strains.first(where: { $0.id == report.strainId }) {
                                 NavigationLink(value: strain) {
-                                    TripReportCard(report: report, strainName: strain.name)
+                                    TripReportCard(report: report, strainName: strain.name, onReport: { reason in appState.reportTripReport(report.id, reason: reason) })
                                 }
                                 .buttonStyle(.plain)
                                 .padding(.horizontal)
                                 .animateIn(delay: 0.3 + Double(index) * 0.05)
                             } else {
-                                TripReportCard(report: report, strainName: "")
+                                TripReportCard(report: report, strainName: "", onReport: { reason in appState.reportTripReport(report.id, reason: reason) })
                                     .padding(.horizontal)
                                     .animateIn(delay: 0.3 + Double(index) * 0.05)
                             }

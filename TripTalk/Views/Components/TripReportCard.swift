@@ -3,6 +3,10 @@ import SwiftUI
 struct TripReportCard: View {
     let report: TripReport
     var strainName: String = ""
+    var onReport: ((String) -> Void)? = nil
+
+    @State private var showReportSheet = false
+    @State private var showReportConfirmation = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -80,6 +84,14 @@ struct TripReportCard: View {
 
                     Spacer()
 
+                    Button {
+                        showReportSheet = true
+                    } label: {
+                        Label("Flag", systemImage: "flag")
+                            .font(.caption)
+                            .foregroundStyle(onReport != nil ? Color.orange.opacity(0.7) : Color.ttSecondary)
+                    }
+
                     ShareLink(item: shareText) {
                         Label("Share", systemImage: "square.and.arrow.up")
                             .font(.caption)
@@ -93,6 +105,25 @@ struct TripReportCard: View {
         .contentShape(Rectangle())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityDescription)
+        .confirmationDialog("Why are you reporting this?", isPresented: $showReportSheet, titleVisibility: .visible) {
+            Button("Spam") { submitReport("Spam") }
+            Button("Harassment / Abusive") { submitReport("Harassment / Abusive") }
+            Button("Dangerous Advice") { submitReport("Dangerous Advice") }
+            Button("Sourcing / Illegal") { submitReport("Sourcing / Illegal") }
+            Button("Misinformation") { submitReport("Misinformation") }
+            Button("Other") { submitReport("Other") }
+            Button("Cancel", role: .cancel) {}
+        }
+        .alert("Report Submitted", isPresented: $showReportConfirmation) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Report submitted. Thank you.")
+        }
+    }
+
+    private func submitReport(_ reason: String) {
+        onReport?(reason)
+        showReportConfirmation = true
     }
 
     private var accessibilityDescription: String {

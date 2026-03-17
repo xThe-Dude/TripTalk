@@ -1,5 +1,43 @@
 import Foundation
+import Security
 import AuthenticationServices
+
+// MARK: - Keychain Helper
+
+struct KeychainStore {
+    static func save(key: String, value: String) {
+        let data = Data(value.utf8)
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key,
+            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            kSecValueData: data
+        ]
+        SecItemDelete(query as CFDictionary)
+        SecItemAdd(query as CFDictionary, nil)
+    }
+
+    static func read(key: String) -> String? {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecReturnData: kCFBooleanTrue as Any
+        ]
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        guard status == errSecSuccess, let data = result as? Data else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    static func delete(key: String) {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key
+        ]
+        SecItemDelete(query as CFDictionary)
+    }
+}
 
 // MARK: - Auth Response Types
 
@@ -43,15 +81,14 @@ class AuthService {
     private let userIdKey = "supabase_user_id"
 
     func restoreSession() async {
-        guard let storedToken = UserDefaults.standard.string(forKey: accessTokenKey),
-              let storedRefresh = UserDefaults.standard.string(forKey: refreshTokenKey),
-              let storedUserId = UserDefaults.standard.string(forKey: userIdKey),
+        guard let storedToken = KeychainStore.read(key: accessTokenKey),
+              let storedRefresh = KeychainStore.read(key: refreshTokenKey),
+              let storedUserId = KeychainStore.read(key: userIdKey),
               let uid = UUID(uuidString: storedUserId) else { return }
 
         accessToken = storedToken
         refreshToken = storedRefresh
         userId = uid
-        syncTokenToClient()
 
         // Validate token by fetching user
         do {
@@ -119,6 +156,22 @@ class AuthService {
         clearSession()
     }
 
+    // SQL to deploy before calling this function:
+    //
+    // CREATE OR REPLACE FUNCTION delete_own_account()
+    // RETURNS void LANGUAGE plpgsql SECURITY DEFINER AS $$
+    // BEGIN
+    //   DELETE FROM profiles WHERE id = auth.uid();
+    //   DELETE FROM auth.users WHERE id = auth.uid();
+    // END;
+    // $$;
+    // REVOKE EXECUTE ON FUNCTION delete_own_account() FROM PUBLIC;
+    // GRANT EXECUTE ON FUNCTION delete_own_account() TO authenticated;
+    func deleteAccount() async throws {
+        try await client.rpc("delete_own_account")
+        clearSession()
+    }
+
     func refreshAccessToken() async throws {
         guard let refresh = refreshToken else { throw SupabaseError.notAuthenticated }
         let body: [String: Any] = ["refresh_token": refresh]
@@ -153,10 +206,9 @@ class AuthService {
         self.accessToken = access
         self.refreshToken = refresh
         self.userId = userId
-        UserDefaults.standard.set(access, forKey: accessTokenKey)
-        UserDefaults.standard.set(refresh, forKey: refreshTokenKey)
-        UserDefaults.standard.set(userId.uuidString, forKey: userIdKey)
-        syncTokenToClient()
+        KeychainStore.save(key: accessTokenKey, value: access)
+        KeychainStore.save(key: refreshTokenKey, value: refresh)
+        KeychainStore.save(key: userIdKey, value: userId.uuidString)
     }
 
     private func clearSession() {
@@ -164,14 +216,9 @@ class AuthService {
         refreshToken = nil
         userId = nil
         profile = nil
-        UserDefaults.standard.removeObject(forKey: accessTokenKey)
-        UserDefaults.standard.removeObject(forKey: refreshTokenKey)
-        UserDefaults.standard.removeObject(forKey: userIdKey)
-        syncTokenToClient()
-    }
-
-    private func syncTokenToClient() {
-        // SupabaseClient reads accessToken from UserDefaults directly
+        KeychainStore.delete(key: accessTokenKey)
+        KeychainStore.delete(key: refreshTokenKey)
+        KeychainStore.delete(key: userIdKey)
     }
 }
 

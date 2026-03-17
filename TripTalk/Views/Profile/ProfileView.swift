@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(AppState.self) private var appState
+    @State private var showDeleteConfirm = false
+    @State private var isDeletingAccount = false
 
     var body: some View {
         @Bindable var state = appState
@@ -299,6 +301,33 @@ struct ProfileView: View {
                                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.orange.opacity(0.3), lineWidth: 0.5))
                         }
                         .padding(.horizontal)
+
+                        Button(role: .destructive) {
+                            showDeleteConfirm = true
+                        } label: {
+                            Label(isDeletingAccount ? "Deleting…" : "Delete Account", systemImage: "person.crop.circle.badge.minus")
+                                .font(.subheadline)
+                                .foregroundStyle(.red)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.red.opacity(0.1))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.3), lineWidth: 0.5))
+                        }
+                        .disabled(isDeletingAccount)
+                        .padding(.horizontal)
+                        .alert("Delete your account?", isPresented: $showDeleteConfirm) {
+                            Button("Delete", role: .destructive) {
+                                isDeletingAccount = true
+                                Task {
+                                    try? await appState.auth.deleteAccount()
+                                    isDeletingAccount = false
+                                }
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        } message: {
+                            Text("This will permanently delete your profile, reviews, and trip reports. This cannot be undone.")
+                        }
                     } else {
                         Button {
                             UserDefaults.standard.set(false, forKey: "guest_mode")

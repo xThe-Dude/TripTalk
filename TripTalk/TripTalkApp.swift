@@ -21,22 +21,7 @@ struct TripTalkApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                if ageVerified {
-                    if !appState.auth.isAuthenticated && !guestMode {
-                        SignInView(
-                            onContinueAsGuest: {
-                                guestMode = true
-                            },
-                            onSignedIn: {
-                                // Auth state already set — view will update
-                            }
-                        )
-                        .environment(appState)
-                    } else {
-                        ContentView()
-                            .environment(appState)
-                    }
-                } else if showOnboarding == false {
+                if !ageVerified {
                     AgeGateView()
                 } else if showOnboarding == true {
                     OnboardingView(onComplete: {
@@ -45,6 +30,19 @@ struct TripTalkApp: App {
                             showOnboarding = false
                         }
                     })
+                } else if !appState.auth.isAuthenticated && !guestMode {
+                    SignInView(
+                        onContinueAsGuest: {
+                            guestMode = true
+                        },
+                        onSignedIn: {
+                            // Auth state already set — view will update
+                        }
+                    )
+                    .environment(appState)
+                } else {
+                    ContentView()
+                        .environment(appState)
                 }
 
                 if showLaunch {

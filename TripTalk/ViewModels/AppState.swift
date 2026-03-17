@@ -296,7 +296,7 @@ class AppState {
         }
     }
 
-    func reportReview(_ reviewID: UUID) {
+    func reportReview(_ reviewID: UUID, reason: String) {
         if let idx = reviews.firstIndex(where: { $0.id == reviewID }) {
             reviews[idx].isReported = true
         }
@@ -308,7 +308,23 @@ class AppState {
                     reporterId: uid,
                     reviewId: reviewID,
                     tripReportId: nil,
-                    reason: "other",
+                    reason: reason,
+                    details: nil
+                )
+                let _ = try? await SupabaseClient.shared.post("content_reports", body: insert)
+            }
+        }
+    }
+
+    func reportTripReport(_ tripReportID: UUID, reason: String) {
+        // Sync to Supabase if authenticated
+        if auth.isAuthenticated, let uid = auth.userId {
+            Task {
+                let insert = ContentReportInsert(
+                    reporterId: uid,
+                    reviewId: nil,
+                    tripReportId: tripReportID,
+                    reason: reason,
                     details: nil
                 )
                 let _ = try? await SupabaseClient.shared.post("content_reports", body: insert)

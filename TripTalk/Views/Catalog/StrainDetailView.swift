@@ -125,7 +125,7 @@ struct StrainDetailView: View {
 
                     let reports = appState.tripReportsFor(strain: strain.id)
                     ForEach(reports.prefix(3)) { report in
-                        TripReportCard(report: report)
+                        TripReportCard(report: report, onReport: { reason in appState.reportTripReport(report.id, reason: reason) })
                     }
 
                     // TODO: implement full trip reports list view before re-enabling this button

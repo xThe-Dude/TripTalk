@@ -54,7 +54,7 @@ final class SupabaseClient: Sendable {
     // MARK: - Token
 
     var accessToken: String? {
-        UserDefaults.standard.string(forKey: "supabase_access_token")
+        KeychainStore.read(key: "supabase_access_token")
     }
 
     private func authHeader() -> String {

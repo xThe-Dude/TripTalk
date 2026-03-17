@@ -3,7 +3,10 @@ import SwiftUI
 struct ReviewCard: View {
     let review: Review
     var onHelpful: (() -> Void)? = nil
-    var onReport: (() -> Void)? = nil
+    var onReport: ((String) -> Void)? = nil
+
+    @State private var showReportSheet = false
+    @State private var showReportConfirmation = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -60,7 +63,7 @@ struct ReviewCard: View {
                     }
 
                     Button {
-                        onReport?()
+                        showReportSheet = true
                     } label: {
                         Label("Flag", systemImage: "flag")
                             .font(.caption)
@@ -83,5 +86,24 @@ struct ReviewCard: View {
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(review.authorName), \(review.title), rated \(review.rating) stars, \(review.helpfulCount) people found helpful")
+        .confirmationDialog("Why are you reporting this?", isPresented: $showReportSheet, titleVisibility: .visible) {
+            Button("Spam") { submitReport("Spam") }
+            Button("Harassment / Abusive") { submitReport("Harassment / Abusive") }
+            Button("Dangerous Advice") { submitReport("Dangerous Advice") }
+            Button("Sourcing / Illegal") { submitReport("Sourcing / Illegal") }
+            Button("Misinformation") { submitReport("Misinformation") }
+            Button("Other") { submitReport("Other") }
+            Button("Cancel", role: .cancel) {}
+        }
+        .alert("Report Submitted", isPresented: $showReportConfirmation) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Report submitted. Thank you.")
+        }
+    }
+
+    private func submitReport(_ reason: String) {
+        onReport?(reason)
+        showReportConfirmation = true
     }
 }

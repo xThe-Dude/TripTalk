@@ -48,7 +48,7 @@ struct ReviewsFeedView: View {
                             ReviewCard(
                                 review: review,
                                 onHelpful: { appState.toggleHelpful(review.id) },
-                                onReport: { appState.reportReview(review.id) }
+                                onReport: { reason in appState.reportReview(review.id, reason: reason) }
                             )
                         }
                     }
