@@ -2,6 +2,7 @@ import Foundation
 
 struct Review: Identifiable, Hashable, Codable {
     let id: UUID
+    let authorId: UUID?
     let authorName: String
     let rating: Int
     let title: String
@@ -13,8 +14,9 @@ struct Review: Identifiable, Hashable, Codable {
     var helpfulCount: Int
     var isReported: Bool
 
-    init(id: UUID = UUID(), authorName: String, rating: Int, title: String, body: String, tags: [EffectTag] = [], date: Date = Date(), substanceID: UUID? = nil, serviceID: UUID? = nil, helpfulCount: Int = 0, isReported: Bool = false) {
+    init(id: UUID = UUID(), authorId: UUID? = nil, authorName: String, rating: Int, title: String, body: String, tags: [EffectTag] = [], date: Date = Date(), substanceID: UUID? = nil, serviceID: UUID? = nil, helpfulCount: Int = 0, isReported: Bool = false) {
         self.id = id
+        self.authorId = authorId
         self.authorName = authorName
         self.rating = rating
         self.title = title

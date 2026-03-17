@@ -72,42 +72,8 @@ struct StrainDetailView: View {
                 .animateIn(delay: 0.3)
 
                 // Community Photos
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Community Photos")
-                            .font(.system(.title3, design: .serif, weight: .bold))
-                            .foregroundStyle(Color.ttPrimary)
-                            .accessibilityAddTraits(.isHeader)
-                        Spacer()
-                        Text("\(strain.communityPhotoCount)")
-                            .font(.caption)
-                            .foregroundStyle(Color.ttSecondary)
-                    }
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(0..<min(6, strain.communityPhotoCount), id: \.self) { i in
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [strain.parentSubstance.color.opacity(0.3 + Double(i) * 0.1), .blue.opacity(0.2 + Double(i) * 0.05)],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
-                                    .frame(width: 100, height: 100)
-                                    .overlay {
-                                        Image(systemName: "photo")
-                                            .foregroundStyle(Color.ttSecondary)
-                                            .accessibilityHidden(true)
-                                    }
-                            }
-                        }
-                    }
-                    .accessibilityLabel("\(strain.communityPhotoCount) community photos")
-                    .accessibilityElement(children: .ignore)
-                }
-                .padding(.horizontal)
-                .animateIn(delay: 0.3)
+                CommunityPhotosView(strain: strain)
+                    .animateIn(delay: 0.3)
 
                 // Trip Reports
                 VStack(alignment: .leading, spacing: 8) {

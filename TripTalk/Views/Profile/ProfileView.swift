@@ -15,7 +15,6 @@ struct ProfileView: View {
                 VStack(spacing: 20) {
                     // Premium avatar area with glow
                     ZStack {
-                        // Glow effect
                         Circle()
                             .fill(
                                 RadialGradient(
@@ -27,11 +26,7 @@ struct ProfileView: View {
                             )
                             .frame(width: 160, height: 160)
 
-                        Image(systemName: "person.circle.fill")
-                            .font(.system(size: 70))
-                            .foregroundStyle(
-                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            )
+                        AvatarPickerView()
                     }
 
                     VStack(spacing: 4) {

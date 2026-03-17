@@ -50,8 +50,11 @@
 		PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP000007PP000007PP000007 /* EmptyStateView.swift */; };
 		4FC3E81FC9660F4C8F853E5D /* CrisisButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */; };
 		EE8F5159B8124353A36B4F21 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC858958FCE44279F851A24 /* ShareSheet.swift */; };
+		B56BF9E7D90C47E6A51B271B /* CommunityPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C614EB06E5A944D1B40248FC /* CommunityPhotosView.swift */; };
+		287DD87FF1274B95A05C7098 /* AvatarPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52B21380D2495AA1F36940 /* AvatarPickerView.swift */; };
 		CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */; };
 		4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */; };
+		3433713D463145ED8DACECA5 /* BlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03744768D048F39DC266BB /* BlockService.swift */; };
 		8B443F68B19144489E77AC04 /* DataExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB2CA05FE134B878ED56591 /* DataExportService.swift */; };
 		CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB020001CCSB020001CCSB0201 /* AuthService.swift */; };
 		CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */; };
@@ -112,8 +115,11 @@
 		PP000007PP000007PP000007 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrisisButton.swift; sourceTree = "<group>"; };
 		8DC858958FCE44279F851A24 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		C614EB06E5A944D1B40248FC /* CommunityPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPhotosView.swift; sourceTree = "<group>"; };
+		CE52B21380D2495AA1F36940 /* AvatarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerView.swift; sourceTree = "<group>"; };
 		CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFilter.swift; sourceTree = "<group>"; };
+		9A03744768D048F39DC266BB /* BlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockService.swift; sourceTree = "<group>"; };
 		DCB2CA05FE134B878ED56591 /* DataExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExportService.swift; sourceTree = "<group>"; };
 		CCSB020001CCSB020001CCSB0201 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainRepository.swift; sourceTree = "<group>"; };
@@ -155,6 +161,8 @@
 				PP000007PP000007PP000007 /* EmptyStateView.swift */,
 				4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */,
 				8DC858958FCE44279F851A24 /* ShareSheet.swift */,
+				C614EB06E5A944D1B40248FC /* CommunityPhotosView.swift */,
+				CE52B21380D2495AA1F36940 /* AvatarPickerView.swift */,
 				PD000001PD000001PD000001 /* PotencyDots.swift */,
 			);
 			path = Components;
@@ -327,6 +335,7 @@
 			children = (
 				CCSB010001CCSB010001CCSB0101 /* SupabaseClient.swift */,
 				4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */,
+				9A03744768D048F39DC266BB /* BlockService.swift */,
 				DCB2CA05FE134B878ED56591 /* DataExportService.swift */,
 				CCSB020001CCSB020001CCSB0201 /* AuthService.swift */,
 				CCSB030001CCSB030001CCSB0301 /* StrainRepository.swift */,
@@ -452,9 +461,12 @@
 				PP000008PP000008PP000008 /* EmptyStateView.swift in Sources */,
 				4FC3E81FC9660F4C8F853E5D /* CrisisButton.swift in Sources */,
 				EE8F5159B8124353A36B4F21 /* ShareSheet.swift in Sources */,
+				B56BF9E7D90C47E6A51B271B /* CommunityPhotosView.swift in Sources */,
+				287DD87FF1274B95A05C7098 /* AvatarPickerView.swift in Sources */,
 				PD000002PD000002PD000002 /* PotencyDots.swift in Sources */,
 				CCSB010002CCSB010002CCSB0102 /* SupabaseClient.swift in Sources */,
 				4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */,
+				3433713D463145ED8DACECA5 /* BlockService.swift in Sources */,
 				8B443F68B19144489E77AC04 /* DataExportService.swift in Sources */,
 				CCSB020002CCSB020002CCSB0202 /* AuthService.swift in Sources */,
 				CCSB030002CCSB030002CCSB0302 /* StrainRepository.swift in Sources */,

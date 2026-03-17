@@ -2,6 +2,7 @@ import Foundation
 
 struct TripReport: Identifiable, Hashable, Codable {
     let id: UUID
+    var authorId: UUID? = nil
     let strainId: UUID
     let rating: Int
     let setting: TripSetting

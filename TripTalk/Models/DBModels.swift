@@ -213,6 +213,7 @@ extension DBReview {
     func toReview() -> Review {
         Review(
             id: id,
+            authorId: authorId,
             authorName: "Community Member",
             rating: rating,
             title: title,
@@ -231,6 +232,7 @@ extension DBTripReport {
     func toTripReport() -> TripReport {
         TripReport(
             id: id,
+            authorId: authorId,
             strainId: strainId,
             rating: rating,
             setting: TripSetting(rawValue: setting.capitalized) ?? .home,

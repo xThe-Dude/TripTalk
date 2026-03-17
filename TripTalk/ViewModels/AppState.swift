@@ -120,6 +120,7 @@ class AppState {
 
     // Reviews
     var reviewSortOption: ReviewSortOption = .recent
+    let blockService = BlockService.shared
 
     var filteredStrains: [Strain] {
         var result = strains
@@ -153,10 +154,14 @@ class AppState {
     }
 
     var sortedReviews: [Review] {
+        let unblocked = reviews.filter { review in
+            guard let authorId = review.authorId else { return true }
+            return !blockService.isBlocked(authorId)
+        }
         switch reviewSortOption {
-        case .recent: return reviews.sorted { $0.date > $1.date }
-        case .highest: return reviews.sorted { $0.rating > $1.rating }
-        case .lowest: return reviews.sorted { $0.rating < $1.rating }
+        case .recent: return unblocked.sorted { $0.date > $1.date }
+        case .highest: return unblocked.sorted { $0.rating > $1.rating }
+        case .lowest: return unblocked.sorted { $0.rating < $1.rating }
         }
     }
 
@@ -202,7 +207,12 @@ class AppState {
     }
 
     func tripReportsFor(strain id: UUID) -> [TripReport] {
-        tripReports.filter { $0.strainId == id }.sorted { $0.date > $1.date }
+        tripReports.filter { report in
+            report.strainId == id && {
+                guard let authorId = report.authorId else { return true }
+                return !blockService.isBlocked(authorId)
+            }()
+        }.sorted { $0.date > $1.date }
     }
 
     func strainsFor(substanceType: SubstanceType) -> [Strain] {
