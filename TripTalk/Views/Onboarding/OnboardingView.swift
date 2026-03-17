@@ -7,7 +7,7 @@ struct OnboardingView: View {
     private let pages: [(icon: String, title: String, subtitle: String, backgroundImage: String)] = [
         ("leaf.fill", "Know Your Journey", "Access detailed variety profiles, community experiences, and evidence-based safety information — all in one place.", "onboarding_knowledge"),
         ("person.3.fill", "Community Wisdom", "Learn from real experiences shared by a thoughtful, safety-focused community.", "onboarding_community"),
-        ("shield.checkered", "Stay Safe", "Preparation guides, integration resources, and crisis support — because safety extends beyond the experience itself.", "onboarding_safety")
+        ("shield.checkered", "Stay Safe", "Safety information, crisis resources, and evidence-based harm-reduction guidance — because safety extends beyond the experience itself.", "onboarding_safety")
     ]
 
     var body: some View {

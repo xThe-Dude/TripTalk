@@ -42,8 +42,8 @@ struct ExploreView: View {
                             .padding(.horizontal)
                         }
                     } else {
-                    // Popular Varieties
-                    sectionView("Popular Varieties") {
+                    // Community Reviewed
+                    sectionView("Community Reviewed") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(appState.strains.sorted(by: { $0.reviewCount > $1.reviewCount }).prefix(6)) { strain in
@@ -58,8 +58,8 @@ struct ExploreView: View {
                     }
                     .animateIn(delay: 0.1)
 
-                    // Lower Intensity
-                    sectionView("Lower Intensity") {
+                    // Milder Profiles
+                    sectionView("Milder Profiles") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(appState.strains.filter { $0.difficulty == .beginner }) { strain in
@@ -74,8 +74,8 @@ struct ExploreView: View {
                     }
                     .animateIn(delay: 0.2)
 
-                    // Most Visual
-                    sectionView("Most Visual") {
+                    // Visual Effects Reported
+                    sectionView("Visual Effects Reported") {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(appState.strains.filter { $0.commonEffects.contains(.visualDistortions) }.sorted(by: { $0.averageRating > $1.averageRating }).prefix(6)) { strain in

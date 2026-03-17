@@ -14,6 +14,7 @@ struct WriteReviewView: View {
     @State private var selectedTags: Set<EffectTag> = []
     @State private var antiSourcingAgreed: Bool = false
     @State private var showDiscardAlert: Bool = false
+    @State private var contentFilterError: String? = nil
 
     private var hasContent: Bool {
         rating > 0 || !title.isEmpty || !body_.isEmpty || !selectedTags.isEmpty
@@ -71,7 +72,7 @@ struct WriteReviewView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.ttPrimary)
-                            Text("I confirm this is a genuine, harm-reduction-focused experience report")
+                            Text("I confirm this report contains no sourcing, dosage advice, medical claims, or content that encourages illegal activity")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
                         }
@@ -106,6 +107,11 @@ struct WriteReviewView: View {
                 Button("Keep Editing", role: .cancel) {}
             } message: {
                 Text("You have unsaved changes that will be lost.")
+            }
+            .alert("Content Not Allowed", isPresented: Binding(get: { contentFilterError != nil }, set: { if !$0 { contentFilterError = nil } })) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(contentFilterError ?? "")
             }
         }
         .overlay {
@@ -144,6 +150,11 @@ struct WriteReviewView: View {
     }
 
     private func submitReview() {
+        let allText = title + " " + body_
+        if let rejection = ContentFilter.check(allText) {
+            contentFilterError = rejection
+            return
+        }
         let review = Review(
             authorName: "You",
             rating: rating,

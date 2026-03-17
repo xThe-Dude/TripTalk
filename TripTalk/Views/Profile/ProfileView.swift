@@ -78,7 +78,7 @@ struct ProfileView: View {
                     // My Trip Reports
                     profileSection("My Trip Reports") {
                         if appState.userTripReports.isEmpty {
-                            EmptyStateView(icon: "square.and.pencil", imageName: "empty_reports", title: "No Trip Reports", subtitle: "After trying a variety, share your experience from its detail page")
+                            EmptyStateView(icon: "square.and.pencil", imageName: "empty_reports", title: "No Trip Reports", subtitle: "Share your experience from any variety's detail page")
                         } else {
                             ForEach(appState.userTripReports) { report in
                                 let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"

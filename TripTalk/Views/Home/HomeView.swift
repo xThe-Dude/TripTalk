@@ -6,18 +6,18 @@ struct HomeView: View {
     
 
     private let tips = [
-        "Start low, go slow. Especially with unfamiliar varieties.",
+        "Unfamiliar substances carry unpredictable risks. Research thoroughly and consult a healthcare provider before any experience.",
         "Set and setting matter. A comfortable, safe environment can shape your entire experience.",
         "Having a trusted sitter present is one of the most important safety practices.",
         "Integration is as important as the experience itself. Take time to reflect.",
         "Stay hydrated, but don't overdo it. Small sips of water are better than large amounts.",
         "Thoroughly research any substance before an experience, and consult a healthcare provider when possible. Preparation is a core harm-reduction practice.",
         "Let someone you trust know about your plans. A safety contact can make all the difference.",
-        "Your mindset matters. Take time to set a clear intention before any experience.",
-        "Journal your experiences afterward. Reflection is a powerful tool for integration.",
+        "Mental health professionals emphasize that mindset and emotional state significantly influence psychedelic outcomes.",
+        "Clinicians recommend post-experience reflection as part of integration. Consider working with a therapist.",
         "Mixing substances significantly increases risk. When in doubt, keep it simple.",
         "Research potential interactions with any medications you're taking.",
-        "Physical comfort matters. Prepare your space with blankets, water, and calming music.",
+        "Environment plays a documented role in psychedelic experiences. Research on set and setting is available through MAPS and Johns Hopkins.",
         "If anxiety arises, grounding techniques can help: slow your breathing, change your environment, and focus on something familiar. If distress persists or escalates, call the Fireside Project at (623) 473-7433 or dial 988.",
         "Integration is as important as the experience itself. Give yourself time to process."
     ]
@@ -70,7 +70,7 @@ struct HomeView: View {
                                     .offset(x: 200, y: -30)
 
                                 VStack(alignment: .leading, spacing: 6) {
-                                    Text("Featured Variety")
+                                    Text("Substance Spotlight")
                                         .font(.caption)
                                         .fontWeight(.semibold)
                                         .textCase(.uppercase)
@@ -197,13 +197,27 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 20)
 
-                    Text("TripTalk provides educational information only. This is not medical, legal, or therapeutic advice. Always consult qualified professionals. If you're in crisis, call 988 or text HOME to 741741.")
-                        .font(.caption2)
-                        .foregroundStyle(Color.ttTertiary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
-                        .padding(.top, 16)
-                        .padding(.bottom, 90)
+                    VStack(spacing: 4) {
+                        Text("TripTalk provides educational information only. This is not medical, legal, or therapeutic advice. Always consult qualified professionals.")
+                            .font(.caption2)
+                            .foregroundStyle(Color.ttTertiary)
+                            .multilineTextAlignment(.center)
+                        HStack(spacing: 4) {
+                            Text("If you're in crisis, call")
+                                .font(.caption2)
+                                .foregroundStyle(Color.ttTertiary)
+                            Link("988", destination: URL(string: "tel:988")!)
+                                .font(.caption2.bold())
+                            Text("or text HOME to")
+                                .font(.caption2)
+                                .foregroundStyle(Color.ttTertiary)
+                            Link("741741", destination: URL(string: "sms:741741&body=HOME")!)
+                                .font(.caption2.bold())
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
+                    .padding(.bottom, 90)
                 }
             }
             .refreshable {

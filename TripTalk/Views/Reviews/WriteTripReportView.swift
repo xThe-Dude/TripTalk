@@ -20,6 +20,7 @@ struct WriteTripReportView: View {
     @State private var wouldRepeat: Bool = true
     @State private var antiSourcingAgreed: Bool = false
     @State private var showDiscardAlert: Bool = false
+    @State private var contentFilterError: String? = nil
 
     private var hasContent: Bool {
         rating > 0 || !highlights.isEmpty || !intention.isEmpty || !safetyNotes.isEmpty || !selectedMoods.isEmpty || !selectedExperienceTypes.isEmpty
@@ -128,7 +129,7 @@ struct WriteTripReportView: View {
                 Section(header: Text("What stood out?").foregroundStyle(Color.ttSectionHeader)) {
                     ZStack(alignment: .topLeading) {
                         if highlights.isEmpty {
-                            Text("Describe the highlights of your experience...")
+                            Text("Describe your experience — what happened, how you felt, and what you observed...")
                                 .foregroundStyle(Color.ttSecondary.opacity(0.5))
                                 .padding(.top, 8)
                                 .accessibilityHidden(true)
@@ -170,7 +171,7 @@ struct WriteTripReportView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.ttPrimary)
-                            Text("I confirm this is a genuine, harm-reduction-focused experience report")
+                            Text("I confirm this report contains no sourcing, dosage advice, medical claims, or content that encourages illegal activity")
                                 .font(.caption)
                                 .foregroundStyle(Color.ttSecondary)
                         }
@@ -211,6 +212,11 @@ struct WriteTripReportView: View {
             } message: {
                 Text("You have unsaved changes that will be lost.")
             }
+            .alert("Content Not Allowed", isPresented: Binding(get: { contentFilterError != nil }, set: { if !$0 { contentFilterError = nil } })) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(contentFilterError ?? "")
+            }
         }
         .overlay {
             if showSuccessOverlay {
@@ -248,6 +254,11 @@ struct WriteTripReportView: View {
     }
 
     private func submitReport() {
+        let allText = intention + " " + highlights + " " + safetyNotes
+        if let rejection = ContentFilter.check(allText) {
+            contentFilterError = rejection
+            return
+        }
         let report = TripReport(
             id: UUID(),
             strainId: strainId,

@@ -29,9 +29,11 @@ final class SupabaseClient: Sendable {
     let encoder: JSONEncoder
 
     private init() {
-        let config = URLSessionConfiguration.default
+        let config = URLSessionConfiguration.ephemeral
         config.timeoutIntervalForRequest = 10
         config.timeoutIntervalForResource = 30
+        config.httpCookieAcceptPolicy = .never
+        config.httpShouldSetCookies = false
         session = URLSession(configuration: config)
 
         decoder = JSONDecoder()
