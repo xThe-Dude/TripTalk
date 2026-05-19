@@ -242,11 +242,11 @@ class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
     private var currentNonce: String?
 
     func startSignIn() {
-        let nonce = randomNonceString()
+        let nonce = Self.randomNonceString()
         currentNonce = nonce
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
+        request.nonce = Self.sha256(nonce)
 
         let controller = ASAuthorizationController(authorizationRequests: [request])
         controller.delegate = self
