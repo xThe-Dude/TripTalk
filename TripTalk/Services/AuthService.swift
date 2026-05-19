@@ -276,7 +276,7 @@ class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
 
     // MARK: - Nonce Helpers
 
-    private func randomNonceString(length: Int = 32) -> String {
+    static func randomNonceString(length: Int = 32) -> String {
         let charset = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
@@ -298,7 +298,7 @@ class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
         return result
     }
 
-    private func sha256(_ input: String) -> String {
+    static func sha256(_ input: String) -> String {
         let data = Data(input.utf8)
         var hash = [UInt8](repeating: 0, count: 32)
         data.withUnsafeBytes { ptr in

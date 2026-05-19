@@ -10,6 +10,7 @@ struct SignInView: View {
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var appleCoordinator = AppleSignInCoordinator()
+    @State private var currentNonce: String?
 
     var onContinueAsGuest: () -> Void
     var onSignedIn: () -> Void
@@ -120,7 +121,10 @@ struct SignInView: View {
 
                     // Sign in with Apple
                     SignInWithAppleButton(.signIn) { request in
+                        let nonce = AppleSignInCoordinator.randomNonceString()
+                        currentNonce = nonce
                         request.requestedScopes = [.fullName, .email]
+                        request.nonce = AppleSignInCoordinator.sha256(nonce)
                     } onCompletion: { result in
                         handleAppleSignIn(result)
                     }
@@ -189,13 +193,14 @@ struct SignInView: View {
                 errorMessage = "Failed to get Apple ID token"
                 return
             }
-            // For Apple Sign In with Supabase, we need the nonce
-            // Using the coordinator approach for proper nonce handling
+            // Use the nonce that was sent to Apple in the request
+            guard let nonce = currentNonce else {
+                errorMessage = "Missing nonce for Apple Sign In"
+                return
+            }
             Task {
                 isLoading = true
                 do {
-                    // Generate a simple nonce for now — in production use the coordinator
-                    let nonce = UUID().uuidString
                     try await appState.auth.signInWithApple(idToken: idToken, nonce: nonce)
                     if appState.auth.isAuthenticated {
                         onSignedIn()
