@@ -9,6 +9,7 @@ struct SignInView: View {
     @State private var isSignUp = false
     @State private var isLoading = false
     @State private var errorMessage: String?
+    @State private var showEmailConfirmation = false
     @State private var appleCoordinator = AppleSignInCoordinator()
     @State private var currentNonce: String?
 
@@ -70,8 +71,20 @@ struct SignInView: View {
                     }
                     .padding(.horizontal, 24)
 
-                    // Error
-                    if let error = errorMessage {
+                    // Status messages
+                    if showEmailConfirmation {
+                        HStack(spacing: 8) {
+                            Image(systemName: "envelope.badge")
+                                .foregroundColor(.green)
+                            Text("Check your email to confirm your account!")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                        }
+                        .padding(12)
+                        .background(Color.green.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.horizontal, 24)
+                    } else if let error = errorMessage {
                         Text(error)
                             .font(.caption)
                             .foregroundColor(.red)
@@ -167,6 +180,7 @@ struct SignInView: View {
     private func submitForm() async {
         isLoading = true
         errorMessage = nil
+        showEmailConfirmation = false
         do {
             if isSignUp {
                 try await appState.auth.signUp(email: email, password: password, displayName: displayName)
@@ -176,7 +190,11 @@ struct SignInView: View {
             if appState.auth.isAuthenticated {
                 onSignedIn()
             } else if let msg = appState.auth.authError {
-                errorMessage = msg
+                if msg.contains("Check your email") {
+                    showEmailConfirmation = true
+                } else {
+                    errorMessage = msg
+                }
             }
         } catch {
             errorMessage = error.localizedDescription

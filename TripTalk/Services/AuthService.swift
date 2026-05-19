@@ -161,6 +161,31 @@ class AuthService {
         await fetchProfile()
     }
 
+    /// Handle auth callback from email confirmation deep link
+    func handleAuthCallback(accessToken: String, refreshToken: String) async {
+        authError = nil
+        // Decode the JWT to extract the user ID
+        if let userId = Self.extractUserId(from: accessToken) {
+            setSession(access: accessToken, refresh: refreshToken, userId: userId)
+            await fetchProfile()
+        } else {
+            authError = "Failed to process authentication."
+        }
+    }
+
+    /// Extract user ID (sub claim) from a JWT access token
+    private static func extractUserId(from jwt: String) -> UUID? {
+        let parts = jwt.split(separator: ".")
+        guard parts.count >= 2 else { return nil }
+        var base64 = String(parts[1])
+        // Pad base64 if needed
+        while base64.count % 4 != 0 { base64.append("=") }
+        guard let data = Data(base64Encoded: base64),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let sub = json["sub"] as? String else { return nil }
+        return UUID(uuidString: sub)
+    }
+
     func signOut() async {
         if accessToken != nil {
             let _ = try? await client.authPost("logout", body: [:])

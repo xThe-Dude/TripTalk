@@ -53,22 +53,31 @@ struct TripTalkApp: App {
             }
             .preferredColorScheme(.dark)
             .onOpenURL { url in
-                guard ageVerified, appState.auth.isAuthenticated || guestMode else { return }
-                if let destination = DeepLinkHandler.parse(url) {
-                    switch destination {
-                    case .strain(let id):
-                        appState.selectedTab = 2 // Catalog
-                        appState.deepLinkStrainId = id
-                    case .service(let id):
-                        appState.selectedTab = 4 // Services
-                        appState.deepLinkServiceId = id
-                    case .crisis:
-                        appState.showCrisisSheet = true
-                    case .home:
-                        appState.selectedTab = 0
-                    case .substance:
-                        break // Not wired to navigation yet
+                guard let destination = DeepLinkHandler.parse(url) else { return }
+
+                // Auth callbacks must be handled regardless of auth state
+                if case .authCallback(let accessToken, let refreshToken) = destination {
+                    Task {
+                        await appState.auth.handleAuthCallback(accessToken: accessToken, refreshToken: refreshToken)
+                        guestMode = false
                     }
+                    return
+                }
+
+                guard ageVerified, appState.auth.isAuthenticated || guestMode else { return }
+                switch destination {
+                case .strain(let id):
+                    appState.selectedTab = 2 // Catalog
+                    appState.deepLinkStrainId = id
+                case .service(let id):
+                    appState.selectedTab = 4 // Services
+                    appState.deepLinkServiceId = id
+                case .crisis:
+                    appState.showCrisisSheet = true
+                case .home:
+                    appState.selectedTab = 0
+                case .substance, .authCallback:
+                    break
                 }
             }
             .onAppear {
