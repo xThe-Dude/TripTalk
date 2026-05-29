@@ -20,6 +20,10 @@ class AppState {
     var deepLinkStrainId: UUID?
     var deepLinkServiceId: UUID?
     var showCrisisSheet: Bool = false
+    // Set when the user opens a password-recovery deep link.
+    // The PasswordResetView is presented as a full-screen cover until they
+    // either set a new password or dismiss.
+    var pendingPasswordRecovery: Bool = false
 
     // MARK: - Supabase
     let auth = AuthService()

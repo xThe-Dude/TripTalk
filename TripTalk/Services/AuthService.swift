@@ -282,6 +282,60 @@ class AuthService {
         // "if your email exists, a reset link is on the way."
     }
 
+    /// Activate a recovery session from a deep-link.
+    /// After this, `updatePassword` may be called to set a new password.
+    /// The session is real (the user is authenticated) — we just present a
+    /// password-reset UI before letting them into the rest of the app.
+    func beginPasswordRecovery(accessToken: String, refreshToken: String) async {
+        authError = nil
+        guard let userId = Self.extractUserId(from: accessToken) else {
+            authError = "Recovery link is invalid or expired."
+            return
+        }
+        setSession(access: accessToken, refresh: refreshToken, userId: userId)
+        await fetchProfile()
+    }
+
+    /// Update the current user's password. Must be authenticated.
+    func updatePassword(_ newPassword: String) async throws {
+        guard accessToken != nil else { throw SupabaseError.notAuthenticated }
+        let body: [String: Any] = ["password": newPassword]
+        let url = URL(string: "\(client.baseURL)/auth/v1/user")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue(client.apiKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(accessToken ?? client.apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse else {
+            throw SupabaseError.httpError(0, "no response")
+        }
+        guard (200...299).contains(http.statusCode) else {
+            // Surface friendly error from the JSON body when present.
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                let code = (json["error_code"] as? String) ?? (json["code"] as? String) ?? ""
+                let msg = (json["msg"] as? String) ?? (json["message"] as? String) ?? "Unknown error"
+                let userFacing: String
+                switch code {
+                case "weak_password":
+                    if let weak = json["weak_password"] as? [String: Any],
+                       let reasons = weak["reasons"] as? [String], reasons.contains("pwned") {
+                        userFacing = "That password has been seen in a known data breach. Please choose a different one."
+                    } else {
+                        userFacing = "Password is too weak. \(msg)"
+                    }
+                case "same_password":
+                    userFacing = "New password must be different from the old one."
+                default:
+                    userFacing = msg
+                }
+                throw NSError(domain: "AuthService", code: -1010, userInfo: [NSLocalizedDescriptionKey: userFacing])
+            }
+            throw SupabaseError.httpError(http.statusCode, String(data: data, encoding: .utf8) ?? "")
+        }
+    }
+
     func signInWithApple(idToken: String, nonce: String) async throws {
         authError = nil
         let body: [String: Any] = [

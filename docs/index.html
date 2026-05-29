@@ -77,6 +77,17 @@
     font-size: 0.8rem;
   }
 </style>
+<script>
+  // If we landed here from a Supabase auth redirect (signup confirm,
+  // recovery, etc.), the URL fragment contains tokens. Bounce to the
+  // confirm page which knows how to forward into the app.
+  (function() {
+    var hash = window.location.hash || '';
+    if (hash.indexOf('access_token') !== -1) {
+      window.location.replace('/auth/confirm.html' + hash);
+    }
+  })();
+</script>
 </head>
 <body>
 <div class="container">

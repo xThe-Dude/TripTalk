@@ -10,6 +10,7 @@ enum DeepLinkHandler {
         case crisis
         case home
         case authCallback(accessToken: String, refreshToken: String)
+        case passwordRecovery(accessToken: String, refreshToken: String)
     }
 
     /// Parse a URL into a navigation destination.
@@ -41,10 +42,16 @@ enum DeepLinkHandler {
             return .home
         case "auth":
             // Handle triptalk://auth/callback#access_token=...&refresh_token=...
+            // and triptalk://auth/recover#access_token=...&refresh_token=...&type=recovery
             guard let fragment = url.fragment else { return nil }
             let params = Self.parseFragment(fragment)
             guard let accessToken = params["access_token"],
                   let refreshToken = params["refresh_token"] else { return nil }
+            let firstPath = url.pathComponents.dropFirst().first ?? ""
+            let type = params["type"] ?? ""
+            if firstPath == "recover" || type == "recovery" {
+                return .passwordRecovery(accessToken: accessToken, refreshToken: refreshToken)
+            }
             return .authCallback(accessToken: accessToken, refreshToken: refreshToken)
         default:
             return nil

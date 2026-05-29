@@ -33,16 +33,33 @@
   .fallback { margin-top: 24px; color: #6B6960; font-size: 0.85rem; }
 </style>
 <script>
-  // Extract tokens from the URL hash and redirect to the app
+  // Extract tokens from the URL hash and redirect to the app.
+  // Supabase puts the type in the fragment as `&type=signup`, `&type=recovery`,
+  // `&type=invite`, etc. We branch to the right deep-link path so the app
+  // knows whether to set a new password or sign the user in.
   (function() {
     var hash = window.location.hash.substring(1);
     if (hash && hash.indexOf('access_token') !== -1) {
-      var appUrl = 'triptalk://auth/callback#' + hash;
+      var params = {};
+      hash.split('&').forEach(function(p) {
+        var kv = p.split('=');
+        if (kv.length === 2) params[kv[0]] = decodeURIComponent(kv[1]);
+      });
+      var type = params['type'] || 'signup';
+      var path = type === 'recovery' ? 'recover' : 'callback';
+      var appUrl = 'triptalk://auth/' + path + '#' + hash;
       window.location.href = appUrl;
-      // Fallback: update the button link
       setTimeout(function() {
         var btn = document.getElementById('open-app');
         if (btn) btn.href = appUrl;
+        var heading = document.getElementById('heading');
+        var sub = document.getElementById('subheading');
+        if (type === 'recovery' && heading) {
+          heading.textContent = 'Reset Your Password';
+          if (sub) sub.textContent = 'Tap below to open TripTalk and choose a new password.';
+          var icon = document.getElementById('icon');
+          if (icon) icon.textContent = '🔑';
+        }
       }, 100);
     }
   })();
@@ -50,9 +67,9 @@
 </head>
 <body>
 <div class="container">
-  <div class="icon">✅</div>
-  <h1>Email Confirmed!</h1>
-  <p>Your TripTalk account is verified. Tap below to open the app and start exploring.</p>
+  <div class="icon" id="icon">✅</div>
+  <h1 id="heading">Email Confirmed!</h1>
+  <p id="subheading">Your TripTalk account is verified. Tap below to open the app and start exploring.</p>
   <a id="open-app" href="triptalk://home" class="btn">Open TripTalk</a>
   <p class="fallback">If the app doesn't open automatically, make sure TripTalk is installed.</p>
 </div>

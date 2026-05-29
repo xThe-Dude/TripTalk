@@ -54,6 +54,7 @@
 		CCSB080002CCSB080002CCSB0802 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB080001CCSB080001CCSB0801 /* StorageService.swift */; };
 		CCSB090002CCSB090002CCSB0902 /* CrisisTapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */; };
 		CCSB100002CCSB100002CCSB1002 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB100001CCSB100001CCSB1001 /* SignInView.swift */; };
+		PRV100001PRV100001PRV1001 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PRV100000PRV100000PRV1000 /* PasswordResetView.swift */; };
 		CCSB110002CCSB110002CCSB1102 /* DBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB110001CCSB110001CCSB1101 /* DBModels.swift */; };
 		CD91FEF735B44825AD55BC84 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A803DE37764949B9B8B3D4 /* DeepLinkHandler.swift */; };
 		D8756BFEDA294F8482039729 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D86B056EF1F4E73A8E47A52 /* AppState.swift */; };
@@ -117,6 +118,7 @@
 		CCSB080001CCSB080001CCSB0801 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrisisTapService.swift; sourceTree = "<group>"; };
 		CCSB100001CCSB100001CCSB1001 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		PRV100000PRV100000PRV1000 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
 		CCSB110001CCSB110001CCSB1101 /* DBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModels.swift; sourceTree = "<group>"; };
 		CE52B21380D2495AA1F36940 /* AvatarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerView.swift; sourceTree = "<group>"; };
 		D357F146D58244E0A237A046 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				CCSB100001CCSB100001CCSB1001 /* SignInView.swift */,
+				PRV100000PRV100000PRV1000 /* PasswordResetView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				CCSB080002CCSB080002CCSB0802 /* StorageService.swift in Sources */,
 				CCSB090002CCSB090002CCSB0902 /* CrisisTapService.swift in Sources */,
 				CCSB100002CCSB100002CCSB1002 /* SignInView.swift in Sources */,
+				PRV100001PRV100001PRV1001 /* PasswordResetView.swift in Sources */,
 				CCSB110002CCSB110002CCSB1102 /* DBModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

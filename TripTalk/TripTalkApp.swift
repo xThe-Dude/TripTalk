@@ -52,14 +52,32 @@ struct TripTalkApp: App {
                 }
             }
             .preferredColorScheme(.dark)
+            .fullScreenCover(isPresented: Binding(
+                get: { appState.pendingPasswordRecovery },
+                set: { appState.pendingPasswordRecovery = $0 }
+            )) {
+                PasswordResetView()
+                    .environment(appState)
+            }
             .onOpenURL { url in
                 guard let destination = DeepLinkHandler.parse(url) else { return }
 
-                // Auth callbacks must be handled regardless of auth state
+                // Auth callbacks must be handled regardless of auth state.
                 if case .authCallback(let accessToken, let refreshToken) = destination {
                     Task {
                         await appState.auth.handleAuthCallback(accessToken: accessToken, refreshToken: refreshToken)
                         guestMode = false
+                    }
+                    return
+                }
+
+                // Password recovery is also auth-state-agnostic: the deep link
+                // both authenticates the user AND signals "show the reset UI."
+                if case .passwordRecovery(let accessToken, let refreshToken) = destination {
+                    Task {
+                        await appState.auth.beginPasswordRecovery(accessToken: accessToken, refreshToken: refreshToken)
+                        guestMode = false
+                        appState.pendingPasswordRecovery = true
                     }
                     return
                 }
@@ -76,7 +94,7 @@ struct TripTalkApp: App {
                     appState.showCrisisSheet = true
                 case .home:
                     appState.selectedTab = 0
-                case .substance, .authCallback:
+                case .substance, .authCallback, .passwordRecovery:
                     break
                 }
             }
