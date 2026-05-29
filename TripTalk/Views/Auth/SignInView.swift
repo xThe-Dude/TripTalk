@@ -69,6 +69,16 @@ struct SignInView: View {
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .textContentType(isSignUp ? .newPassword : .password)
+
+                        if isSignUp && !password.isEmpty && password.count < 8 {
+                            HStack(spacing: 4) {
+                                Image(systemName: "info.circle")
+                                Text("Password must be at least 8 characters")
+                            }
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
                     .padding(.horizontal, 24)
 
@@ -127,7 +137,7 @@ struct SignInView: View {
                         .foregroundColor(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                     }
-                    .disabled(isLoading || email.isEmpty || password.isEmpty || (isSignUp && displayName.isEmpty))
+                    .disabled(isLoading || email.isEmpty || password.isEmpty || (isSignUp && (displayName.isEmpty || password.count < 8)))
                     .padding(.horizontal, 24)
 
                     // Toggle sign up / sign in
