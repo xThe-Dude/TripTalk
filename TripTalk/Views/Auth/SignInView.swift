@@ -10,6 +10,7 @@ struct SignInView: View {
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var showEmailConfirmation = false
+    @State private var showPasswordResetSent = false
     @State private var appleCoordinator = AppleSignInCoordinator()
     @State private var currentNonce: String?
 
@@ -84,6 +85,18 @@ struct SignInView: View {
                         .background(Color.green.opacity(0.15))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.horizontal, 24)
+                    } else if showPasswordResetSent {
+                        HStack(spacing: 8) {
+                            Image(systemName: "envelope.badge")
+                                .foregroundColor(.teal)
+                            Text("If an account exists for that email, a reset link is on the way.")
+                                .font(.caption)
+                                .foregroundColor(.teal)
+                        }
+                        .padding(12)
+                        .background(Color.teal.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.horizontal, 24)
                     } else if let error = errorMessage {
                         Text(error)
                             .font(.caption)
@@ -125,6 +138,19 @@ struct SignInView: View {
                         Text(isSignUp ? "Already have an account? **Sign In**" : "Don't have an account? **Sign Up**")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
+                    }
+
+                    // Forgot password (sign-in mode only)
+                    if !isSignUp {
+                        Button {
+                            Task { await requestPasswordReset() }
+                        } label: {
+                            Text("Forgot password?")
+                                .font(.caption)
+                                .foregroundColor(.teal)
+                        }
+                        .disabled(email.isEmpty || isLoading)
+                        .opacity(email.isEmpty ? 0.4 : 1)
                     }
 
                     // Divider
@@ -180,10 +206,12 @@ struct SignInView: View {
             // Clear stale errors from previous session/auth attempts.
             errorMessage = nil
             showEmailConfirmation = false
+            showPasswordResetSent = false
         }
         .onChange(of: isSignUp) { _, _ in
             errorMessage = nil
             showEmailConfirmation = false
+            showPasswordResetSent = false
         }
     }
 
@@ -193,6 +221,7 @@ struct SignInView: View {
         isLoading = true
         errorMessage = nil
         showEmailConfirmation = false
+        showPasswordResetSent = false
         do {
             if isSignUp {
                 try await appState.auth.signUp(email: email, password: password, displayName: displayName)
@@ -208,6 +237,21 @@ struct SignInView: View {
                     errorMessage = msg
                 }
             }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        isLoading = false
+    }
+
+    private func requestPasswordReset() async {
+        guard !email.isEmpty else { return }
+        isLoading = true
+        errorMessage = nil
+        showEmailConfirmation = false
+        showPasswordResetSent = false
+        do {
+            try await appState.auth.sendPasswordReset(email: email)
+            showPasswordResetSent = true
         } catch {
             errorMessage = error.localizedDescription
         }

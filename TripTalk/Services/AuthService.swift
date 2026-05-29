@@ -228,9 +228,20 @@ class AuthService {
             return
         }
 
-        // Case 3: user object returned (email confirmation pending).
-        // Verify by presence of `id` + `confirmation_sent_at` (or at least an id without a session).
+        // Case 3: user object returned. This is ambiguous — Supabase returns the
+        // SAME shape for genuine new signups AND for duplicates (to prevent user
+        // enumeration). The tell: a real new signup has at least one entry in
+        // `identities`; a duplicate has `identities: []` and `role: ""`.
         if json["id"] != nil {
+            let identities = (json["identities"] as? [Any]) ?? []
+            let role = json["role"] as? String ?? ""
+            if identities.isEmpty || role.isEmpty {
+                // Duplicate signup disguised as success.
+                let msg = "An account with this email already exists. Sign in instead, or reset your password if you forgot it."
+                authError = msg
+                throw NSError(domain: "AuthService", code: -1006, userInfo: [NSLocalizedDescriptionKey: msg])
+            }
+            // Genuine new signup pending email confirmation.
             authError = "Check your email to confirm your account."
             return
         }
@@ -260,6 +271,15 @@ class AuthService {
         default:
             return "Signup failed: \(message)"
         }
+    }
+
+    func sendPasswordReset(email: String) async throws {
+        authError = nil
+        let body: [String: Any] = ["email": email]
+        _ = try await client.authPost("recover", body: body)
+        // Supabase always returns 200 here regardless of whether the email
+        // exists — again to prevent enumeration. We always tell the user
+        // "if your email exists, a reset link is on the way."
     }
 
     func signInWithApple(idToken: String, nonce: String) async throws {
