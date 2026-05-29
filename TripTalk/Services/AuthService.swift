@@ -1,6 +1,58 @@
 import Foundation
 import Security
 import AuthenticationServices
+import os.log
+
+// MARK: - Auth Diagnostics
+
+// Used to surface the real cause of "The data couldn't be read because it is missing."
+// Logs to Console (Xcode) and produces a human-readable error message.
+enum AuthDiagnostics {
+    static let log = OSLog(subsystem: "com.triptalk.app", category: "Auth")
+
+    /// Sanitized preview of a response body: trims, truncates, strips obvious tokens.
+    static func sanitize(_ data: Data, limit: Int = 400) -> String {
+        var s = String(data: data, encoding: .utf8) ?? "<non-utf8 \(data.count)B>"
+        // Crude token redaction
+        s = s.replacingOccurrences(
+            of: #""(access_token|refresh_token|id_token)"\s*:\s*"[^"]+""#,
+            with: "\"$1\":\"<redacted>\"",
+            options: .regularExpression
+        )
+        if s.count > limit { s = String(s.prefix(limit)) + "…(truncated)" }
+        return s
+    }
+
+    static func describe(_ error: Error, body: Data, endpoint: String) -> String {
+        let preview = sanitize(body)
+        let detail: String
+        if let de = error as? DecodingError {
+            switch de {
+            case .keyNotFound(let key, let ctx):
+                detail = "missing key '\(key.stringValue)' at \(ctx.codingPath.map { $0.stringValue }.joined(separator: "."))"
+            case .valueNotFound(let type, let ctx):
+                detail = "missing \(type) at \(ctx.codingPath.map { $0.stringValue }.joined(separator: "."))"
+            case .typeMismatch(let type, let ctx):
+                detail = "type mismatch (\(type)) at \(ctx.codingPath.map { $0.stringValue }.joined(separator: "."))"
+            case .dataCorrupted(let ctx):
+                detail = "data corrupted at \(ctx.codingPath.map { $0.stringValue }.joined(separator: ".")): \(ctx.debugDescription)"
+            @unknown default:
+                detail = de.localizedDescription
+            }
+        } else {
+            detail = error.localizedDescription
+        }
+        let msg = "[\(endpoint)] decode failed: \(detail) | body: \(preview)"
+        os_log("%{public}@", log: log, type: .error, msg)
+        // Surface response body on-screen too — the iOS Console-app dance is painful.
+        let bodyForUI = preview.count > 220 ? String(preview.prefix(220)) + "…" : preview
+        return "Auth error (\(endpoint)): \(detail)\n\nResponse: \(bodyForUI)"
+    }
+
+    static func logRaw(_ data: Data, endpoint: String) {
+        os_log("[%{public}@] body=%{public}@", log: log, type: .debug, endpoint, sanitize(data))
+    }
+}
 
 // MARK: - Keychain Helper
 
@@ -45,12 +97,12 @@ struct AuthTokenResponse: Codable {
     let accessToken: String
     let refreshToken: String
     let user: AuthUser
-
-    enum CodingKeys: String, CodingKey {
-        case accessToken = "access_token"
-        case refreshToken = "refresh_token"
-        case user
-    }
+    // No explicit CodingKeys — the shared decoder uses .convertFromSnakeCase,
+    // which transforms access_token -> accessToken before key lookup.
+    // Adding rawValue="access_token" CodingKeys actually BREAKS the match
+    // because the decoder is comparing the converted key ("accessToken")
+    // against the rawValue ("access_token"). Letting Swift's auto-synthesized
+    // CodingKeys do the work fixes it.
 }
 
 struct AuthUser: Codable {
@@ -124,7 +176,15 @@ class AuthService {
         authError = nil
         let body: [String: Any] = ["email": email, "password": password]
         let data = try await client.authPost("token?grant_type=password", body: body)
-        let response = try client.decoder.decode(AuthTokenResponse.self, from: data)
+        AuthDiagnostics.logRaw(data, endpoint: "signInWithEmail")
+        let response: AuthTokenResponse
+        do {
+            response = try client.decoder.decode(AuthTokenResponse.self, from: data)
+        } catch {
+            let msg = AuthDiagnostics.describe(error, body: data, endpoint: "signInWithEmail")
+            authError = msg
+            throw NSError(domain: "AuthService", code: -1001, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
         setSession(access: response.accessToken, refresh: response.refreshToken, userId: response.user.id)
         await fetchProfile()
     }
@@ -137,14 +197,68 @@ class AuthService {
             "data": ["display_name": displayName]
         ]
         let data = try await client.authPost("signup", body: body)
+        AuthDiagnostics.logRaw(data, endpoint: "signUp")
 
-        // Supabase may return a session directly or require email confirmation
-        if let response = try? client.decoder.decode(AuthTokenResponse.self, from: data) {
-            setSession(access: response.accessToken, refresh: response.refreshToken, userId: response.user.id)
-            await fetchProfile()
-        } else {
-            // Email confirmation required — parse user from response
+        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            let msg = "Signup response was not valid JSON. Body: \(AuthDiagnostics.sanitize(data))"
+            authError = msg
+            throw NSError(domain: "AuthService", code: -1002, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
+
+        // Case 1: error body (Supabase returns 200 with a JSON error for some signup failures,
+        // e.g. weak_password). Detect by presence of `error_code` or `code`+`msg`.
+        if let errorCode = json["error_code"] as? String ?? (json["code"] is Int ? (json["msg"] as? String).map { _ in "error" } : nil) {
+            let serverMsg = (json["msg"] as? String) ?? (json["message"] as? String) ?? "Unknown error"
+            let userFacing = Self.friendlySignupError(code: errorCode, message: serverMsg, raw: json)
+            authError = userFacing
+            throw NSError(domain: "AuthService", code: -1004, userInfo: [NSLocalizedDescriptionKey: userFacing])
+        }
+
+        // Case 2: session returned (auto-confirm enabled).
+        if json["access_token"] != nil {
+            do {
+                let response = try client.decoder.decode(AuthTokenResponse.self, from: data)
+                setSession(access: response.accessToken, refresh: response.refreshToken, userId: response.user.id)
+                await fetchProfile()
+            } catch {
+                let msg = AuthDiagnostics.describe(error, body: data, endpoint: "signUp")
+                authError = msg
+                throw NSError(domain: "AuthService", code: -1002, userInfo: [NSLocalizedDescriptionKey: msg])
+            }
+            return
+        }
+
+        // Case 3: user object returned (email confirmation pending).
+        // Verify by presence of `id` + `confirmation_sent_at` (or at least an id without a session).
+        if json["id"] != nil {
             authError = "Check your email to confirm your account."
+            return
+        }
+
+        // Unknown shape — don't pretend it worked.
+        let msg = "Unexpected signup response. Body: \(AuthDiagnostics.sanitize(data))"
+        authError = msg
+        throw NSError(domain: "AuthService", code: -1005, userInfo: [NSLocalizedDescriptionKey: msg])
+    }
+
+    private static func friendlySignupError(code: String, message: String, raw: [String: Any]) -> String {
+        switch code {
+        case "weak_password":
+            if let weak = raw["weak_password"] as? [String: Any],
+               let reasons = weak["reasons"] as? [String], reasons.contains("pwned") {
+                return "That password has been seen in a known data breach. Please choose a different one."
+            }
+            return "Password is too weak. \(message)"
+        case "user_already_exists", "email_exists":
+            return "An account with this email already exists. Try signing in instead."
+        case "signup_disabled":
+            return "New signups are temporarily disabled."
+        case "validation_failed":
+            return "Couldn't create your account: \(message)"
+        case "over_email_send_rate_limit":
+            return "Too many signup attempts. Please wait a few minutes and try again."
+        default:
+            return "Signup failed: \(message)"
         }
     }
 
@@ -156,7 +270,15 @@ class AuthService {
             "nonce": nonce
         ]
         let data = try await client.authPost("token?grant_type=id_token", body: body)
-        let response = try client.decoder.decode(AuthTokenResponse.self, from: data)
+        AuthDiagnostics.logRaw(data, endpoint: "signInWithApple")
+        let response: AuthTokenResponse
+        do {
+            response = try client.decoder.decode(AuthTokenResponse.self, from: data)
+        } catch {
+            let msg = AuthDiagnostics.describe(error, body: data, endpoint: "signInWithApple")
+            authError = msg
+            throw NSError(domain: "AuthService", code: -1003, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
         setSession(access: response.accessToken, refresh: response.refreshToken, userId: response.user.id)
         await fetchProfile()
     }

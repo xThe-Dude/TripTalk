@@ -88,7 +88,10 @@ struct SignInView: View {
                         Text(error)
                             .font(.caption)
                             .foregroundColor(.red)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                             .padding(.horizontal, 24)
+                            .textSelection(.enabled)
                     }
 
                     // Primary Button
@@ -173,6 +176,15 @@ struct SignInView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .onAppear {
+            // Clear stale errors from previous session/auth attempts.
+            errorMessage = nil
+            showEmailConfirmation = false
+        }
+        .onChange(of: isSignUp) { _, _ in
+            errorMessage = nil
+            showEmailConfirmation = false
+        }
     }
 
     // MARK: - Actions
