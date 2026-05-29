@@ -223,7 +223,7 @@ struct ProfileView: View {
 
                     // Links
                     profileSection("Info") {
-                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/support.html")!) {
+                        Link(destination: URL(string: "https://triptalk.guide/support.html")!) {
                             HStack {
                                 Image(systemName: "doc.text")
                                     .foregroundStyle(Color.ttGlow)
@@ -236,7 +236,7 @@ struct ProfileView: View {
                             }
                             .padding(.vertical, 2)
                         }
-                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/privacy.html")!) {
+                        Link(destination: URL(string: "https://triptalk.guide/privacy.html")!) {
                             HStack {
                                 Image(systemName: "hand.raised")
                                     .foregroundStyle(Color.ttGlow)
@@ -249,7 +249,7 @@ struct ProfileView: View {
                             }
                             .padding(.vertical, 2)
                         }
-                        Link(destination: URL(string: "https://xthe-dude.github.io/TripTalk/terms.html")!) {
+                        Link(destination: URL(string: "https://triptalk.guide/terms.html")!) {
                             HStack {
                                 Image(systemName: "doc.plaintext")
                                     .foregroundStyle(Color.ttGlow)

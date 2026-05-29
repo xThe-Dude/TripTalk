@@ -137,7 +137,7 @@ KEY POINTS FOR REVIEW:
 
 7. PRECEDENT — Multiple harm-reduction apps exist on the App Store, including apps providing substance safety information for festival-goers and therapy seekers.
 
-For questions, contact: support@triptalk.app
+For questions, contact: support@triptalk.guide
 ```
 
 ---
@@ -172,6 +172,6 @@ TripTalk does not collect any data from users.
 | **Minimum OS** | iOS 17.0 |
 | **Primary Language** | English (U.S.) |
 | **Copyright** | © 2026 Michael Oehlrich |
-| **Support URL** | https://xthe-dude.github.io/TripTalk/support.html |
-| **Privacy Policy URL** | https://xthe-dude.github.io/TripTalk/privacy.html |
-| **Marketing URL** | https://xthe-dude.github.io/TripTalk/ |
+| **Support URL** | https://triptalk.guide/support.html |
+| **Privacy Policy URL** | https://triptalk.guide/privacy.html |
+| **Marketing URL** | https://triptalk.guide/ |

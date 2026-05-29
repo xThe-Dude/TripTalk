@@ -86,7 +86,7 @@ TripTalk/
 │       ├── HomeBanners/                   # 8 seasonal banners (unused, available)
 │       └── AppStore/                      # 5 App Store screenshot backgrounds
 │
-├── docs/                          # GitHub Pages (live at xthe-dude.github.io/TripTalk)
+├── docs/                          # GitHub Pages (live at triptalk.guide)
 │   ├── index.html                 # Landing page
 │   ├── privacy.html               # Privacy Policy
 │   ├── support.html               # Support page
