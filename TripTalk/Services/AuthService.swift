@@ -50,7 +50,10 @@ enum AuthDiagnostics {
     }
 
     static func logRaw(_ data: Data, endpoint: String) {
-        os_log("[%{public}@] body=%{public}@", log: log, type: .debug, endpoint, sanitize(data))
+        // endpoint is safe to log publicly; the body may contain email/sub PII
+        // (sanitize only redacts tokens), so mark it private so it is redacted
+        // in device console/sysdiagnose logs outside the debugger.
+        os_log("[%{public}@] body=%{private}@", log: log, type: .debug, endpoint, sanitize(data))
     }
 }
 
