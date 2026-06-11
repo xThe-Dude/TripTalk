@@ -199,7 +199,14 @@ class AuthService {
             "password": password,
             "data": ["display_name": displayName]
         ]
-        let data = try await client.authPost("signup", body: body)
+        // Same bridge redirect as password reset: the email-confirmation link
+        // must route through confirm.html -> triptalk://auth/callback so the
+        // user lands back IN the app after confirming, not on the website.
+        let data = try await client.authPost(
+            "signup",
+            body: body,
+            query: ["redirect_to": "https://triptalk.guide/auth/confirm.html"]
+        )
         AuthDiagnostics.logRaw(data, endpoint: "signUp")
 
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
@@ -279,7 +286,15 @@ class AuthService {
     func sendPasswordReset(email: String) async throws {
         authError = nil
         let body: [String: Any] = ["email": email]
-        _ = try await client.authPost("recover", body: body)
+        // redirect_to must point at the web->app bridge (confirm.html), which
+        // forwards the recovery tokens into triptalk://auth/recover so the
+        // reset completes IN the app. Without this, GoTrue falls back to the
+        // bare Site URL (https://triptalk.guide) and the link never opens the app.
+        _ = try await client.authPost(
+            "recover",
+            body: body,
+            query: ["redirect_to": "https://triptalk.guide/auth/confirm.html"]
+        )
         // Supabase always returns 200 here regardless of whether the email
         // exists — again to prevent enumeration. We always tell the user
         // "if your email exists, a reset link is on the way."

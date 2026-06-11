@@ -147,8 +147,12 @@ final class SupabaseClient: Sendable {
 
     // MARK: - Auth
 
-    func authPost(_ endpoint: String, body: [String: Any]) async throws -> Data {
-        let url = URL(string: "\(baseURL)/auth/v1/\(endpoint)")!
+    func authPost(_ endpoint: String, body: [String: Any], query: [String: String] = [:]) async throws -> Data {
+        var components = URLComponents(string: "\(baseURL)/auth/v1/\(endpoint)")!
+        if !query.isEmpty {
+            components.queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
+        let url = components.url!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(apiKey, forHTTPHeaderField: "apikey")
