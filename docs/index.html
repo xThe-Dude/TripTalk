@@ -3,84 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TripTalk — Safe Psychedelic Experiences</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: linear-gradient(160deg, #0A2620 0%, #0D1F38 50%, #141466 100%);
-    color: #F2F0E8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    min-height: 100vh;
-    line-height: 1.7;
-  }
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 80px 24px;
-    text-align: center;
-  }
-  h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 3rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    margin-bottom: 8px;
-  }
-  .subtitle {
-    color: #D9C78E;
-    font-size: 1.1rem;
-    margin-bottom: 48px;
-    font-weight: 300;
-  }
-  .description {
-    font-size: 1.05rem;
-    color: #C8C5BC;
-    margin-bottom: 48px;
-    line-height: 1.8;
-  }
-  .badge {
-    display: inline-block;
-    margin-bottom: 48px;
-  }
-  .badge img {
-    height: 54px;
-  }
-  .badge-placeholder {
-    display: inline-block;
-    border: 1px solid #D9C78E;
-    border-radius: 12px;
-    padding: 12px 28px;
-    color: #D9C78E;
-    font-size: 0.95rem;
-    margin-bottom: 48px;
-  }
-  .links {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-  .links a {
-    color: #D9C78E;
-    text-decoration: none;
-    font-size: 0.95rem;
-    padding: 8px 0;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-  .links a:hover {
-    border-bottom-color: #D9C78E;
-  }
-  footer {
-    margin-top: 80px;
-    color: #6B6960;
-    font-size: 0.8rem;
-  }
-</style>
+
+<!-- ============================================================
+     AUTH REDIRECT — preserved verbatim from current_index.html.
+     If we landed here from a Supabase auth redirect (signup
+     confirm, recovery, etc.), the URL fragment contains tokens.
+     Bounce to the confirm page which knows how to forward into
+     the app. Kept inline + first so it runs before anything else.
+     ============================================================ -->
 <script>
-  // If we landed here from a Supabase auth redirect (signup confirm,
-  // recovery, etc.), the URL fragment contains tokens. Bounce to the
-  // confirm page which knows how to forward into the app.
   (function() {
     var hash = window.location.hash || '';
     if (hash.indexOf('access_token') !== -1) {
@@ -88,30 +19,330 @@
     }
   })();
 </script>
+
+<title>TripTalk — Knowledge Reduces Harm | Psychedelic Safety & Harm Reduction</title>
+<meta name="description" content="TripTalk is a calm, trustworthy harm-reduction resource for psychedelics — a researched substance index, safety principles, and always-on crisis support. Available on the App Store.">
+<link rel="canonical" href="https://triptalk.guide/">
+<meta name="theme-color" content="#0B1410">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripTalk">
+<meta property="og:title" content="TripTalk — Knowledge Reduces Harm">
+<meta property="og:description" content="A calm, trustworthy harm-reduction resource for psychedelics: a researched substance index, safety principles, and always-on crisis support.">
+<meta property="og:url" content="https://triptalk.guide/">
+<meta property="og:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TripTalk — Knowledge Reduces Harm">
+<meta name="twitter:description" content="A calm, trustworthy harm-reduction resource for psychedelics: a researched substance index, safety principles, and always-on crisis support.">
+<meta name="twitter:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600&display=swap">
+
+<link rel="stylesheet" href="/styles.css">
+
+<!-- JSON-LD Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "TripTalk",
+  "url": "https://triptalk.guide/",
+  "logo": "https://triptalk.guide/og-image.png",
+  "description": "A harm-reduction resource for psychedelics — a researched substance index, safety principles, and always-on crisis support.",
+  "sameAs": [
+    "https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611"
+  ]
+}
+</script>
 </head>
+
 <body>
-<div class="container">
-  <h1>TripTalk</h1>
-  <p class="subtitle">Safe Psychedelic Experiences</p>
 
-  <p class="description">
-    A comprehensive harm-reduction resource for adults in jurisdictions where
-    psilocybin services are legally permitted. Strain catalog, community experience
-    reports, licensed service center directory, and safety information — all in one app.
-  </p>
+<!-- Skip link for keyboard / screen-reader users -->
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <a href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611" class="badge">
-    <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store">
-  </a>
+<!-- ============================ NAV ============================ -->
+<header class="site-header" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="TripTalk — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">TripTalk</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="#index">Substances</a>
+      <a href="#principles">Principles</a>
+      <a href="#crisis">Crisis</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Get the app</a>
+  </div>
+</header>
 
-  <nav class="links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="support.html">Support</a>
-  </nav>
+<main id="main">
 
-  <footer>
+  <!-- ====================== HERO ====================== -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-bloom" aria-hidden="true"></div>
+    <div class="hero-grain" aria-hidden="true"></div>
+
+    <div class="wrap hero-inner">
+      <p class="eyebrow reveal" data-reveal>Harm reduction for psychedelics</p>
+
+      <h1 class="display hero-display" id="hero-heading">
+        <span class="line" data-line>Knowledge</span>
+        <span class="line" data-line>reduces</span>
+        <span class="line line-accent" data-line>harm.</span>
+      </h1>
+
+      <p class="hero-lede reveal" data-reveal>
+        A calm, researched companion for anyone exploring psychedelics — built
+        not to glamorize, but to protect. Clear information, honest dosing
+        context, and crisis support that is always one tap away.
+      </p>
+
+      <div class="hero-actions reveal" data-reveal>
+        <a class="btn btn-primary" href="#index">Explore the index</a>
+        <a class="appstore" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611" aria-label="Download TripTalk on the App Store">
+          <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="135" height="45">
+        </a>
+      </div>
+    </div>
+
+    <div class="wrap hero-foot reveal" data-reveal>
+      <span class="hero-foot-item"><strong>46</strong> documented varieties</span>
+      <span class="hero-foot-item"><strong>4</strong> substance families</span>
+      <span class="hero-foot-item"><strong>24/7</strong> crisis resources</span>
+    </div>
+  </section>
+
+  <!-- ================== POSITIONING STATEMENT ================== -->
+  <section class="statement" aria-labelledby="statement-heading">
+    <span class="section-numeral" aria-hidden="true">01</span>
+    <div class="wrap statement-inner">
+      <div class="statement-label">
+        <p class="eyebrow" data-reveal>What we believe</p>
+        <span class="hairline" aria-hidden="true"></span>
+      </div>
+      <blockquote class="pull-quote" id="statement-heading" data-reveal>
+        People will explore these substances whether or not anyone approves.
+        <span class="pull-accent">The honest response is to make exploration safer</span> —
+        with information that respects both the risk and the person.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ================ SUBSTANCE EDITORIAL INDEX ================ -->
+  <section class="index" id="index" aria-labelledby="index-heading">
+    <span class="section-numeral section-numeral-right" aria-hidden="true">02</span>
+    <div class="wrap index-head">
+      <div class="index-head-label">
+        <p class="eyebrow" data-reveal>The substance index</p>
+        <span class="hairline" aria-hidden="true"></span>
+      </div>
+      <h2 class="section-head" id="index-heading" data-reveal>
+        Four families.<br>Researched, not romanticized.
+      </h2>
+      <p class="index-sub body" data-reveal>
+        Each entry pairs effects and duration with honest difficulty ratings and
+        harm-reduction context. Browse the full catalog inside the app.
+      </p>
+    </div>
+
+    <ol class="index-list" aria-label="Psychedelic substance families">
+
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">
+          <span class="index-num">01</span>
+          <span class="index-main">
+            <span class="index-name display">Psilocybin</span>
+            <span class="index-desc">Mushroom species — the most documented path, from gentle introductions to profound, ego-dissolving doses.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">37 varieties</span>
+            <span class="index-range">Beginner → Experienced</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">
+          <span class="index-num">02</span>
+          <span class="index-main">
+            <span class="index-name display">Ketamine</span>
+            <span class="index-desc">Dissociative and clinically studied — where context, dose, and setting matter more than almost anything else.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">4 forms</span>
+            <span class="index-range">Caution advised</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">
+          <span class="index-num">03</span>
+          <span class="index-main">
+            <span class="index-name display">Mescaline</span>
+            <span class="index-desc">Peyote, San Pedro and Peruvian torch — long, deliberate, deeply ceremonial experiences measured in hours.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">3 cacti</span>
+            <span class="index-range">Long duration</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">
+          <span class="index-num">04</span>
+          <span class="index-main">
+            <span class="index-name display">Ayahuasca</span>
+            <span class="index-desc">A potent traditional brew with real medication-interaction risks — where preparation is the whole safety margin.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">2 brews</span>
+            <span class="index-range">Interaction risk</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ================ HARM-REDUCTION PRINCIPLES ================ -->
+  <section class="principles" id="principles" aria-labelledby="principles-heading">
+    <div class="wrap principles-grid">
+      <div class="principles-lead">
+        <p class="eyebrow" data-reveal>How we approach it</p>
+        <h2 class="section-head" id="principles-heading" data-reveal>
+          Four principles that hold the whole thing together.
+        </h2>
+        <p class="body" data-reveal>
+          TripTalk isn’t a recommendation to use anything. It’s a recognition
+          that good information saves lives, and that the people most at risk are
+          the ones with the least access to it.
+        </p>
+      </div>
+
+      <ol class="principle-cards">
+        <li class="p-card" data-reveal>
+          <span class="p-num">01</span>
+          <h3 class="p-title">Test what you take</h3>
+          <p class="p-body">Reagent and fentanyl testing turns the single biggest unknown into a known. We tell you how, plainly.</p>
+        </li>
+        <li class="p-card" data-reveal>
+          <span class="p-num">02</span>
+          <h3 class="p-title">Start low, go slow</h3>
+          <p class="p-body">Honest onset and duration data so dosing is a deliberate decision, never a guess.</p>
+        </li>
+        <li class="p-card" data-reveal>
+          <span class="p-num">03</span>
+          <h3 class="p-title">Set and setting</h3>
+          <p class="p-body">A trusted sitter, a safe space, and a clear mind change outcomes more than any substance choice.</p>
+        </li>
+        <li class="p-card" data-reveal>
+          <span class="p-num">04</span>
+          <h3 class="p-title">Know the exits</h3>
+          <p class="p-body">Interactions, warning signs, and crisis lines — surfaced before they’re ever needed.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== CRISIS SUPPORT ==================== -->
+  <section class="crisis" id="crisis" aria-labelledby="crisis-heading">
+    <div class="wrap crisis-inner">
+      <div class="crisis-lead">
+        <p class="eyebrow eyebrow-on-accent" data-reveal>If you need help now</p>
+        <h2 class="section-head crisis-head" id="crisis-heading" data-reveal>
+          Support is always one tap away.
+        </h2>
+        <p class="body crisis-body" data-reveal>
+          You don’t have to be in immediate danger to reach out. These lines are
+          free, confidential, and staffed around the clock.
+        </p>
+      </div>
+
+      <ul class="crisis-list">
+        <li class="crisis-item" data-reveal>
+          <a href="tel:988">
+            <span class="crisis-name">988 Suicide &amp; Crisis Lifeline</span>
+            <span class="crisis-num">Call or text 988</span>
+          </a>
+        </li>
+        <li class="crisis-item" data-reveal>
+          <a href="tel:16234737433">
+            <span class="crisis-name">Fireside Project — Psychedelic Peer Support</span>
+            <span class="crisis-num">623-473-7433</span>
+          </a>
+        </li>
+        <li class="crisis-item" data-reveal>
+          <a href="sms:741741">
+            <span class="crisis-name">Crisis Text Line</span>
+            <span class="crisis-num">Text HOME to 741741</span>
+          </a>
+        </li>
+        <li class="crisis-item" data-reveal>
+          <a href="tel:18006624357">
+            <span class="crisis-name">SAMHSA National Helpline</span>
+            <span class="crisis-num">1-800-662-4357</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================== FINAL CTA ====================== -->
+  <section class="final-cta" aria-labelledby="final-heading">
+    <div class="wrap final-inner">
+      <h2 class="display final-display" id="final-heading" data-reveal>
+        Carry it with you.
+      </h2>
+      <p class="body final-body" data-reveal>
+        The full index, safety guides, and crisis resources — in your pocket,
+        offline-ready, free.
+      </p>
+      <div class="final-actions reveal" data-reveal>
+        <a class="appstore" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611" aria-label="Download TripTalk on the App Store">
+          <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="150" height="50">
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word">TripTalk</span>
+      <p class="footer-tag">Knowledge reduces harm.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Guides</a>
+      <a href="#principles">Safety</a>
+      <a href="#crisis">Crisis</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+  <div class="wrap footer-legal">
     <p>&copy; 2026 Michael Oehlrich. All rights reserved.</p>
-  </footer>
-</div>
+    <p class="footer-disclaimer">For harm-reduction and educational purposes only. Not medical advice. For adults in jurisdictions where these activities are legally permitted.</p>
+  </div>
+</footer>
+
+<script src="/motion.js" defer></script>
 </body>
 </html>

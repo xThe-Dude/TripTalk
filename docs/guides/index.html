@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     AUTH REDIRECT — preserved verbatim from the home page.
+     If we landed here from a Supabase auth redirect, the URL
+     fragment contains tokens; bounce to the confirm page.
+     Kept inline + first so it runs before anything else.
+     ============================================================ -->
+<script>
+  (function() {
+    var hash = window.location.hash || '';
+    if (hash.indexOf('access_token') !== -1) {
+      window.location.replace('/auth/confirm.html' + hash);
+    }
+  })();
+</script>
+
+<title>Substance Guides — Psychedelic Harm Reduction | TripTalk</title>
+<meta name="description" content="Honest, harm-reduction guides to four psychedelic substance families: psilocybin, ketamine, mescaline, and ayahuasca. Effects, onset, duration — framed around safety.">
+<link rel="canonical" href="https://triptalk.guide/guides/">
+<meta name="theme-color" content="#0B1410">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripTalk">
+<meta property="og:title" content="Substance Guides — Psychedelic Harm Reduction | TripTalk">
+<meta property="og:description" content="Honest, harm-reduction guides to four psychedelic substance families: psilocybin, ketamine, mescaline, and ayahuasca. Effects, onset, duration — framed around safety.">
+<meta property="og:url" content="https://triptalk.guide/guides/">
+<meta property="og:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Substance Guides — Psychedelic Harm Reduction | TripTalk">
+<meta name="twitter:description" content="Honest, harm-reduction guides to four psychedelic substance families: psilocybin, ketamine, mescaline, and ayahuasca. Effects, onset, duration — framed around safety.">
+<meta name="twitter:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600&display=swap">
+
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Substance Guides \u2014 TripTalk",
+  "description": "Harm-reduction guides to four psychedelic substance families.",
+  "url": "https://triptalk.guide/guides/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "TripTalk",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://triptalk.guide/og-image.png"
+    }
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Skip link for keyboard / screen-reader users -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="site-header" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html" aria-label="TripTalk — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">TripTalk</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="../guides/index.html" aria-current="page">Substances</a>
+      <a href="../harm-reduction.html">Safety</a>
+      <a href="../crisis.html">Crisis</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Get the app</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="guide-hero" aria-labelledby="h-head">
+    <div class="hero-bloom" aria-hidden="true"></div>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="eyebrow reveal" data-reveal>The substance index</p>
+      <h1 class="display guide-display" id="h-head">Four families.<br>Researched, not romanticized.</h1>
+      <div class="guide-intro">
+        <p class="body" data-reveal>Each guide pairs effects, onset, and duration with honest difficulty ratings and harm-reduction context. Nothing here is a recommendation to use — it is information for people who will explore regardless, so they can do it more safely.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="index" id="index" aria-labelledby="hub-head">
+    <span class="section-numeral section-numeral-right" aria-hidden="true">01</span>
+    <div class="wrap index-head">
+      <div class="index-head-label">
+        <p class="eyebrow" data-reveal>Choose a family</p>
+        <span class="hairline" aria-hidden="true"></span>
+      </div>
+      <h2 class="section-head" id="hub-head" data-reveal>46 documented varieties across four families.</h2>
+    </div>
+    <ol class="index-list" aria-label="Psychedelic substance families">
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="psilocybin.html">
+          <span class="index-num">01</span>
+          <span class="index-main">
+            <span class="index-name display">Psilocybin</span>
+            <span class="index-desc">The most documented path, from gentle introductions to profound, ego-dissolving doses.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">37 varieties</span>
+            <span class="index-range">Beginner → Experienced</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="ketamine.html">
+          <span class="index-num">02</span>
+          <span class="index-main">
+            <span class="index-name display">Ketamine</span>
+            <span class="index-desc">Dissociative and clinically studied — where context, dose, and setting matter more than almost anything else.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">4 forms</span>
+            <span class="index-range">Caution advised</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="mescaline.html">
+          <span class="index-num">03</span>
+          <span class="index-main">
+            <span class="index-name display">Mescaline</span>
+            <span class="index-desc">Peyote, San Pedro and Peruvian torch — long, deliberate, deeply ceremonial experiences measured in hours.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">3 cacti</span>
+            <span class="index-range">Long duration</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li class="index-row" data-reveal>
+        <a class="index-link" href="ayahuasca.html">
+          <span class="index-num">04</span>
+          <span class="index-main">
+            <span class="index-name display">Ayahuasca</span>
+            <span class="index-desc">A potent traditional brew with real medication-interaction risks — where preparation is the whole safety margin.</span>
+          </span>
+          <span class="index-meta">
+            <span class="index-count">2 brews</span>
+            <span class="index-range">Interaction risk</span>
+          </span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ol>
+  </section>
+
+  <section class="guide-foot" aria-labelledby="ghub-foot">
+    <div class="wrap guide-foot-inner">
+      <div>
+        <p class="eyebrow" data-reveal>Start here</p>
+        <h2 class="section-head" id="ghub-foot" data-reveal>Knowledge is the first harm-reduction tool.</h2>
+        <p class="body" data-reveal>Before any variety, read how we think about set, setting, testing, and the exits.</p>
+        <div class="guide-foot-actions" data-reveal>
+          <a class="btn btn-primary" href="../harm-reduction.html">Harm reduction →</a>
+          <a class="btn-ghost" href="../crisis.html">Crisis resources</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word">TripTalk</span>
+      <p class="footer-tag">Knowledge reduces harm.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="../guides/index.html">Guides</a>
+      <a href="../harm-reduction.html">Safety</a>
+      <a href="../crisis.html">Crisis</a>
+      <a href="../privacy.html">Privacy</a>
+      <a href="../terms.html">Terms</a>
+      <a href="../support.html">Support</a>
+    </nav>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 Michael Oehlrich. All rights reserved.</p>
+    <p class="footer-disclaimer">For harm-reduction and educational purposes only. Not medical advice. For adults in jurisdictions where these activities are legally permitted.</p>
+  </div>
+</footer>
+
+<script src="/motion.js" defer></script>
+</body>
+</html>

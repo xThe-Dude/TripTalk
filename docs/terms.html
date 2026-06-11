@@ -3,53 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     AUTH REDIRECT — preserved verbatim from the home page.
+     If we landed here from a Supabase auth redirect, the URL
+     fragment contains tokens; bounce to the confirm page.
+     Kept inline + first so it runs before anything else.
+     ============================================================ -->
+<script>
+  (function() {
+    var hash = window.location.hash || '';
+    if (hash.indexOf('access_token') !== -1) {
+      window.location.replace('/auth/confirm.html' + hash);
+    }
+  })();
+</script>
+
 <title>Terms of Service — TripTalk</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #0B1A24;
-    color: #F2F0E8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.8;
-    min-height: 100vh;
-  }
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 60px 24px;
-  }
-  h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-  .updated {
-    color: #8A8780;
-    font-size: 0.9rem;
-    margin-bottom: 40px;
-  }
-  h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #D9C78E;
-    margin-top: 36px;
-    margin-bottom: 12px;
-  }
-  p { margin-bottom: 16px; }
-  a { color: #D9C78E; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  ul { margin: 0 0 16px 24px; }
-  li { margin-bottom: 6px; }
-  .back { display: inline-block; margin-bottom: 32px; font-size: 0.9rem; }
-</style>
+<meta name="description" content="The terms governing your use of TripTalk — an educational, harm-reduction resource for adults 21 and older.">
+<link rel="canonical" href="https://triptalk.guide/terms.html">
+<meta name="theme-color" content="#0B1410">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripTalk">
+<meta property="og:title" content="Terms of Service — TripTalk">
+<meta property="og:description" content="The terms governing your use of TripTalk — an educational, harm-reduction resource for adults 21 and older.">
+<meta property="og:url" content="https://triptalk.guide/terms.html">
+<meta property="og:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terms of Service — TripTalk">
+<meta name="twitter:description" content="The terms governing your use of TripTalk — an educational, harm-reduction resource for adults 21 and older.">
+<meta name="twitter:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600&display=swap">
+
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<div class="container">
-  <a class="back" href="index.html">&larr; Back to TripTalk</a>
 
-  <h1>Terms of Service</h1>
+<!-- Skip link for keyboard / screen-reader users -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="site-header" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="TripTalk — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">TripTalk</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="guides/index.html">Substances</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html">Crisis</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Get the app</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="legal" aria-labelledby="legal-head">
+    <div class="hero-bloom" aria-hidden="true"></div>
+    <div class="wrap legal-wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Terms</span>
+      </nav>
+      <div class="legal-body">
+<h1>Terms of Service</h1>
   <p class="updated">Last updated: March 9, 2026</p>
 
   <p>These Terms of Service ("Terms") govern your use of TripTalk ("the App"), developed by Michael Oehlrich ("we," "us," or "our"). By using TripTalk, you agree to these Terms.</p>
@@ -93,6 +120,33 @@
   <h2>Contact Us</h2>
   <p>If you have questions about these Terms, please contact us at:</p>
   <p><a href="mailto:legal@triptalk.guide">legal@triptalk.guide</a></p>
-</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word">TripTalk</span>
+      <p class="footer-tag">Knowledge reduces harm.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="guides/index.html">Guides</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html">Crisis</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 Michael Oehlrich. All rights reserved.</p>
+    <p class="footer-disclaimer">For harm-reduction and educational purposes only. Not medical advice. For adults in jurisdictions where these activities are legally permitted.</p>
+  </div>
+</footer>
+
+<script src="/motion.js" defer></script>
 </body>
 </html>

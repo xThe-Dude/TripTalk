@@ -3,65 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     AUTH REDIRECT — preserved verbatim from the home page.
+     If we landed here from a Supabase auth redirect, the URL
+     fragment contains tokens; bounce to the confirm page.
+     Kept inline + first so it runs before anything else.
+     ============================================================ -->
+<script>
+  (function() {
+    var hash = window.location.hash || '';
+    if (hash.indexOf('access_token') !== -1) {
+      window.location.replace('/auth/confirm.html' + hash);
+    }
+  })();
+</script>
+
 <title>Support — TripTalk</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #0B1A24;
-    color: #F2F0E8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.8;
-    min-height: 100vh;
-  }
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 60px 24px;
-  }
-  h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-  .intro {
-    color: #C8C5BC;
-    margin-bottom: 40px;
-  }
-  h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #D9C78E;
-    margin-top: 36px;
-    margin-bottom: 12px;
-  }
-  p { margin-bottom: 16px; }
-  a { color: #D9C78E; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .back { display: inline-block; margin-bottom: 32px; font-size: 0.9rem; }
-  .faq-item { margin-bottom: 28px; }
-  .faq-q {
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-size: 1.05rem;
-  }
-  .faq-a { color: #C8C5BC; }
-  .contact-box {
-    background: rgba(217, 199, 142, 0.08);
-    border: 1px solid rgba(217, 199, 142, 0.2);
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 40px;
-  }
-  .contact-box h2 { margin-top: 0; }
-</style>
+<meta name="description" content="Frequently asked questions and contact details for TripTalk, the psychedelic harm-reduction app.">
+<link rel="canonical" href="https://triptalk.guide/support.html">
+<meta name="theme-color" content="#0B1410">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripTalk">
+<meta property="og:title" content="Support — TripTalk">
+<meta property="og:description" content="Frequently asked questions and contact details for TripTalk, the psychedelic harm-reduction app.">
+<meta property="og:url" content="https://triptalk.guide/support.html">
+<meta property="og:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Support — TripTalk">
+<meta name="twitter:description" content="Frequently asked questions and contact details for TripTalk, the psychedelic harm-reduction app.">
+<meta name="twitter:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600&display=swap">
+
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<div class="container">
-  <a class="back" href="index.html">&larr; Back to TripTalk</a>
 
-  <h1>Support</h1>
+<!-- Skip link for keyboard / screen-reader users -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="site-header" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="TripTalk — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">TripTalk</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="guides/index.html">Substances</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html">Crisis</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Get the app</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="legal" aria-labelledby="legal-head">
+    <div class="hero-bloom" aria-hidden="true"></div>
+    <div class="wrap legal-wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Support</span>
+      </nav>
+      <div class="legal-body">
+<h1>Support</h1>
   <p class="intro">Find answers to common questions below, or reach out to us directly.</p>
 
   <h2>Frequently Asked Questions</h2>
@@ -100,8 +115,35 @@
     <h2>Contact Us</h2>
     <p>Have a question not answered above, or want to report a bug? We'd love to hear from you.</p>
     <p><a href="mailto:support@triptalk.guide">support@triptalk.guide</a></p>
-    <p style="color: #8A8780; font-size: 0.9rem; margin-bottom: 0;">Bug reports are always welcome — please include your iOS version and a description of the issue.</p>
+    <p>Bug reports are always welcome — please include your iOS version and a description of the issue.</p>
   </div>
-</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word">TripTalk</span>
+      <p class="footer-tag">Knowledge reduces harm.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="guides/index.html">Guides</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html">Crisis</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 Michael Oehlrich. All rights reserved.</p>
+    <p class="footer-disclaimer">For harm-reduction and educational purposes only. Not medical advice. For adults in jurisdictions where these activities are legally permitted.</p>
+  </div>
+</footer>
+
+<script src="/motion.js" defer></script>
 </body>
 </html>

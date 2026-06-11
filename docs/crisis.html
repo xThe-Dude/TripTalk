@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     AUTH REDIRECT — preserved verbatim from the home page.
+     If we landed here from a Supabase auth redirect, the URL
+     fragment contains tokens; bounce to the confirm page.
+     Kept inline + first so it runs before anything else.
+     ============================================================ -->
+<script>
+  (function() {
+    var hash = window.location.hash || '';
+    if (hash.indexOf('access_token') !== -1) {
+      window.location.replace('/auth/confirm.html' + hash);
+    }
+  })();
+</script>
+
+<title>Crisis Resources — Call or Text for Help Now | TripTalk</title>
+<meta name="description" content="Immediate crisis resources: 911, 988 Suicide &amp; Crisis Lifeline, Fireside Project psychedelic peer support, Crisis Text Line, and SAMHSA. Free, confidential, 24/7.">
+<link rel="canonical" href="https://triptalk.guide/crisis.html">
+<meta name="theme-color" content="#0B1410">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripTalk">
+<meta property="og:title" content="Crisis Resources — Call or Text for Help Now | TripTalk">
+<meta property="og:description" content="Immediate crisis resources: 911, 988 Suicide &amp; Crisis Lifeline, Fireside Project psychedelic peer support, Crisis Text Line, and SAMHSA. Free, confidential, 24/7.">
+<meta property="og:url" content="https://triptalk.guide/crisis.html">
+<meta property="og:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crisis Resources — Call or Text for Help Now | TripTalk">
+<meta name="twitter:description" content="Immediate crisis resources: 911, 988 Suicide &amp; Crisis Lifeline, Fireside Project psychedelic peer support, Crisis Text Line, and SAMHSA. Free, confidential, 24/7.">
+<meta name="twitter:image" content="https://triptalk.guide/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600&display=swap">
+
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Crisis Resources \u2014 TripTalk",
+  "description": "Immediate crisis resources: 911, 988 Suicide & Crisis Lifeline, Fireside Project, Crisis Text Line, and SAMHSA. Free, confidential, 24/7.",
+  "url": "https://triptalk.guide/crisis.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "TripTalk",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://triptalk.guide/og-image.png"
+    }
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Skip link for keyboard / screen-reader users -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="site-header" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="TripTalk — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-word">TripTalk</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="guides/index.html">Substances</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html" aria-current="page">Crisis</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/triptalk-safe-journeys/id6760588611">Get the app</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="crisis-hero" aria-labelledby="cr-head">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-on-accent reveal" data-reveal>You are not alone</p>
+      <h1 class="display crisis-hero-display" id="cr-head">If you need help,<br><span class="line-accent">reach out now.</span></h1>
+      <p class="crisis-hero-lede reveal" data-reveal>
+        Whatever is happening, it can pass, and you do not have to face it by yourself. These lines are free, confidential, and staffed around the clock. Tap any one to connect.
+      </p>
+    </div>
+  </section>
+
+  <section class="crisis-cards-section" aria-labelledby="cr-list">
+    <div class="wrap">
+      <h2 class="visually-hidden" id="cr-list">Crisis resources</h2>
+      <ul class="crisis-cards">
+        <li class="crisis-card crisis-card-feature" data-reveal>
+          <a href="tel:911" class="crisis-card-link">
+            <span class="crisis-card-label">Immediate danger</span>
+            <span class="crisis-card-big">911</span>
+            <span class="crisis-card-action">Call 911 <span aria-hidden="true">→</span></span>
+            <span class="crisis-card-desc">If you or someone near you is in immediate physical danger — unresponsive, seizing, chest pain, or a life-threatening emergency — call emergency services now.</span>
+          </a>
+        </li>
+        <li class="crisis-card crisis-card-feature" data-reveal>
+          <a href="tel:988" class="crisis-card-link">
+            <span class="crisis-card-label">Suicide &amp; crisis</span>
+            <span class="crisis-card-big">988</span>
+            <span class="crisis-card-action">Call or text 988 <span aria-hidden="true">→</span></span>
+            <span class="crisis-card-desc">The 988 Suicide &amp; Crisis Lifeline. Free, confidential support for distress, emotional crisis, or thoughts of self-harm — 24 hours a day, every day.</span>
+          </a>
+        </li>
+        <li class="crisis-card" data-reveal>
+          <a href="tel:16234737433" class="crisis-card-link">
+            <span class="crisis-card-label">Psychedelic peer support</span>
+            <span class="crisis-card-big">623-473-7433</span>
+            <span class="crisis-card-action">Call 623-473-7433 <span aria-hidden="true">→</span></span>
+            <span class="crisis-card-desc">The Fireside Project. Trained volunteers who can talk you or a friend through a difficult psychedelic experience, in the moment, without judgment.</span>
+          </a>
+        </li>
+        <li class="crisis-card" data-reveal>
+          <a href="sms:741741?&body=HOME" class="crisis-card-link">
+            <span class="crisis-card-label">Text-based support</span>
+            <span class="crisis-card-big">741741</span>
+            <span class="crisis-card-action">Text HOME to 741741 <span aria-hidden="true">→</span></span>
+            <span class="crisis-card-desc">Crisis Text Line. If talking is hard, text HOME to 741741 to reach a trained crisis counselor by message.</span>
+          </a>
+        </li>
+        <li class="crisis-card" data-reveal>
+          <a href="tel:18006624357" class="crisis-card-link">
+            <span class="crisis-card-label">Substance &amp; mental health</span>
+            <span class="crisis-card-big">1-800-662-4357</span>
+            <span class="crisis-card-action">Call 1-800-662-4357 <span aria-hidden="true">→</span></span>
+            <span class="crisis-card-desc">SAMHSA&#x27;s National Helpline. Free, confidential treatment referral and information for substance use and mental health — 24/7, in English and Spanish.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="crisis-reassure" aria-labelledby="cr-re">
+    <div class="wrap crisis-reassure-inner">
+      <span class="section-numeral section-numeral-right" aria-hidden="true">SOS</span>
+      <p class="eyebrow" data-reveal>While you wait for help</p>
+      <h2 class="section-head" id="cr-re" data-reveal>A few things that can steady a hard moment.</h2>
+      <ul class="reassure-list">
+        <li data-reveal><strong>You took something, and it will wear off.</strong> Intense feelings during an experience are temporary, even when they do not feel that way.</li>
+        <li data-reveal><strong>Change your setting.</strong> Sit down, find a calmer room, dim the lights, put on quiet music. Small changes to your surroundings change a lot.</li>
+        <li data-reveal><strong>Find a sober person you trust.</strong> You do not have to explain everything. Just not being alone helps.</li>
+        <li data-reveal><strong>Breathe slowly.</strong> In for four, hold for four, out for six. Repeat. It tells your body it is safe.</li>
+        <li data-reveal><strong>It is okay to call.</strong> Reaching out is not an overreaction. The people on these lines want to hear from you.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word">TripTalk</span>
+      <p class="footer-tag">Knowledge reduces harm.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="guides/index.html">Guides</a>
+      <a href="harm-reduction.html">Safety</a>
+      <a href="crisis.html">Crisis</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 Michael Oehlrich. All rights reserved.</p>
+    <p class="footer-disclaimer">For harm-reduction and educational purposes only. Not medical advice. For adults in jurisdictions where these activities are legally permitted.</p>
+  </div>
+</footer>
+
+<script src="/motion.js" defer></script>
+</body>
+</html>
