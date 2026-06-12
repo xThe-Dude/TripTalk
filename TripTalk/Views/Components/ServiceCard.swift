@@ -18,7 +18,7 @@ struct ServiceCard: View {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 4) {
                         Text(service.name)
-                            .font(.system(.headline, design: .serif))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .lineLimit(1)
                         if service.isVerified {

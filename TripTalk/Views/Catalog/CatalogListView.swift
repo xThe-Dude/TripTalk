@@ -69,7 +69,7 @@ struct CatalogListView: View {
                                             .font(.caption)
                                             .foregroundStyle(type.color)
                                         Text(type.rawValue)
-                                            .font(.system(.subheadline, design: .serif, weight: .bold))
+                                            .font(.ttCardTitle)
                                             .foregroundStyle(.white)
                                     }
                                     .padding(.horizontal, 14)

@@ -33,11 +33,11 @@ struct SubstanceDetailView: View {
                     .frame(height: 260)
                     VStack(spacing: 8) {
                         Image(systemName: substance.imageSymbol)
-                            .font(.system(size: 50))
+                            .font(.ttIconLg50)
                             .foregroundStyle(.white.opacity(0.9))
                             .accessibilityHidden(true)
                         Text(substance.name)
-                            .font(.system(.largeTitle, design: .serif, weight: .bold))
+                            .font(.ttPageHead)
                             .foregroundStyle(Color.ttPrimary)
                         Text(substance.category.rawValue)
                             .font(.subheadline)
@@ -68,7 +68,7 @@ struct SubstanceDetailView: View {
                 // About
                 VStack(alignment: .leading, spacing: 6) {
                     Text("About")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)
@@ -82,7 +82,7 @@ struct SubstanceDetailView: View {
                 // Effects
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Effects")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)
@@ -98,7 +98,7 @@ struct SubstanceDetailView: View {
                 // Safety
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Safety Notes")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)
@@ -123,7 +123,7 @@ struct SubstanceDetailView: View {
                     if !relatedStrains.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Varieties")
-                                .font(.system(.title3, design: .serif, weight: .bold))
+                                .font(.ttCardTitle)
                                 .foregroundStyle(Color.ttPrimary)
                                 .tracking(0.5)
                                 .accessibilityAddTraits(.isHeader)
@@ -143,7 +143,7 @@ struct SubstanceDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("Reviews")
-                            .font(.system(.title3, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.5)
                             .accessibilityAddTraits(.isHeader)

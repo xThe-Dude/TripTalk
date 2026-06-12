@@ -16,7 +16,7 @@ struct StrainDetailView: View {
                 // Effects
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Effects")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
@@ -31,7 +31,7 @@ struct StrainDetailView: View {
                 // Body Feel
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Body Feel")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
@@ -46,7 +46,7 @@ struct StrainDetailView: View {
                 // Emotional Profile
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Emotional Profile")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .accessibilityAddTraits(.isHeader)
                     FlowLayout(spacing: 6) {
@@ -61,7 +61,7 @@ struct StrainDetailView: View {
                 // About
                 VStack(alignment: .leading, spacing: 6) {
                     Text("About")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .accessibilityAddTraits(.isHeader)
                     Text(strain.description)
@@ -79,7 +79,7 @@ struct StrainDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("Trip Reports")
-                            .font(.system(.title3, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .accessibilityAddTraits(.isHeader)
                         Spacer()
@@ -187,7 +187,7 @@ struct StrainDetailView: View {
 
                 VStack(spacing: 8) {
                     Text(strain.name)
-                        .font(.system(.largeTitle, design: .serif, weight: .bold))
+                        .font(.ttPageHead)
                         .foregroundStyle(Color.ttPrimary)
                         .shadow(color: .black.opacity(0.6), radius: 6, y: 2)
                     Text(strain.species)
@@ -295,7 +295,7 @@ struct StrainDetailView: View {
         if intensities.visual > 0 || intensities.body > 0 || intensities.emotional > 0 {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Average Intensity")
-                    .font(.system(.title3, design: .serif, weight: .bold))
+                    .font(.ttCardTitle)
                     .foregroundStyle(Color.ttPrimary)
                     .accessibilityAddTraits(.isHeader)
                 IntensityChartRow(label: "Visual", value: intensities.visual, color: .ttVisual)

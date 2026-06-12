@@ -22,7 +22,7 @@ struct StrainCard: View {
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(strain.name)
-                            .font(.system(.headline, design: .serif))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .lineLimit(1)
 

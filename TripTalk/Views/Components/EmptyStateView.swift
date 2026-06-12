@@ -40,7 +40,7 @@ struct EmptyStateView: View {
                         .frame(width: 80, height: 80)
 
                     Image(systemName: icon)
-                        .font(.system(size: 32))
+                        .font(.ttIconMd)
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [.teal, .green.opacity(0.7)],
@@ -52,7 +52,7 @@ struct EmptyStateView: View {
             }
 
             Text(title)
-                .font(.system(.title3, design: .serif, weight: .bold))
+                .font(.ttCardTitle)
                 .foregroundStyle(Color.ttPrimary)
 
             Text(subtitle)

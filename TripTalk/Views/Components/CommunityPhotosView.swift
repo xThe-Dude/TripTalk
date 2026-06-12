@@ -15,7 +15,7 @@ struct CommunityPhotosView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text("Community Photos")
-                    .font(.system(.title3, design: .serif, weight: .bold))
+                    .font(.ttCardTitle)
                     .foregroundStyle(Color.ttPrimary)
                     .accessibilityAddTraits(.isHeader)
                 Spacer()

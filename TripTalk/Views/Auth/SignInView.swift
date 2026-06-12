@@ -28,7 +28,7 @@ struct SignInView: View {
                     // Header
                     VStack(spacing: 8) {
                         Image(systemName: "leaf.fill")
-                            .font(.system(size: 48))
+                            .font(.ttIconLg)
                             .foregroundStyle(
                                 LinearGradient(colors: [.teal, .green.opacity(0.8)],
                                                startPoint: .topLeading, endPoint: .bottomTrailing)

@@ -26,12 +26,12 @@ struct AgeGateView: View {
                         .frame(width: 240, height: 240)
 
                     Image(systemName: "leaf.circle.fill")
-                        .font(.system(size: 80))
+                        .font(.ttIconHero)
                         .foregroundStyle(Color.ttPrimary)
                 }
 
                 Text("TripTalk")
-                    .font(.system(.largeTitle, design: .serif, weight: .bold))
+                    .font(.ttPageHead)
                     .foregroundStyle(Color.ttPrimary)
                     .tracking(2)
 

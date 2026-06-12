@@ -22,7 +22,7 @@ struct LaunchScreenView: View {
                         .frame(width: 160, height: 160)
 
                     Image(systemName: "leaf.circle.fill")
-                        .font(.system(size: 72))
+                        .font(.ttIconHero)
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [.teal, .green.opacity(0.7)],
@@ -33,7 +33,7 @@ struct LaunchScreenView: View {
                 }
 
                 Text("TripTalk")
-                    .font(.system(.largeTitle, design: .serif, weight: .bold))
+                    .font(.ttDisplay)
                     .foregroundStyle(Color.ttPrimary)
                     .tracking(2)
             }

@@ -35,7 +35,7 @@ struct PasswordResetView: View {
 
                     VStack(spacing: 8) {
                         Image(systemName: "key.fill")
-                            .font(.system(size: 48))
+                            .font(.ttIconLg)
                             .foregroundStyle(
                                 LinearGradient(colors: [.teal, .green.opacity(0.8)],
                                                startPoint: .topLeading, endPoint: .bottomTrailing)

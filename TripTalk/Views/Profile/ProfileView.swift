@@ -31,7 +31,7 @@ struct ProfileView: View {
 
                     VStack(spacing: 4) {
                         Text(appState.auth.profile?.displayName ?? "Explorer")
-                            .font(.system(.title2, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                         if let bio = appState.auth.profile?.bio, !bio.isEmpty {
                             Text(bio)
@@ -420,7 +420,7 @@ struct ProfileView: View {
     private func profileSection<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.system(.title3, design: .serif, weight: .bold))
+                .font(.ttCardTitle)
                 .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)

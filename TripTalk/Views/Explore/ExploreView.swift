@@ -149,7 +149,7 @@ struct ExploreView: View {
     private func sectionView<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.system(.title3, design: .serif, weight: .bold))
+                .font(.ttCardTitle)
                 .foregroundStyle(Color.ttPrimary)
                 .tracking(0.5)
                 .padding(.horizontal)
@@ -181,13 +181,13 @@ struct MiniStrainCard: View {
                     .padding(.bottom, 28)
 
                 Image(systemName: strain.parentSubstance.icon)
-                    .font(.system(size: 32))
+                    .font(.ttIconMd)
                     .foregroundStyle(.white.opacity(0.9))
                     .padding(.bottom, 28)
 
                 // Name overlaid
                 Text(strain.name)
-                    .font(.system(.caption, design: .serif, weight: .bold))
+                    .font(.ttEyebrow)
                     .foregroundStyle(Color.ttPrimary)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)

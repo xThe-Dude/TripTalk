@@ -12,7 +12,7 @@ struct CrisisButton: View {
         } label: {
             HStack(spacing: 6) {
                 Image(systemName: "heart.text.square.fill")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.ttEyebrow)
                 Text("Get Help")
                     .font(.subheadline.weight(.semibold))
             }
@@ -45,7 +45,7 @@ struct CrisisSheet: View {
                     // Header
                     VStack(spacing: 8) {
                         Image(systemName: "heart.circle.fill")
-                            .font(.system(size: 48))
+                            .font(.ttIconLg)
                             .foregroundStyle(.red)
                         Text("You're Not Alone")
                             .font(.title2.weight(.semibold))

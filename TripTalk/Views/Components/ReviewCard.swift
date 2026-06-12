@@ -35,7 +35,7 @@ struct ReviewCard: View {
                 }
 
                 Text(review.title)
-                    .font(.system(.subheadline, design: .serif, weight: .semibold))
+                    .font(.ttMetadata)
                     .foregroundStyle(Color.ttPrimary)
 
                 Text(review.body)

@@ -18,13 +18,13 @@ struct ServiceDetailView: View {
                     .frame(height: 260)
                     VStack(spacing: 8) {
                         Image(systemName: service.imageSymbol)
-                            .font(.system(size: 50))
+                            .font(.ttIconLg50)
                             .foregroundStyle(.white.opacity(0.9))
                             .accessibilityHidden(true)
 
                         HStack(spacing: 4) {
                             Text(service.name)
-                                .font(.system(.title2, design: .serif, weight: .bold))
+                                .font(.ttCardTitle)
                                 .foregroundStyle(Color.ttPrimary)
                             if service.isVerified {
                                 Image(systemName: "checkmark.seal.fill")
@@ -62,7 +62,7 @@ struct ServiceDetailView: View {
                 // About
                 VStack(alignment: .leading, spacing: 6) {
                     Text("About")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)
@@ -76,7 +76,7 @@ struct ServiceDetailView: View {
                 // Offerings
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Offerings")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)
@@ -97,7 +97,7 @@ struct ServiceDetailView: View {
                 // Reviews
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Reviews")
-                        .font(.system(.title3, design: .serif, weight: .bold))
+                        .font(.ttCardTitle)
                         .foregroundStyle(Color.ttPrimary)
                         .tracking(0.5)
                         .accessibilityAddTraits(.isHeader)

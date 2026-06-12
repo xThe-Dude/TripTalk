@@ -51,7 +51,7 @@ struct OnboardingView: View {
                                     .frame(width: 140, height: 140)
 
                                 Image(systemName: page.icon)
-                                    .font(.system(size: 56))
+                                    .font(.ttIconXL)
                                     .foregroundStyle(
                                         LinearGradient(
                                             colors: [.teal, .green.opacity(0.7)],
@@ -63,7 +63,7 @@ struct OnboardingView: View {
                             .accessibilityHidden(true)
 
                             Text(page.title)
-                                .font(.system(.largeTitle, design: .serif, weight: .bold))
+                                .font(.ttPageHead)
                                 .foregroundStyle(Color.ttPrimary)
                                 .tracking(1)
                                 .shadow(color: .black.opacity(0.5), radius: 4, y: 2)

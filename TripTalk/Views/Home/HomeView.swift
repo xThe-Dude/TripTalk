@@ -34,7 +34,7 @@ struct HomeView: View {
                     // MARK: - Welcome Header
                     VStack(spacing: 8) {
                         Text("Welcome to TripTalk")
-                            .font(.system(.largeTitle, design: .serif, weight: .bold))
+                            .font(.ttPageHead)
                             .foregroundStyle(
                                 LinearGradient(
                                     colors: [Color.ttPrimary, Color.ttGlow],
@@ -65,7 +65,7 @@ struct HomeView: View {
                                 .frame(height: 200)
 
                                 Image(systemName: featured.parentSubstance.icon)
-                                    .font(.system(size: 80))
+                                    .font(.ttIconHero)
                                     .foregroundStyle(.white.opacity(0.12))
                                     .offset(x: 200, y: -30)
 
@@ -78,7 +78,7 @@ struct HomeView: View {
                                         .tracking(1.2)
 
                                     Text(featured.name)
-                                        .font(.system(.title, design: .serif, weight: .bold))
+                                        .font(.ttSection)
                                         .foregroundStyle(Color.ttPrimary)
 
                                     Text(featured.description)
@@ -115,7 +115,7 @@ struct HomeView: View {
                                 .font(.title3)
                                 .foregroundStyle(Color.ttAccent)
                             Text("Tip of the Day")
-                                .font(.system(.headline, design: .serif))
+                                .font(.ttCardTitle)
                                 .foregroundStyle(Color.ttPrimary)
                         }
 
@@ -131,7 +131,7 @@ struct HomeView: View {
                     // MARK: - Quick Links
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Quick Links")
-                            .font(.system(.title3, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.8)
                             .padding(.horizontal)
@@ -162,7 +162,7 @@ struct HomeView: View {
                     // MARK: - Recent Trip Reports
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Recent Trip Reports")
-                            .font(.system(.title3, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .tracking(0.8)
                             .accessibilityAddTraits(.isHeader)

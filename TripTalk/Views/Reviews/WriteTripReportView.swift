@@ -225,14 +225,14 @@ struct WriteTripReportView: View {
                         .ignoresSafeArea()
                     VStack(spacing: 16) {
                         Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 60))
+                            .font(.ttIconXL)
                             .foregroundStyle(.green)
                             .scaleEffect(checkmarkVisible ? 1.0 : 0.3)
                             .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.1), value: checkmarkVisible)
                             .onAppear { checkmarkVisible = true }
                             .onDisappear { checkmarkVisible = false }
                         Text("Thank you!")
-                            .font(.system(.title2, design: .serif, weight: .bold))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                         Text("Thank you for sharing your experience. Your report helps others make informed decisions.")
                             .font(.subheadline)

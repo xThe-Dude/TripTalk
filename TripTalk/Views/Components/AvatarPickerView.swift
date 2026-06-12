@@ -58,7 +58,7 @@ struct AvatarPickerView: View {
 
     private var fallbackAvatar: some View {
         Image(systemName: "person.circle.fill")
-            .font(.system(size: 70))
+            .font(.ttIconHero)
             .foregroundStyle(
                 LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
             )

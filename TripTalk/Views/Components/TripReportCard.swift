@@ -36,7 +36,7 @@ struct TripReportCard: View {
 
                 if !strainName.isEmpty {
                     Text(strainName)
-                        .font(.system(.caption, design: .serif, weight: .semibold))
+                        .font(.ttCaption)
                         .foregroundStyle(Color.ttSecondary)
                 }
 

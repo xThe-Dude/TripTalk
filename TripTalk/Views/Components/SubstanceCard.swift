@@ -24,7 +24,7 @@ struct SubstanceCard: View {
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(substance.name)
-                            .font(.system(.headline, design: .serif))
+                            .font(.ttCardTitle)
                             .foregroundStyle(Color.ttPrimary)
                             .lineLimit(1)
                         HStack(spacing: 4) {
