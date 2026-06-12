@@ -7,6 +7,10 @@
 		<string>Fraunces-VariableFont.ttf</string>
 		<string>Fraunces-Italic-VariableFont.ttf</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>TripTalk uses the microphone so you can record private voice notes in your journal. Recordings stay on your device.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>TripTalk transcribes your voice notes on your device. Audio is never uploaded.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

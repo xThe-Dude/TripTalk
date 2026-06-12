@@ -20,6 +20,7 @@ struct JournalEntryDetailView: View {
     @State private var showEditor = false
     @State private var showDeleteConfirm = false
     @State private var deleteError: String? = nil
+    @State private var voicePlayback = AudioPlaybackService()
 
     // MARK: - Body
 
@@ -27,6 +28,7 @@ struct JournalEntryDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: TTDesign.spacingXL) {
                 headerSection
+                voicePlaybackSection
                 timelineSection
                 phaseSection
                 reflectionSection
@@ -106,6 +108,85 @@ struct JournalEntryDetailView: View {
         }
         .padding(.horizontal, TTDesign.spacingLG)
         .padding(.top, TTDesign.spacingMD)
+    }
+
+    // MARK: - Voice playback
+
+    @ViewBuilder
+    private var voicePlaybackSection: some View {
+        if entry.entryKind == "voice",
+           let fileName = entry.audioFileName,
+           JournalAudioStorage.audioFileExists(named: fileName) {
+
+            VStack(alignment: .leading, spacing: TTDesign.spacingMD) {
+                Label("Voice Note", systemImage: "waveform")
+                    .font(.ttSection)
+                    .foregroundStyle(Color.ttPrimary)
+                    .padding(.horizontal, TTDesign.spacingLG)
+
+                // Play / pause row
+                Button(action: { voicePlayback.togglePlayback(fileName: fileName) }) {
+                    HStack(spacing: TTDesign.spacingMD) {
+                        Image(systemName: voicePlayback.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .font(.system(size: 36))
+                            .foregroundStyle(Color.ttAccent)
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(voicePlayback.isPlaying ? "Playing…" : "Play recording")
+                                .font(.ttBody)
+                                .foregroundStyle(Color.ttPrimary)
+                            Text("Stored privately on your device")
+                                .font(.ttCaption)
+                                .foregroundStyle(Color.ttTertiary)
+                        }
+                        Spacer()
+                    }
+                    .padding(TTDesign.spacingLG)
+                    .background(
+                        RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                            .fill(Color.ttCardBg)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                    .stroke(Color.ttAccent.opacity(0.15), lineWidth: 1)
+                            )
+                    )
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, TTDesign.spacingLG)
+
+                if let pbErr = voicePlayback.playbackError {
+                    Text(pbErr)
+                        .font(.ttCaption)
+                        .foregroundStyle(Color.red.opacity(0.8))
+                        .padding(.horizontal, TTDesign.spacingLG)
+                }
+
+                // Transcript (if available)
+                if let transcript = entry.transcript,
+                   !transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    VStack(alignment: .leading, spacing: TTDesign.spacingSM) {
+                        Label("Transcript", systemImage: "text.quote")
+                            .font(.ttEyebrow)
+                            .foregroundStyle(Color.ttTertiary)
+                        Text(transcript)
+                            .font(.ttBody)
+                            .foregroundStyle(Color.ttPrimary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(TTDesign.spacingLG)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                            .fill(Color.ttCardBg)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                    .stroke(Color.white.opacity(0.07), lineWidth: 1)
+                            )
+                    )
+                    .padding(.horizontal, TTDesign.spacingLG)
+                }
+            }
+        }
     }
 
     // MARK: - Timeline

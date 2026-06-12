@@ -39,6 +39,17 @@ struct JournalEntryEditorView: View {
 
     @State private var saveError: String? = nil
 
+    // MARK: - Voice note state
+
+    /// Filename of the attached voice recording (nil = no recording).
+    @State private var voiceFileName: String? = nil
+    /// Transcript text produced from the voice recording (may be nil or empty).
+    @State private var voiceTranscript: String? = nil
+    /// Whether the VoiceRecorderView sheet is presented.
+    @State private var showVoiceRecorder = false
+    /// Playback service for the in-editor voice preview.
+    @State private var voicePlayback = AudioPlaybackService()
+
     // MARK: - Init
 
     /// Create a blank new entry.
@@ -69,6 +80,7 @@ struct JournalEntryEditorView: View {
     private var isEditMode: Bool { existingEntry != nil }
 
     private var isEmptyEntry: Bool {
+        voiceFileName == nil &&
         substanceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         setting.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         intention.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
@@ -93,6 +105,7 @@ struct JournalEntryEditorView: View {
                         basicSection
                         journeySection
                         reflectionSection
+                        voiceNoteSection
 
                         if let err = saveError {
                             Text(err)
@@ -122,6 +135,12 @@ struct JournalEntryEditorView: View {
                 }
             }
             .onAppear(perform: populateFields)
+            .sheet(isPresented: $showVoiceRecorder) {
+                VoiceRecorderView { fileName, transcript in
+                    voiceFileName = fileName
+                    voiceTranscript = transcript
+                }
+            }
         }
     }
 
@@ -267,6 +286,119 @@ struct JournalEntryEditorView: View {
         }
     }
 
+    // MARK: - Voice note section
+
+    private var voiceNoteSection: some View {
+        VStack(alignment: .leading, spacing: TTDesign.spacingMD) {
+            sectionHeader("Voice Note", systemImage: "waveform")
+
+            if let fileName = voiceFileName {
+                // Recording attached — show preview card
+                VStack(alignment: .leading, spacing: TTDesign.spacingMD) {
+                    // Playback row
+                    HStack(spacing: TTDesign.spacingMD) {
+                        Button(action: { voicePlayback.togglePlayback(fileName: fileName) }) {
+                            HStack(spacing: TTDesign.spacingXS) {
+                                Image(systemName: voicePlayback.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                                    .font(.system(size: 28))
+                                    .foregroundStyle(Color.ttAccent)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Voice recording")
+                                        .font(.ttBody)
+                                        .foregroundStyle(Color.ttPrimary)
+                                    Text(voicePlayback.isPlaying ? "Playing…" : "Tap to preview")
+                                        .font(.ttCaption)
+                                        .foregroundStyle(Color.ttTertiary)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+
+                        Spacer()
+
+                        Button(action: removeVoiceRecording) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 20))
+                                .foregroundStyle(Color.ttTertiary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .padding(TTDesign.spacingMD)
+                    .background(
+                        RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                            .fill(Color.ttCardBg)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                    .stroke(Color.ttAccent.opacity(0.15), lineWidth: 1)
+                            )
+                    )
+
+                    if let pbErr = voicePlayback.playbackError {
+                        Text(pbErr)
+                            .font(.ttCaption)
+                            .foregroundStyle(Color.red.opacity(0.8))
+                    }
+
+                    // Transcript (if available)
+                    if let transcript = voiceTranscript, !transcript.isEmpty {
+                        VStack(alignment: .leading, spacing: TTDesign.spacingXS) {
+                            Label("Transcript", systemImage: "text.quote")
+                                .font(.ttEyebrow)
+                                .foregroundStyle(Color.ttTertiary)
+                            Text(transcript)
+                                .font(.ttBody)
+                                .foregroundStyle(Color.ttSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(TTDesign.spacingMD)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                .fill(Color.ttCardBg)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                        .stroke(Color.white.opacity(0.07), lineWidth: 1)
+                                )
+                        )
+                    }
+                }
+                .padding(.horizontal, TTDesign.spacingLG)
+            } else {
+                // No recording yet — show "Add Voice Note" button
+                Button(action: { showVoiceRecorder = true }) {
+                    HStack(spacing: TTDesign.spacingMD) {
+                        Image(systemName: "mic.circle.fill")
+                            .font(.system(size: 28))
+                            .foregroundStyle(Color.ttAccent.opacity(0.7))
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Add Voice Note")
+                                .font(.ttBody)
+                                .foregroundStyle(Color.ttPrimary)
+                            Text("Record and transcribe on-device")
+                                .font(.ttCaption)
+                                .foregroundStyle(Color.ttTertiary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(Color.ttTertiary)
+                    }
+                    .padding(TTDesign.spacingMD)
+                    .background(
+                        RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                            .fill(Color.ttCardBg)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: TTDesign.radiusMD)
+                                    .stroke(Color.white.opacity(0.07), lineWidth: 1)
+                            )
+                    )
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, TTDesign.spacingLG)
+            }
+        }
+    }
+
     // MARK: - Helpers
 
     private func sectionHeader(_ title: String, systemImage: String) -> some View {
@@ -373,6 +505,18 @@ struct JournalEntryEditorView: View {
         }
     }
 
+    // MARK: - Voice note helpers
+
+    private func removeVoiceRecording() {
+        voicePlayback.stop()
+        // Delete the file from disk immediately so no orphaned audio accumulates.
+        if let fileName = voiceFileName {
+            try? JournalAudioStorage.deleteAudioFile(named: fileName)
+        }
+        voiceFileName = nil
+        voiceTranscript = nil
+    }
+
     // MARK: - Populate / Save
 
     private func populateFields() {
@@ -389,6 +533,10 @@ struct JournalEntryEditorView: View {
             phaseIntegrationNotes = entry.phaseIntegrationNotes
             highlights = entry.highlights
             safetyNotes = entry.safetyNotes
+
+            // Restore voice fields if entry has a recording
+            voiceFileName = entry.audioFileName
+            voiceTranscript = entry.transcript
 
             // Sync picker state
             if let idx = strains.firstIndex(where: { $0.name == entry.substanceName }) {
@@ -416,6 +564,11 @@ struct JournalEntryEditorView: View {
             ? strains[selectedStrainIndex].id
             : substanceId
 
+        // Determine entry kind based on whether a voice recording is attached.
+        let finalEntryKind = voiceFileName != nil ? "voice" : "text"
+        let finalTranscript = voiceTranscript?.trimmingCharacters(in: .whitespacesAndNewlines)
+            .nilIfEmpty
+
         do {
             if let entry = existingEntry {
                 // Update existing
@@ -430,6 +583,9 @@ struct JournalEntryEditorView: View {
                 entry.phaseIntegrationNotes = phaseIntegrationNotes
                 entry.highlights = highlights
                 entry.safetyNotes = safetyNotes
+                entry.entryKind = finalEntryKind
+                entry.audioFileName = voiceFileName
+                entry.transcript = finalTranscript
                 try appState.journal.update(entry)
             } else {
                 // Create new
@@ -444,13 +600,27 @@ struct JournalEntryEditorView: View {
                     phasePrepareNotes: phasePrepareNotes,
                     phaseOnsetNotes: phaseOnsetNotes,
                     phasePeakNotes: phasePeakNotes,
-                    phaseIntegrationNotes: phaseIntegrationNotes
+                    phaseIntegrationNotes: phaseIntegrationNotes,
+                    entryKind: finalEntryKind,
+                    audioFileName: voiceFileName,
+                    transcript: finalTranscript
                 )
                 try appState.journal.create(newEntry)
             }
+            voicePlayback.stop()
             dismiss()
         } catch {
             saveError = "Save failed: \(error.localizedDescription)"
         }
+    }
+}
+
+// MARK: - String convenience
+
+private extension String {
+    /// Returns nil if the string is empty after whitespace trimming.
+    var nilIfEmpty: String? {
+        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 }
