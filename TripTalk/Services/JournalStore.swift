@@ -36,20 +36,9 @@ final class JournalStore {
     init(inMemory: Bool = false) {
         let schema = Schema([JournalEntry.self])
 
-        let storeURL: URL? = inMemory
-            ? nil
-            : Self.storeURL()
-
-        let config = ModelConfiguration(
-            schema: schema,
-            url: storeURL ?? URL(fileURLWithPath: "/dev/null"), // overridden below
-            isStoredInMemoryOnly: inMemory,
-            allowsSave: true,
-            cloudKitDatabase: .none  // LOCAL-ONLY — no CloudKit entitlement needed
-        )
-
-        // ModelConfiguration(url:) is used when inMemory == false.
-        // For in-memory, we use the convenience init without a URL.
+        // LOCAL-ONLY configuration (no CloudKit, no network).
+        // In-memory init for tests vs. on-disk init for production use
+        // different ModelConfiguration initializers.
         let finalConfig: ModelConfiguration
         if inMemory {
             finalConfig = ModelConfiguration(
@@ -62,7 +51,6 @@ final class JournalStore {
             finalConfig = ModelConfiguration(
                 schema: schema,
                 url: Self.storeURL(),
-                isStoredInMemoryOnly: false,
                 allowsSave: true,
                 cloudKitDatabase: .none
             )
