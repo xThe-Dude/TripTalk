@@ -383,7 +383,7 @@ class AuthService {
         // Persist the Apple-provided name if the profile has no real display name yet.
         // Apple returns the name only once (first sign-in), so we must save it now.
         if let fullName = fullName?.trimmingCharacters(in: .whitespacesAndNewlines), !fullName.isEmpty {
-            let current = profile?.displayName?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let current = (profile?.displayName ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
             if current.isEmpty || current == "Anonymous" {
                 try? await updateProfile(displayName: fullName)
             }
