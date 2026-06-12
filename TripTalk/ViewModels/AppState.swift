@@ -25,6 +25,9 @@ class AppState {
     // either set a new password or dismiss.
     var pendingPasswordRecovery: Bool = false
 
+    // MARK: - Local Journal (private, on-device only)
+    let journal = JournalStore()
+
     // MARK: - Supabase
     let auth = AuthService()
     var isLoadingFromServer = false

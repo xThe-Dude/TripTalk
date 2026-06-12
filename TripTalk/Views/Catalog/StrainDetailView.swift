@@ -5,6 +5,7 @@ struct StrainDetailView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let strain: Strain
     @State private var showWriteTripReport = false
+    @State private var showJournalEditor = false
 
     var body: some View {
         ScrollView {
@@ -124,6 +125,26 @@ struct StrainDetailView: View {
                             .shadow(color: Color.teal.opacity(0.3), radius: 10, y: 0)
                     }
                     .pressEffect()
+
+                    Button {
+                        showJournalEditor = true
+                    } label: {
+                        Label("Start a Journey", systemImage: "book.closed.fill")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                LinearGradient(
+                                    colors: [Color.ttAccent.opacity(0.85), Color.ttAccent.opacity(0.5)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .foregroundStyle(Color(red: 0.1, green: 0.08, blue: 0.04))
+                            .clipShape(RoundedRectangle(cornerRadius: 14))
+                            .shadow(color: Color.ttAccent.opacity(0.25), radius: 10, y: 0)
+                    }
+                    .pressEffect()
                 }
                 .padding(.horizontal)
 
@@ -163,6 +184,9 @@ struct StrainDetailView: View {
         }
         .sheet(isPresented: $showWriteTripReport) {
             WriteTripReportView(strainId: strain.id)
+        }
+        .sheet(isPresented: $showJournalEditor) {
+            JournalEntryEditorView(prefillSubstanceName: strain.name, prefillSubstanceId: strain.id)
         }
     }
 

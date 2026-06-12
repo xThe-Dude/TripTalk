@@ -36,6 +36,11 @@ struct ContentView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
                 .tag(5)
+            JournalListView()
+                .tabItem {
+                    Label("Journal", systemImage: "book.closed.fill")
+                }
+                .tag(6)
         }
         .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
         .tint(Color.ttAccent)
