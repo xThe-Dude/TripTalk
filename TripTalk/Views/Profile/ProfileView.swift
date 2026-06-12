@@ -5,6 +5,7 @@ struct ProfileView: View {
     @State private var showDeleteConfirm = false
     @State private var isDeletingAccount = false
     @State private var showEditProfile = false
+    @State private var showNamePrompt = false
     @State private var showExportShare = false
     @State private var exportURL: URL?
 
@@ -404,6 +405,24 @@ struct ProfileView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationTitle("Profile")
+            // After a sign-in that produced no display name, prompt the user
+            // once to choose one (Apple often returns no name on repeat sign-ins).
+            .sheet(isPresented: $showNamePrompt) {
+                EditProfileView()
+                    .environment(appState)
+            }
+            .onChange(of: appState.auth.needsDisplayNamePrompt) { _, needs in
+                if needs {
+                    showNamePrompt = true
+                    appState.auth.needsDisplayNamePrompt = false
+                }
+            }
+            .onAppear {
+                if appState.auth.needsDisplayNamePrompt {
+                    showNamePrompt = true
+                    appState.auth.needsDisplayNamePrompt = false
+                }
+            }
             .navigationDestination(for: Strain.self) { strain in
                 StrainDetailView(strain: strain)
             }

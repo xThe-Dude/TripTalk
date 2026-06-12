@@ -127,6 +127,10 @@ class AuthService {
     var refreshToken: String?
     var userId: UUID?
     var profile: DBProfile?
+    /// Set to `true` after a sign-in that produced no usable display name
+    /// (e.g. Apple returned no name because it was not a first-time auth).
+    /// The UI observes this to prompt the user to set their name once.
+    var needsDisplayNamePrompt: Bool = false
     var isAuthenticated: Bool { accessToken != nil && userId != nil }
     var displayName: String? {
         get { profile?.displayName }
@@ -382,11 +386,19 @@ class AuthService {
 
         // Persist the Apple-provided name if the profile has no real display name yet.
         // Apple returns the name only once (first sign-in), so we must save it now.
-        if let fullName = fullName?.trimmingCharacters(in: .whitespacesAndNewlines), !fullName.isEmpty {
+        let trimmedFullName = fullName?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let fullName = trimmedFullName, !fullName.isEmpty {
             let current = (profile?.displayName ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
             if current.isEmpty || current == "Anonymous" {
                 try? await updateProfile(displayName: fullName)
             }
+        }
+
+        // If we still have no real display name (Apple gave us nothing and the
+        // profile defaulted to empty/"Anonymous"), ask the user to set one.
+        let resolved = (profile?.displayName ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        if resolved.isEmpty || resolved == "Anonymous" {
+            needsDisplayNamePrompt = true
         }
     }
 
