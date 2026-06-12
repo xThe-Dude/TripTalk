@@ -282,10 +282,18 @@ struct SignInView: View {
                 errorMessage = "Missing nonce for Apple Sign In"
                 return
             }
+            // Apple only returns the user's name on the FIRST authorization.
+            // Capture it here so it can be persisted to the profile.
+            let appleFullName: String? = {
+                guard let components = credential.fullName else { return nil }
+                let formatter = PersonNameComponentsFormatter()
+                let name = formatter.string(from: components).trimmingCharacters(in: .whitespacesAndNewlines)
+                return name.isEmpty ? nil : name
+            }()
             Task {
                 isLoading = true
                 do {
-                    try await appState.auth.signInWithApple(idToken: idToken, nonce: nonce)
+                    try await appState.auth.signInWithApple(idToken: idToken, nonce: nonce, fullName: appleFullName)
                     if appState.auth.isAuthenticated {
                         onSignedIn()
                     }

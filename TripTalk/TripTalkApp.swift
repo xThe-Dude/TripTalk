@@ -36,7 +36,11 @@ struct TripTalkApp: App {
                             guestMode = true
                         },
                         onSignedIn: {
-                            // Auth state already set — view will update
+                            // A real sign-in supersedes guest mode. Clear the
+                            // persisted guest flag so the app routes to the
+                            // authenticated experience (and future launches
+                            // don't skip the sign-in screen).
+                            guestMode = false
                         }
                     )
                     .environment(appState)

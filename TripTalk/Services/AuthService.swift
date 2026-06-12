@@ -354,7 +354,13 @@ class AuthService {
         }
     }
 
-    func signInWithApple(idToken: String, nonce: String) async throws {
+    /// Sign in with Apple.
+    ///
+    /// - Parameter fullName: The user's name from `ASAuthorizationAppleIDCredential.fullName`.
+    ///   Apple only provides this on the FIRST authorization, so when present we
+    ///   persist it to the profile immediately (otherwise the profile would show
+    ///   "Anonymous").
+    func signInWithApple(idToken: String, nonce: String, fullName: String? = nil) async throws {
         authError = nil
         let body: [String: Any] = [
             "provider": "apple",
@@ -373,6 +379,15 @@ class AuthService {
         }
         setSession(access: response.accessToken, refresh: response.refreshToken, userId: response.user.id)
         await fetchProfile()
+
+        // Persist the Apple-provided name if the profile has no real display name yet.
+        // Apple returns the name only once (first sign-in), so we must save it now.
+        if let fullName = fullName?.trimmingCharacters(in: .whitespacesAndNewlines), !fullName.isEmpty {
+            let current = profile?.displayName?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if current.isEmpty || current == "Anonymous" {
+                try? await updateProfile(displayName: fullName)
+            }
+        }
     }
 
     /// Handle auth callback from email confirmation deep link
