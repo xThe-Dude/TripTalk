@@ -4,7 +4,7 @@
 // PRIVACY MODEL:
 //   Audio is recorded locally via AVAudioRecorder to the app's private
 //   JournalAudio directory. No recording data ever leaves the device.
-//   Permission is requested on first use via AVAudioSession.requestRecordPermission.
+//   Permission is requested on first use via AVAudioApplication.requestRecordPermission (iOS 17+).
 //   The session is deactivated after each recording to be a good audio-system citizen.
 
 import AVFoundation
@@ -48,7 +48,8 @@ final class AudioRecorderService: NSObject {
     /// status rather than re-prompting the user.
     func requestPermission() async {
         // Check current status first to avoid redundant prompts.
-        let currentStatus = AVAudioSession.sharedInstance().recordPermission
+        // iOS 17+: AVAudioApplication replaces AVAudioSession for permission APIs.
+        let currentStatus = AVAudioApplication.shared.recordPermission
         switch currentStatus {
         case .granted:
             permissionGranted = true
@@ -62,14 +63,8 @@ final class AudioRecorderService: NSObject {
             break
         }
 
-        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
-                DispatchQueue.main.async {
-                    self?.permissionGranted = granted
-                    continuation.resume()
-                }
-            }
-        }
+        let granted = await AVAudioApplication.requestRecordPermission()
+        permissionGranted = granted
     }
 
     // MARK: - Recording
