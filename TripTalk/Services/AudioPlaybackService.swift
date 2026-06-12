@@ -76,10 +76,11 @@ final class AudioPlaybackService: NSObject {
     }
 
     // MARK: - Cleanup
-
-    deinit {
-        player?.stop()
-    }
+    //
+    // No custom deinit: `player` is @MainActor-isolated and cannot be touched
+    // from the nonisolated deinit context. AVAudioPlayer stops and releases
+    // itself on deallocation, and `stop()` / the delegate callbacks already
+    // tear down the session, so explicit cleanup here is unnecessary.
 }
 
 // MARK: - AVAudioPlayerDelegate
