@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00026BC40AC5F00026A73092 /* TranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26CDE8B3E7CF2A058CABF76 /* TranscriptionService.swift */; };
 		078D759B2F673FA4000DCE81 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 078D759A2F673FA4000DCE81 /* PrivacyInfo.xcprivacy */; };
 		0A71A294D6C44CC58B7BE30F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F3659A67AC4DEE9FB804B5 /* Review.swift */; };
+		0DE291A912B962B3BAD64706 /* AudioPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9076C91CF0D5B8F00AF988B1 /* AudioPlaybackService.swift */; };
 		0EA565B5D84E4766B608810F /* ServiceCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820A7E97CDEF48ADAC674561 /* ServiceCenter.swift */; };
 		170104C72CD84CBDA58383CF /* RatingStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC10A7E62E7480C9E9668BB /* RatingStars.swift */; };
 		1859B0AF03C84BF3826A4F51 /* ReviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF5316B49934F9BA28E6D51 /* ReviewCard.swift */; };
@@ -26,6 +28,7 @@
 		402DEA6ADA024780B51C1041 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357F146D58244E0A237A046 /* Enums.swift */; };
 		4D977FB0CF61BC406AA7AD11 /* ContentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE80EAA93A2AE45E9A4BD00 /* ContentFilter.swift */; };
 		4FC3E81FC9660F4C8F853E5D /* CrisisButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6AA013FA3E634414B25ED7 /* CrisisButton.swift */; };
+		512F47217550797309F15FB8 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5D30257EDEA527A38E983 /* AudioRecorderService.swift */; };
 		555C1AD7683B415F9BC06AD4 /* JourneyPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962505ACE305504D309D8C5C /* JourneyPhase.swift */; };
 		55FE230806894A0EAE7BA951 /* ReviewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */; };
 		5A0CE2A80E015509095C465A /* TTDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8960A91D28F20767FF6ABAB5 /* TTDesign.swift */; };
@@ -68,6 +71,7 @@
 		CCSB100002CCSB100002CCSB1002 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB100001CCSB100001CCSB1001 /* SignInView.swift */; };
 		CCSB110002CCSB110002CCSB1102 /* DBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCSB110001CCSB110001CCSB1101 /* DBModels.swift */; };
 		CD91FEF735B44825AD55BC84 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A803DE37764949B9B8B3D4 /* DeepLinkHandler.swift */; };
+		CF0072F6C13FA4DAE27BFD6E /* VoiceRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971AABE4045492FC1B3C4D23 /* VoiceRecorderView.swift */; };
 		D0EC70ABDBB8898EF96A8031 /* JourneyTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6118DC89A1E4CBFB11A2E9D /* JourneyTimelineView.swift */; };
 		D8756BFEDA294F8482039729 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D86B056EF1F4E73A8E47A52 /* AppState.swift */; };
 		E925A73DBB834A4CA5FBC244 /* ServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39887C56594152B9946131 /* ServiceDetailView.swift */; };
@@ -104,6 +108,7 @@
 		6E9C38EEDC92894CB841AF97 /* Fraunces-Italic-VariableFont.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "Fraunces-Italic-VariableFont.ttf"; sourceTree = "<group>"; };
 		71C04C43255D44009EBC75DD /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		739CBD567CB941A99C5C6832 /* JournalAudioStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JournalAudioStorage.swift; sourceTree = "<group>"; };
+		79B5D30257EDEA527A38E983 /* AudioRecorderService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
 		7BC10A7E62E7480C9E9668BB /* RatingStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStars.swift; sourceTree = "<group>"; };
 		7C4F223D5C0D461B82424664 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D86B056EF1F4E73A8E47A52 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -113,7 +118,9 @@
 		89788BC6C61CAAFD3451F255 /* JournalEntryEditorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JournalEntryEditorView.swift; sourceTree = "<group>"; };
 		8CE31BAF43CE47E6A777BC6E /* ReviewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsFeedView.swift; sourceTree = "<group>"; };
 		8DC858958FCE44279F851A24 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		9076C91CF0D5B8F00AF988B1 /* AudioPlaybackService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioPlaybackService.swift; sourceTree = "<group>"; };
 		962505ACE305504D309D8C5C /* JourneyPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JourneyPhase.swift; sourceTree = "<group>"; };
+		971AABE4045492FC1B3C4D23 /* VoiceRecorderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoiceRecorderView.swift; sourceTree = "<group>"; };
 		9A03744768D048F39DC266BB /* BlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockService.swift; sourceTree = "<group>"; };
 		A02D9CAEB6AC4CC0978135B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AA000001AAAA4001AAAA0011 /* Strain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strain.swift; sourceTree = "<group>"; };
@@ -144,6 +151,7 @@
 		CCSB100001CCSB100001CCSB1001 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		CCSB110001CCSB110001CCSB1101 /* DBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModels.swift; sourceTree = "<group>"; };
 		CE52B21380D2495AA1F36940 /* AvatarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerView.swift; sourceTree = "<group>"; };
+		D26CDE8B3E7CF2A058CABF76 /* TranscriptionService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TranscriptionService.swift; sourceTree = "<group>"; };
 		D357F146D58244E0A237A046 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D6118DC89A1E4CBFB11A2E9D /* JourneyTimelineView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JourneyTimelineView.swift; sourceTree = "<group>"; };
 		D64219E045F345F688B6A83F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,6 +239,7 @@
 				612475772BF46A00428AA416 /* JournalListView.swift */,
 				89788BC6C61CAAFD3451F255 /* JournalEntryEditorView.swift */,
 				6451E14D8D0DBB1F72D4EFE9 /* JournalEntryDetailView.swift */,
+				971AABE4045492FC1B3C4D23 /* VoiceRecorderView.swift */,
 			);
 			name = Journal;
 			path = Journal;
@@ -401,6 +410,9 @@
 				CCSB090001CCSB090001CCSB0901 /* CrisisTapService.swift */,
 				B78BE331A979597BDCD310EE /* JournalStore.swift */,
 				739CBD567CB941A99C5C6832 /* JournalAudioStorage.swift */,
+				79B5D30257EDEA527A38E983 /* AudioRecorderService.swift */,
+				D26CDE8B3E7CF2A058CABF76 /* TranscriptionService.swift */,
+				9076C91CF0D5B8F00AF988B1 /* AudioPlaybackService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -582,6 +594,10 @@
 				282384500C32DC182C315376 /* JournalListView.swift in Sources */,
 				92BAEF5176CB497483C5D3A8 /* JournalEntryEditorView.swift in Sources */,
 				9D278A69311FBA3817E50951 /* JournalEntryDetailView.swift in Sources */,
+				512F47217550797309F15FB8 /* AudioRecorderService.swift in Sources */,
+				00026BC40AC5F00026A73092 /* TranscriptionService.swift in Sources */,
+				0DE291A912B962B3BAD64706 /* AudioPlaybackService.swift in Sources */,
+				CF0072F6C13FA4DAE27BFD6E /* VoiceRecorderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
