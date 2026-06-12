@@ -104,6 +104,34 @@ struct ExploreView: View {
                     }
                     .animateIn(delay: 0.4)
 
+                    // Community Reviews — full feed (relocated from the tab bar)
+                    NavigationLink {
+                        ReviewsFeedView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "text.bubble.fill")
+                                .foregroundStyle(Color.ttAccent)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Community Reviews")
+                                    .font(.ttCardTitle)
+                                    .foregroundStyle(Color.ttPrimary)
+                                Text("Read what others have shared")
+                                    .font(.ttCaption)
+                                    .foregroundStyle(Color.ttSecondary)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.ttCaption)
+                                .foregroundStyle(Color.ttTertiary)
+                        }
+                        .padding(14)
+                        .background(Color.ttCardBg)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.white.opacity(0.1), lineWidth: 0.5))
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal)
+
                     // Recent Trip Reports
                     sectionView("Recent Trip Reports") {
                         VStack(spacing: 10) {

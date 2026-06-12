@@ -14,8 +14,9 @@ struct ReviewsFeedView: View {
 
     var body: some View {
         @Bindable var state = appState
-        NavigationStack {
-            ScrollView {
+        // No NavigationStack here: this view is presented inside Explore's
+        // navigation stack (Community Reviews link). navigationTitle still applies.
+        ScrollView {
                 VStack(spacing: 10) {
                     // Sort
                     Picker("Sort", selection: $state.reviewSortOption) {
@@ -61,9 +62,8 @@ struct ReviewsFeedView: View {
                 try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .navigationTitle("Reviews")
-        }
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .navigationTitle("Reviews")
     }
 }

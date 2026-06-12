@@ -21,9 +21,9 @@ struct ContentView: View {
                     Label("Catalog", systemImage: "book.fill")
                 }
                 .tag(2)
-            ReviewsFeedView()
+            JournalListView()
                 .tabItem {
-                    Label("Reviews", systemImage: "text.bubble")
+                    Label("Journal", systemImage: "book.closed.fill")
                 }
                 .tag(3)
             ServicesListView()
@@ -36,11 +36,6 @@ struct ContentView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
                 .tag(5)
-            JournalListView()
-                .tabItem {
-                    Label("Journal", systemImage: "book.closed.fill")
-                }
-                .tag(6)
         }
         .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
         .tint(Color.ttAccent)
