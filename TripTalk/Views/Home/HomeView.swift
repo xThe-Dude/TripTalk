@@ -72,7 +72,6 @@ struct HomeView: View {
             .onAppear { loadJournalEntries() }
             .refreshable {
                 loadJournalEntries()
-                try? await Task.sleep(for: .seconds(0.8))
             }
             .background { GradientBackground() }
             .navigationTitle("Home")
@@ -167,7 +166,7 @@ struct HomeView: View {
 
                     Button {
                         TTMotion.selectionHaptic()
-                        appState.selectedTab = 3
+                        appState.go(to: .journal)
                     } label: {
                         HStack(spacing: TTDesign.spacingXS) {
                             Text("Continue journey")
@@ -213,7 +212,7 @@ struct HomeView: View {
 
                     Button {
                         TTMotion.selectionHaptic()
-                        appState.selectedTab = 3
+                        appState.go(to: .journal)
                     } label: {
                         Text("Start a Journal Entry")
                             .font(.ttEyebrow)
@@ -239,32 +238,34 @@ struct HomeView: View {
     private var crisisAffordance: some View {
         Button { showCrisisSheet = true } label: {
             HStack(spacing: TTDesign.spacingSM) {
-                Image(systemName: "heart.text.square")
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(.red.opacity(0.85))
+                Image(systemName: "heart.text.square.fill")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.red)
 
                 Text("Need support? Resources are available 24/7.")
-                    .font(.ttCaption)
-                    .foregroundStyle(Color.ttSecondary)
+                    .font(.ttCaption.weight(.medium))
+                    .foregroundStyle(Color.ttPrimary)
 
                 Spacer(minLength: 0)
 
                 Image(systemName: "chevron.right")
-                    .font(.caption2)
-                    .foregroundStyle(Color.ttTertiary)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.ttSecondary)
             }
             .padding(.horizontal, TTDesign.spacingMD)
             .padding(.vertical, TTDesign.spacingSM)
             .background(
                 RoundedRectangle(cornerRadius: TTDesign.radiusSM)
-                    .fill(Color.white.opacity(0.05))
+                    .fill(Color.red.opacity(0.10))
                     .overlay(
                         RoundedRectangle(cornerRadius: TTDesign.radiusSM)
-                            .stroke(Color.white.opacity(0.07), lineWidth: TTDesign.hairlineWidth)
+                            .stroke(Color.red.opacity(0.30), lineWidth: TTDesign.hairlineWidth)
                     )
             )
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("Crisis support resources, available 24/7")
+        .accessibilityAddTraits(.isButton)
     }
 
     // MARK: - Substance Spotlight
@@ -400,11 +401,11 @@ struct HomeView: View {
             HStack(spacing: 0) {
                 Spacer()
                 quickLink(icon: "leaf.fill", label: "Varieties", color: .ttBody) {
-                    appState.selectedTab = 2
+                    appState.go(to: .catalog)
                 }
                 Spacer()
                 quickLink(icon: "building.2.fill", label: "Services", color: .blue) {
-                    appState.selectedTab = 4
+                    appState.go(to: .services)
                 }
                 Spacer()
                 quickLink(icon: "shield.fill", label: "Safety", color: .orange) {
@@ -412,7 +413,7 @@ struct HomeView: View {
                 }
                 Spacer()
                 quickLink(icon: "person.3.fill", label: "Community", color: .ttVisual) {
-                    appState.selectedTab = 1
+                    appState.go(to: .explore)
                 }
                 Spacer()
             }

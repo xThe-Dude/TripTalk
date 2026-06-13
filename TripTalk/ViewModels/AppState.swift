@@ -17,6 +17,22 @@ class AppState {
 
     var selectedJurisdiction: Jurisdiction = .colorado
     var selectedTab: Int = 0
+
+    /// Named tab indices — mirrors the `.tag(...)` order in `ContentView`.
+    /// Use `go(to:)` instead of assigning raw integers to `selectedTab`.
+    enum Tab: Int {
+        case home = 0
+        case explore = 1
+        case catalog = 2
+        case journal = 3
+        case services = 4
+        case profile = 5
+    }
+
+    /// Switch tabs using the named `Tab` enum rather than a magic index.
+    func go(to tab: Tab) {
+        selectedTab = tab.rawValue
+    }
     var deepLinkStrainId: UUID?
     var deepLinkServiceId: UUID?
     var showCrisisSheet: Bool = false
