@@ -75,7 +75,10 @@ struct JournalEntryEditorView: View {
 
     // MARK: - Computed
 
-    private var strains: [Strain] { MockData.strains }
+    // Use the same strain list the Catalog uses (server-loaded when available,
+    // falling back to MockData). Previously hardcoded to MockData.strains, which
+    // made the picker miss catalog entries once the server list loaded.
+    private var strains: [Strain] { appState.strains }
 
     private var isEditMode: Bool { existingEntry != nil }
 

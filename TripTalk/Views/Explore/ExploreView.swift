@@ -192,36 +192,33 @@ struct MiniStrainCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Image-forward top area
+            // Image-forward top area — real catalog photo
             ZStack(alignment: .bottom) {
+                Image(strain.heroImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 140, height: 100)
+                    .clipped()
+
+                // Dark scrim so the overlaid name stays legible on any photo
                 LinearGradient(
-                    colors: [strain.parentSubstance.color, strain.parentSubstance.color.opacity(0.4), .clear],
+                    colors: [.clear, .clear, Color.black.opacity(0.65)],
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .frame(height: 100)
 
-                // Subtle glow behind icon
-                Circle()
-                    .fill(strain.parentSubstance.color.opacity(0.25))
-                    .frame(width: 50, height: 50)
-                    .blur(radius: 15)
-                    .padding(.bottom, 28)
-
-                Image(systemName: strain.parentSubstance.icon)
-                    .font(.ttIconMd)
-                    .foregroundStyle(.white.opacity(0.9))
-                    .padding(.bottom, 28)
-
                 // Name overlaid
                 Text(strain.name)
                     .font(.ttEyebrow)
-                    .foregroundStyle(Color.ttPrimary)
+                    .foregroundStyle(.white)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 6)
                     .padding(.bottom, 4)
             }
+            .frame(width: 140, height: 100)
+            .clipped()
 
             // Bottom info
             VStack(spacing: 4) {
