@@ -106,13 +106,7 @@ struct HomeView: View {
         VStack(spacing: TTDesign.spacingXS) {
             Text("TripTalk")
                 .font(.ttPageHead)
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [Color.ttPrimary, Color.ttGlow],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
+                .foregroundStyle(Color.ttPrimary)
                 .multilineTextAlignment(.center)
                 .accessibilityAddTraits(.isHeader)
 
@@ -313,9 +307,9 @@ struct HomeView: View {
                 ZStack(alignment: .bottomLeading) {
                     LinearGradient(
                         colors: [
-                            featured.parentSubstance.color.opacity(0.9),
-                            featured.parentSubstance.color.opacity(0.3),
-                            Color(red: 0.05, green: 0.12, blue: 0.22)
+                            featured.parentSubstance.color.opacity(0.8),
+                            featured.parentSubstance.color.opacity(0.25),
+                            Color(red: 0.055, green: 0.078, blue: 0.098)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -542,27 +536,25 @@ struct HomeView: View {
 
     // MARK: - Quick Link Component
 
+    // Note: `color` is intentionally ignored — quick links use a single monochrome
+    // thin-line treatment (editorial field-guide aesthetic) rather than colorful glowing
+    // circles. Signature preserved so existing call sites remain unchanged.
     @ViewBuilder
     private func quickLink(icon: String, label: String, color: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: TTDesign.spacingSM) {
                 ZStack {
                     Circle()
-                        .fill(color.opacity(0.2))
-                        .frame(width: 58, height: 58)
-                        .blur(radius: 8)
-
-                    Circle()
-                        .fill(color.opacity(0.15))
+                        .fill(Color.white.opacity(0.03))
                         .frame(width: 52, height: 52)
                         .overlay(
                             Circle()
-                                .stroke(color.opacity(0.3), lineWidth: 0.5)
+                                .stroke(Color.white.opacity(0.10), lineWidth: 0.5)
                         )
 
                     Image(systemName: icon)
                         .font(.title3)
-                        .foregroundStyle(color)
+                        .foregroundStyle(Color.ttAccent)
                 }
                 Text(label)
                     .font(.ttCaption)

@@ -8,50 +8,40 @@ extension Color {
     static let ttSecondary = Color(red: 0.7, green: 0.75, blue: 0.72)
     // Tertiary text: even more muted for timestamps etc (≥4.5:1 on glass card surfaces)
     static let ttTertiary = Color(red: 0.62, green: 0.66, blue: 0.64)
-    // Accent: soft gold/champagne
-    static let ttAccent = Color(red: 0.85, green: 0.78, blue: 0.55)
+    // Accent: champagne/gold (#D9C8A0) — the single brand accent
+    static let ttAccent = Color(red: 0.851, green: 0.784, blue: 0.627)
     // Card background
-    static let ttCardBg = Color.white.opacity(0.08)
+    static let ttCardBg = Color.white.opacity(0.05)
     // Section header
-    static let ttSectionHeader = Color(red: 0.85, green: 0.88, blue: 0.85)
-    // Dark sheet background
-    static let ttSheetBg = Color(red: 0.06, green: 0.1, blue: 0.15)
-    // Glow accent
-    static let ttGlow = Color.teal
+    static let ttSectionHeader = Color(red: 0.95, green: 0.94, blue: 0.91)
+    // Dark sheet background — matte charcoal, cool navy undertone (#0E1419)
+    static let ttSheetBg = Color(red: 0.055, green: 0.078, blue: 0.098)
+    // Glow accent — retuned from teal to champagne gold so emphasis stays on one accent
+    static let ttGlow = Color(red: 0.851, green: 0.784, blue: 0.627)
 
-    // Contextual tag colors
-    static let ttVisual = Color(red: 0.65, green: 0.45, blue: 0.95)   // purple
-    static let ttBody = Color(red: 0.3, green: 0.8, blue: 0.55)       // green
-    static let ttEmotional = Color(red: 0.9, green: 0.45, blue: 0.65) // pink
-    static let ttSpiritual = Color(red: 0.85, green: 0.75, blue: 0.35) // gold
+    // Contextual tag / meter colors — muted toward the editorial palette
+    // (champagne-gold + muted teal), away from the old purple/green/pink "dashboard" look.
+    static let ttVisual = Color(red: 0.851, green: 0.784, blue: 0.627)  // champagne gold
+    static let ttBody = Color(red: 0.42, green: 0.66, blue: 0.62)       // muted teal
+    static let ttEmotional = Color(red: 0.74, green: 0.66, blue: 0.50)  // muted sand
+    static let ttSpiritual = Color(red: 0.851, green: 0.784, blue: 0.627) // champagne gold
 }
 
-/// Dark glass card modifier
+/// Keyline card modifier — editorial "field guide" surface.
+/// Thin hairline border, near-transparent fill, no heavy material or glow.
 struct DarkGlassCard: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.white.opacity(0.07))
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.ultraThinMaterial)
-                    )
+                    .fill(Color.white.opacity(0.03))
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(
-                        LinearGradient(
-                            colors: [Color.white.opacity(0.2), Color.white.opacity(0.05)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 0.5
-                    )
+                    .stroke(Color.white.opacity(0.10), lineWidth: 0.5)
             )
-            .shadow(color: .black.opacity(0.2), radius: 12, y: 6)
     }
 }
 
@@ -64,26 +54,13 @@ struct DarkGlassCardElevated: ViewModifier {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white.opacity(0.10))
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.ultraThinMaterial)
-                    )
+                    .fill(Color.white.opacity(0.04))
             )
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(
-                        LinearGradient(
-                            colors: [glowColor.opacity(0.4), Color.white.opacity(0.1), glowColor.opacity(0.15)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 0.8
-                    )
+                    .stroke(glowColor.opacity(0.28), lineWidth: 0.8)
             )
-            .shadow(color: glowColor.opacity(0.15), radius: 20, y: 0)
-            .shadow(color: .black.opacity(0.3), radius: 16, y: 8)
     }
 }
 

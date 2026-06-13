@@ -69,6 +69,38 @@ Change the **shared design layer** so every screen inherits the new look at once
   no moved/added/removed views, no copy changes.
 - Compare against `mockups/` (home, catalog, trip_reports) and `reference/` website shots.
 
+## STATUS
+
+### Phase 1 — Global token layer (DONE)
+- `GradientBackground.swift`: teal/indigo/blue gradient + glowing orbs → matte charcoal
+  `#0E1419` + one subtle warm vignette. (kept `intensity` API)
+- `ThemeColors.swift`:
+  - `ttGlow` retuned teal → champagne gold (collapses emphasis to one accent).
+  - `ttAccent` set to exact `#D9C8A0`; `ttSheetBg` to charcoal.
+  - meter/tag colors (`ttVisual`/`ttBody`/`ttEmotional`) muted to gold/teal/sand
+    (kills the purple→pink "dashboard" meters).
+  - `DarkGlassCard` / `DarkGlassCardElevated` → hairline-keyline surfaces
+    (thin stroke, near-transparent fill, removed `.ultraThinMaterial` + glow shadows).
+    All modifier names/APIs preserved — every call site unchanged.
+- `ContentView.swift`: bottom tab bar now a distinct fixed layer — darker surface
+  (`#090D11`) + champagne-gold hairline top border via `UITabBarAppearance`.
+- `Views/Home/HomeView.swift` (visual-only): quick-link colorful glow circles →
+  monochrome thin-line gold; gradient wordmark → solid cream; spotlight banner
+  bottom-stop matched to new charcoal. (`quickLink` signature preserved.)
+- Typography needed NO change — `TTType.swift` already serif-led (Fraunces) for
+  display/pageHead/section/cardTitle from Phase 1 of the v3 build.
+
+### Phase 2 — Per-screen inline cleanup (TODO, not started)
+These screens hardcode `[.teal, .green]` button gradients / teal accents that the global
+tokens do NOT reach. Style-only swaps to gold, no layout/content/behavior changes:
+- `Views/Auth/SignInView.swift` (sign-in gradient button + teal links)
+- `Views/Auth/PasswordResetView.swift`
+- `Views/AgeGate/AgeGateView.swift`
+- `Views/Launch/LaunchScreenView.swift`
+- `Views/Catalog/StrainDetailView.swift`, `SubstanceDetailView.swift`, `CatalogListView.swift`
+- `Views/Components/AvatarPickerView.swift`, `CrisisButton.swift`
+- `Views/Journal/JournalEntryDetailView.swift`
+
 ## Reference assets in this folder
 - `mockups/` — approved target look (home with nav separator, catalog, trip reports)
 - `reference/` — website screenshots (hero, substance index, fundamentals)
