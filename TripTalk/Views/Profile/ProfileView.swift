@@ -310,7 +310,7 @@ struct ProfileView: View {
                             Text("Version")
                                 .foregroundStyle(Color.ttPrimary)
                             Spacer()
-                            Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                            Text(appVersionString)
                                 .foregroundStyle(Color.ttSecondary)
                         }
                         .padding(.vertical, 2)
@@ -449,6 +449,13 @@ struct ProfileView: View {
     /// inline (which triggered a "unable to type-check in reasonable time" timeout).
     private func strainName(for report: TripReport) -> String {
         appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
+    }
+
+    /// App version pulled out of the view body to avoid a SwiftUI type-check timeout
+    /// on the inline `infoDictionary?[...] as? String ?? "1.0"` expression.
+    private var appVersionString: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        return version ?? "1.0"
     }
 
     @ViewBuilder
