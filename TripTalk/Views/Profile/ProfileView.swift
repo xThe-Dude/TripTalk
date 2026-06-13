@@ -115,14 +115,7 @@ struct ProfileView: View {
                             EmptyStateView(icon: "text.bubble", imageName: "empty_reviews", title: "No Reviews Yet", subtitle: "Leave a review from any substance or service detail page")
                         } else {
                             ForEach(appState.userReviews) { review in
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(review.title)
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(Color.ttPrimary)
-                                    RatingStars(rating: Double(review.rating), size: 10)
-                                }
-                                .padding(.vertical, 2)
+                                userReviewRow(review)
                             }
                         }
                     }
@@ -174,91 +167,13 @@ struct ProfileView: View {
 
                     // Links
                     profileSection("Info") {
-                        Link(destination: URL(string: "https://triptalk.guide/support.html")!) {
-                            HStack {
-                                Image(systemName: "doc.text")
-                                    .foregroundStyle(Color.ttGlow)
-                                Text("Community Guidelines")
-                                    .foregroundStyle(Color.ttPrimary)
-                                Spacer()
-                                Image(systemName: "arrow.up.right")
-                                    .font(.caption2)
-                                    .foregroundStyle(Color.ttSecondary)
-                            }
-                            .padding(.vertical, 2)
-                        }
-                        Link(destination: URL(string: "https://triptalk.guide/privacy.html")!) {
-                            HStack {
-                                Image(systemName: "hand.raised")
-                                    .foregroundStyle(Color.ttGlow)
-                                Text("Privacy Policy")
-                                    .foregroundStyle(Color.ttPrimary)
-                                Spacer()
-                                Image(systemName: "arrow.up.right")
-                                    .font(.caption2)
-                                    .foregroundStyle(Color.ttSecondary)
-                            }
-                            .padding(.vertical, 2)
-                        }
-                        Link(destination: URL(string: "https://triptalk.guide/terms.html")!) {
-                            HStack {
-                                Image(systemName: "doc.plaintext")
-                                    .foregroundStyle(Color.ttGlow)
-                                Text("Terms of Service")
-                                    .foregroundStyle(Color.ttPrimary)
-                                Spacer()
-                                Image(systemName: "arrow.up.right")
-                                    .font(.caption2)
-                                    .foregroundStyle(Color.ttSecondary)
-                            }
-                            .padding(.vertical, 2)
-                        }
+                        infoLinksContent
                     }
                     .animateIn(delay: 0.4)
 
                     // Crisis Resources
                     profileSection("Crisis Resources") {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Link(destination: URL(string: "tel:988")!) {
-                                HStack {
-                                    Image(systemName: "phone.circle.fill")
-                                        .foregroundStyle(.green)
-                                    VStack(alignment: .leading) {
-                                        Text("988 Suicide & Crisis Lifeline")
-                                            .font(.subheadline)
-                                            .foregroundStyle(Color.ttPrimary)
-                                        Text("Call or text 988")
-                                            .font(.caption)
-                                            .foregroundStyle(Color.ttSecondary)
-                                    }
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .font(.caption)
-                                        .foregroundStyle(Color.ttTertiary)
-                                }
-                            }
-                            .accessibilityHint("Double-tap to call 988")
-                            Divider().overlay(Color.white.opacity(0.05))
-                            Link(destination: URL(string: "tel:6234737433")!) {
-                                HStack {
-                                    Image(systemName: "heart.circle.fill")
-                                        .foregroundStyle(Color.ttVisual)
-                                    VStack(alignment: .leading) {
-                                        Text("Fireside Project")
-                                            .font(.subheadline)
-                                            .foregroundStyle(Color.ttPrimary)
-                                        Text("Psychedelic peer support: (623) 473-7433")
-                                            .font(.caption)
-                                            .foregroundStyle(Color.ttSecondary)
-                                    }
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .font(.caption)
-                                        .foregroundStyle(Color.ttTertiary)
-                                }
-                            }
-                            .accessibilityHint("Double-tap to call the Fireside Project psychedelic peer support line")
-                        }
+                        crisisResourcesContent
                     }
                     .animateIn(delay: 0.4)
 
@@ -385,6 +300,80 @@ struct ProfileView: View {
         }
     }
 
+    /// Info/legal links extracted from the view body to keep the `body`
+    /// expression within the SwiftUI type-checker's time budget.
+    @ViewBuilder
+    private var infoLinksContent: some View {
+        infoLink(url: "https://triptalk.guide/support.html", icon: "doc.text", title: "Community Guidelines")
+        infoLink(url: "https://triptalk.guide/privacy.html", icon: "hand.raised", title: "Privacy Policy")
+        infoLink(url: "https://triptalk.guide/terms.html", icon: "doc.plaintext", title: "Terms of Service")
+    }
+
+    @ViewBuilder
+    private func infoLink(url: String, icon: String, title: String) -> some View {
+        Link(destination: URL(string: url)!) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundStyle(Color.ttGlow)
+                Text(title)
+                    .foregroundStyle(Color.ttPrimary)
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+            }
+            .padding(.vertical, 2)
+        }
+    }
+
+    /// Crisis-resource links extracted from the view body to keep the `body`
+    /// expression within the SwiftUI type-checker's time budget.
+    @ViewBuilder
+    private var crisisResourcesContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            crisisResourceLink(
+                url: "tel:988",
+                icon: "phone.circle.fill",
+                iconColor: .green,
+                title: "988 Suicide & Crisis Lifeline",
+                subtitle: "Call or text 988",
+                hint: "Double-tap to call 988"
+            )
+            Divider().overlay(Color.white.opacity(0.05))
+            crisisResourceLink(
+                url: "tel:6234737433",
+                icon: "heart.circle.fill",
+                iconColor: .ttVisual,
+                title: "Fireside Project",
+                subtitle: "Psychedelic peer support: (623) 473-7433",
+                hint: "Double-tap to call the Fireside Project psychedelic peer support line"
+            )
+        }
+    }
+
+    @ViewBuilder
+    private func crisisResourceLink(url: String, icon: String, iconColor: Color, title: String, subtitle: String, hint: String) -> some View {
+        Link(destination: URL(string: url)!) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundStyle(iconColor)
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.ttPrimary)
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(Color.ttSecondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(Color.ttTertiary)
+            }
+        }
+        .accessibilityHint(hint)
+    }
+
     @ViewBuilder
     private func profileSection<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -485,6 +474,18 @@ struct ProfileView: View {
     private var appVersionString: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         return version ?? "1.0"
+    }
+
+    @ViewBuilder
+    private func userReviewRow(_ review: Review) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(review.title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(Color.ttPrimary)
+            RatingStars(rating: Double(review.rating), size: 10)
+        }
+        .padding(.vertical, 2)
     }
 
     @ViewBuilder
