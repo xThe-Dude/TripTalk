@@ -17,7 +17,7 @@ struct AgeGateView: View {
                     Circle()
                         .fill(
                             RadialGradient(
-                                colors: [Color.teal.opacity(0.25), .clear],
+                                colors: [Color.ttAccent.opacity(0.25), .clear],
                                 center: .center,
                                 startRadius: 20,
                                 endRadius: 120
@@ -62,11 +62,11 @@ struct AgeGateView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: Color.teal.opacity(0.4), radius: 16, y: 4)
+                            .shadow(color: Color.ttAccent.opacity(0.4), radius: 16, y: 4)
                     }
                     .pressEffect()
                     .padding(.horizontal, 40)

@@ -273,7 +273,7 @@ struct JournalEntryDetailView: View {
                     reflectionCard(title: "Safety Notes",
                                    icon: "exclamationmark.shield",
                                    text: entry.safetyNotes,
-                                   accentColor: Color.teal)
+                                   accentColor: Color.ttAccent)
                 }
             }
         }

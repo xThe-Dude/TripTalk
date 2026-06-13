@@ -25,7 +25,7 @@ struct LaunchScreenView: View {
                         .font(.ttIconHero)
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [.teal, .green.opacity(0.7)],
+                                colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )

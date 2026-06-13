@@ -54,7 +54,7 @@ struct OnboardingView: View {
                                     .font(.ttIconXL)
                                     .foregroundStyle(
                                         LinearGradient(
-                                            colors: [.teal, .green.opacity(0.7)],
+                                            colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )
@@ -92,13 +92,13 @@ struct OnboardingView: View {
                                         .padding(.vertical, 16)
                                         .background(
                                             LinearGradient(
-                                                colors: [.teal, .green.opacity(0.8)],
+                                                colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                                 startPoint: .leading,
                                                 endPoint: .trailing
                                             )
                                         )
                                         .clipShape(Capsule())
-                                        .shadow(color: .teal.opacity(0.4), radius: 12, y: 4)
+                                        .shadow(color: Color.ttAccent.opacity(0.4), radius: 12, y: 4)
                                 }
                                 .pressEffect()
                                 .padding(.horizontal, 40)

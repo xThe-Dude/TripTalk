@@ -37,7 +37,7 @@ struct PasswordResetView: View {
                         Image(systemName: "key.fill")
                             .font(.ttIconLg)
                             .foregroundStyle(
-                                LinearGradient(colors: [.teal, .green.opacity(0.8)],
+                                LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                                startPoint: .topLeading, endPoint: .bottomTrailing)
                             )
                         Text("Set a New Password")
@@ -107,7 +107,7 @@ struct PasswordResetView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                            LinearGradient(colors: [.teal, .green.opacity(0.8)],
+                            LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                            startPoint: .leading, endPoint: .trailing)
                         )
                         .foregroundColor(.white)

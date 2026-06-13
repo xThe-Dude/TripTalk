@@ -90,16 +90,21 @@ Change the **shared design layer** so every screen inherits the new look at once
 - Typography needed NO change — `TTType.swift` already serif-led (Fraunces) for
   display/pageHead/section/cardTitle from Phase 1 of the v3 build.
 
-### Phase 2 — Per-screen inline cleanup (TODO, not started)
-These screens hardcode `[.teal, .green]` button gradients / teal accents that the global
-tokens do NOT reach. Style-only swaps to gold, no layout/content/behavior changes:
-- `Views/Auth/SignInView.swift` (sign-in gradient button + teal links)
-- `Views/Auth/PasswordResetView.swift`
-- `Views/AgeGate/AgeGateView.swift`
-- `Views/Launch/LaunchScreenView.swift`
-- `Views/Catalog/StrainDetailView.swift`, `SubstanceDetailView.swift`, `CatalogListView.swift`
-- `Views/Components/AvatarPickerView.swift`, `CrisisButton.swift`
-- `Views/Journal/JournalEntryDetailView.swift`
+### Phase 2 — Per-screen inline cleanup (DONE)
+Swapped all hardcoded brand `[.teal, .green]` gradients + standalone teal accents to
+champagne gold (`Color.ttAccent`). Style-only, no layout/content/behavior changes.
+Files touched: SignInView, PasswordResetView, AgeGateView, LaunchScreenView,
+StrainDetailView, SubstanceDetailView, AvatarPickerView, ServiceCard, SubstanceCard,
+EmptyStateView, ServiceDetailView, OnboardingView, ProfileView (sign-in CTA),
+JournalEntryDetailView (card accent), TagChip (default chip color → muted teal `ttBody`).
+
+**Deliberately KEPT (semantic, not brand):**
+- `.green` success states (email-confirmation, password "requirement met", "Would repeat",
+  verified-service checks) — these are meaningful feedback, not brand chrome.
+- `Views/Components/CrisisButton.swift` — left untouched. Its per-resource icon colors
+  (988=green, Fireside=purple, Text Line=blue, SAMHSA=teal) are functional wayfinding
+  inside the crisis sheet, not brand styling. Safety-critical surface; not worth the risk.
+  (Revisit only if Cole wants the crisis sheet restyled.)
 
 ## Reference assets in this folder
 - `mockups/` — approved target look (home with nav separator, catalog, trip reports)

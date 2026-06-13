@@ -30,7 +30,7 @@ struct SignInView: View {
                         Image(systemName: "leaf.fill")
                             .font(.ttIconLg)
                             .foregroundStyle(
-                                LinearGradient(colors: [.teal, .green.opacity(0.8)],
+                                LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                                startPoint: .topLeading, endPoint: .bottomTrailing)
                             )
                         Text(isSignUp ? "Create Account" : "Welcome Back")
@@ -98,13 +98,13 @@ struct SignInView: View {
                     } else if showPasswordResetSent {
                         HStack(spacing: 8) {
                             Image(systemName: "envelope.badge")
-                                .foregroundColor(.teal)
+                                .foregroundColor(.ttAccent)
                             Text("If an account exists for that email, a reset link is on the way.")
                                 .font(.caption)
-                                .foregroundColor(.teal)
+                                .foregroundColor(.ttAccent)
                         }
                         .padding(12)
-                        .background(Color.teal.opacity(0.15))
+                        .background(Color.ttAccent.opacity(0.15))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.horizontal, 24)
                     } else if let error = errorMessage {
@@ -131,7 +131,7 @@ struct SignInView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                            LinearGradient(colors: [.teal, .green.opacity(0.8)],
+                            LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)],
                                            startPoint: .leading, endPoint: .trailing)
                         )
                         .foregroundColor(.white)
@@ -157,7 +157,7 @@ struct SignInView: View {
                         } label: {
                             Text("Forgot password?")
                                 .font(.caption)
-                                .foregroundColor(.teal)
+                                .foregroundColor(.ttAccent)
                         }
                         .disabled(email.isEmpty || isLoading)
                         .opacity(email.isEmpty ? 0.4 : 1)

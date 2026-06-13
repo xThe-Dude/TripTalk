@@ -373,12 +373,12 @@ struct ProfileView: View {
                         } label: {
                             Label("Sign In to Sync Data", systemImage: "person.badge.plus")
                                 .font(.subheadline)
-                                .foregroundStyle(.teal)
+                                .foregroundStyle(.ttAccent)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.teal.opacity(0.1))
+                                .background(Color.ttAccent.opacity(0.1))
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.teal.opacity(0.3), lineWidth: 0.5))
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.ttAccent.opacity(0.3), lineWidth: 0.5))
                         }
                         .padding(.horizontal)
                     }

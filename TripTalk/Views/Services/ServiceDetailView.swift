@@ -114,11 +114,11 @@ struct ServiceDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(
-                                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                                LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)], startPoint: .leading, endPoint: .trailing)
                             )
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .shadow(color: Color.teal.opacity(0.4), radius: 12, y: 4)
+                            .shadow(color: Color.ttAccent.opacity(0.4), radius: 12, y: 4)
                     }
                     .pressEffect()
                 }

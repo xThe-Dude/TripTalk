@@ -18,7 +18,7 @@ struct SubstanceCard: View {
                         .foregroundStyle(.white)
                         .frame(width: 44, height: 44)
                         .background(
-                            LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                            LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)], startPoint: .topLeading, endPoint: .bottomTrailing)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 10))
 

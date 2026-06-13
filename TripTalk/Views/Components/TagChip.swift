@@ -6,7 +6,7 @@ struct TagChip: View {
     var color: Color? = nil
 
     private var chipColor: Color {
-        color ?? .teal
+        color ?? Color.ttBody
     }
 
     var body: some View {

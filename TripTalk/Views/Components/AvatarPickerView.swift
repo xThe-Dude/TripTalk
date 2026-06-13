@@ -60,7 +60,7 @@ struct AvatarPickerView: View {
         Image(systemName: "person.circle.fill")
             .font(.ttIconHero)
             .foregroundStyle(
-                LinearGradient(colors: [.teal, .green.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(colors: [Color.ttAccent, Color.ttAccent.opacity(0.75)], startPoint: .topLeading, endPoint: .bottomTrailing)
             )
     }
 
