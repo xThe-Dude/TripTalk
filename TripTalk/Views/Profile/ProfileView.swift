@@ -14,52 +14,7 @@ struct ProfileView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    // Premium avatar area with glow
-                    ZStack {
-                        Circle()
-                            .fill(
-                                RadialGradient(
-                                    colors: [Color.ttGlow.opacity(0.3), .clear],
-                                    center: .center,
-                                    startRadius: 30,
-                                    endRadius: 100
-                                )
-                            )
-                            .frame(width: 160, height: 160)
-
-                        AvatarPickerView()
-                    }
-
-                    VStack(spacing: 4) {
-                        Text(appState.auth.profile?.displayName ?? "Explorer")
-                            .font(.ttCardTitle)
-                            .foregroundStyle(Color.ttPrimary)
-                        if let bio = appState.auth.profile?.bio, !bio.isEmpty {
-                            Text(bio)
-                                .font(.subheadline)
-                                .foregroundStyle(Color.ttSecondary)
-                        } else {
-                            Text(appState.auth.isAuthenticated ? "Signed In" : "Guest Mode")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.ttSecondary)
-                        }
-                    }
-                    .animateIn(delay: 0.1)
-
-                    if appState.auth.isAuthenticated {
-                        Button {
-                            showEditProfile = true
-                        } label: {
-                            Label("Edit Profile", systemImage: "pencil")
-                                .font(.subheadline.weight(.medium))
-                                .foregroundStyle(Color.ttAccent)
-                        }
-                        .padding(.top, 4)
-                        .sheet(isPresented: $showEditProfile) {
-                            EditProfileView()
-                                .environment(appState)
-                        }
-                    }
+                    profileHeader
 
                     // Saved Strains
                     profileSection("Saved Varieties") {
@@ -191,76 +146,10 @@ struct ProfileView: View {
                     .animateIn(delay: 0.4)
 
                     // Account
-                    if appState.auth.isAuthenticated {
-                        Button {
-                            Task { await appState.auth.signOut() }
-                        } label: {
-                            Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
-                                .font(.subheadline)
-                                .foregroundStyle(.orange)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.orange.opacity(0.1))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.orange.opacity(0.3), lineWidth: 0.5))
-                        }
-                        .padding(.horizontal)
-
-                        Button(role: .destructive) {
-                            showDeleteConfirm = true
-                        } label: {
-                            Label(isDeletingAccount ? "Deleting…" : "Delete Account", systemImage: "person.crop.circle.badge.minus")
-                                .font(.subheadline)
-                                .foregroundStyle(.red)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red.opacity(0.1))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.3), lineWidth: 0.5))
-                        }
-                        .disabled(isDeletingAccount)
-                        .padding(.horizontal)
-                        .alert("Delete your account?", isPresented: $showDeleteConfirm) {
-                            Button("Delete", role: .destructive) {
-                                isDeletingAccount = true
-                                Task {
-                                    try? await appState.auth.deleteAccount()
-                                    isDeletingAccount = false
-                                }
-                            }
-                            Button("Cancel", role: .cancel) {}
-                        } message: {
-                            Text("This will permanently delete your profile, reviews, and trip reports. This cannot be undone.")
-                        }
-                    } else {
-                        Button {
-                            UserDefaults.standard.set(false, forKey: "guest_mode")
-                        } label: {
-                            Label("Sign In to Sync Data", systemImage: "person.badge.plus")
-                                .font(.subheadline)
-                                .foregroundStyle(.ttAccent)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.ttAccent.opacity(0.1))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.ttAccent.opacity(0.3), lineWidth: 0.5))
-                        }
-                        .padding(.horizontal)
-                    }
+                    accountSection
 
                     // Reset
-                    Button(role: .destructive) {
-                        UserDefaults.standard.set(false, forKey: "ageVerified")
-                    } label: {
-                        Label("Reset Age Verification", systemImage: "arrow.counterclockwise")
-                            .font(.subheadline)
-                            .foregroundStyle(.red)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.3), lineWidth: 0.5))
-                    }
+                    resetButton
                     .padding(.horizontal)
                 }
                 .padding(.top)
@@ -298,6 +187,121 @@ struct ProfileView: View {
                 ServiceDetailView(service: service)
             }
         }
+    }
+
+    /// Avatar + name + edit-profile button, extracted from the body to keep the
+    /// `body` expression within the SwiftUI type-checker's budget.
+    @ViewBuilder
+    private var profileHeader: some View {
+        ZStack {
+            Circle()
+                .fill(
+                    RadialGradient(
+                        colors: [Color.ttGlow.opacity(0.3), .clear],
+                        center: .center,
+                        startRadius: 30,
+                        endRadius: 100
+                    )
+                )
+                .frame(width: 160, height: 160)
+
+            AvatarPickerView()
+        }
+
+        VStack(spacing: 4) {
+            Text(appState.auth.profile?.displayName ?? "Explorer")
+                .font(.ttCardTitle)
+                .foregroundStyle(Color.ttPrimary)
+            if let bio = appState.auth.profile?.bio, !bio.isEmpty {
+                Text(bio)
+                    .font(.subheadline)
+                    .foregroundStyle(Color.ttSecondary)
+            } else {
+                Text(appState.auth.isAuthenticated ? "Signed In" : "Guest Mode")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.ttSecondary)
+            }
+        }
+        .animateIn(delay: 0.1)
+
+        if appState.auth.isAuthenticated {
+            Button {
+                showEditProfile = true
+            } label: {
+                Label("Edit Profile", systemImage: "pencil")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Color.ttAccent)
+            }
+            .padding(.top, 4)
+            .sheet(isPresented: $showEditProfile) {
+                EditProfileView()
+                    .environment(appState)
+            }
+        }
+    }
+
+    /// Account actions (sign out / delete / sign-in CTA) extracted from the body
+    /// to keep the `body` expression within the SwiftUI type-checker's budget.
+    @ViewBuilder
+    private var accountSection: some View {
+        if appState.auth.isAuthenticated {
+            Button {
+                Task { await appState.auth.signOut() }
+            } label: {
+                pillButtonLabel("Sign Out", systemImage: "rectangle.portrait.and.arrow.right", tint: .orange)
+            }
+            .padding(.horizontal)
+
+            Button(role: .destructive) {
+                showDeleteConfirm = true
+            } label: {
+                pillButtonLabel(isDeletingAccount ? "Deleting…" : "Delete Account", systemImage: "person.crop.circle.badge.minus", tint: .red)
+            }
+            .disabled(isDeletingAccount)
+            .padding(.horizontal)
+            .alert("Delete your account?", isPresented: $showDeleteConfirm) {
+                Button("Delete", role: .destructive) {
+                    isDeletingAccount = true
+                    Task {
+                        try? await appState.auth.deleteAccount()
+                        isDeletingAccount = false
+                    }
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This will permanently delete your profile, reviews, and trip reports. This cannot be undone.")
+            }
+        } else {
+            Button {
+                UserDefaults.standard.set(false, forKey: "guest_mode")
+            } label: {
+                pillButtonLabel("Sign In to Sync Data", systemImage: "person.badge.plus", tint: .ttAccent)
+            }
+            .padding(.horizontal)
+        }
+    }
+
+    @ViewBuilder
+    private var resetButton: some View {
+        Button(role: .destructive) {
+            UserDefaults.standard.set(false, forKey: "ageVerified")
+        } label: {
+            pillButtonLabel("Reset Age Verification", systemImage: "arrow.counterclockwise", tint: .red)
+        }
+        .padding(.horizontal)
+    }
+
+    /// Shared pill-button label styling (collapses 4 near-identical inline chains).
+    @ViewBuilder
+    private func pillButtonLabel(_ title: String, systemImage: String, tint: Color) -> some View {
+        Label(title, systemImage: systemImage)
+            .font(.subheadline)
+            .foregroundStyle(tint)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(tint.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(tint.opacity(0.3), lineWidth: 0.5))
     }
 
     /// Info/legal links extracted from the view body to keep the `body`
