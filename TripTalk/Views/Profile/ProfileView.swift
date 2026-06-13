@@ -66,24 +66,8 @@ struct ProfileView: View {
                         if appState.savedStrainIDs.isEmpty {
                             EmptyStateView(icon: "leaf", imageName: "empty_saved", title: "No Saved Varieties", subtitle: "Tap the bookmark icon on any variety to save it here")
                         } else {
-                            ForEach(appState.strains.filter { appState.savedStrainIDs.contains($0.id) }) { strain in
-                                NavigationLink(value: strain) {
-                                    HStack {
-                                        Image(systemName: strain.parentSubstance.icon)
-                                            .foregroundStyle(strain.parentSubstance.color)
-                                        Text(strain.name)
-                                            .foregroundStyle(Color.ttPrimary)
-                                        Spacer()
-                                        PotencyDots(level: strain.potency.level, dotSize: 6, activeColor: strain.potency.color)
-                                        .accessibilityElement(children: .ignore)
-                                        .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
-                                        Image(systemName: "chevron.right")
-                                            .font(.caption2)
-                                            .foregroundStyle(Color.ttSecondary)
-                                    }
-                                    .padding(.vertical, 4)
-                                }
-                                .buttonStyle(.plain)
+                            ForEach(savedStrains) { strain in
+                                savedStrainRow(strain)
                             }
                         }
                     }
@@ -106,21 +90,8 @@ struct ProfileView: View {
                         if appState.savedSubstanceIDs.isEmpty {
                             EmptyStateView(icon: "testtube.2", imageName: "empty_saved", title: "No Saved Substances", subtitle: "Tap the bookmark icon on any substance to save it here")
                         } else {
-                            ForEach(appState.substances.filter { appState.savedSubstanceIDs.contains($0.id) }) { substance in
-                                NavigationLink(value: substance) {
-                                    HStack {
-                                        Image(systemName: substance.imageSymbol)
-                                            .foregroundStyle(Color.ttGlow)
-                                        Text(substance.name)
-                                            .foregroundStyle(Color.ttPrimary)
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .font(.caption2)
-                                            .foregroundStyle(Color.ttSecondary)
-                                    }
-                                    .padding(.vertical, 4)
-                                }
-                                .buttonStyle(.plain)
+                            ForEach(savedSubstances) { substance in
+                                savedSubstanceRow(substance)
                             }
                         }
                     }
@@ -131,21 +102,8 @@ struct ProfileView: View {
                         if appState.savedServiceIDs.isEmpty {
                             EmptyStateView(icon: "building.2", imageName: "empty_services", title: "No Saved Services", subtitle: "Tap the bookmark icon on any service center to save it here")
                         } else {
-                            ForEach(appState.services.filter { appState.savedServiceIDs.contains($0.id) }) { service in
-                                NavigationLink(value: service) {
-                                    HStack {
-                                        Image(systemName: service.imageSymbol)
-                                            .foregroundStyle(Color.ttGlow)
-                                        Text(service.name)
-                                            .foregroundStyle(Color.ttPrimary)
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .font(.caption2)
-                                            .foregroundStyle(Color.ttSecondary)
-                                    }
-                                    .padding(.vertical, 4)
-                                }
-                                .buttonStyle(.plain)
+                            ForEach(savedServices) { service in
+                                savedServiceRow(service)
                             }
                         }
                     }
@@ -449,6 +407,77 @@ struct ProfileView: View {
     /// inline (which triggered a "unable to type-check in reasonable time" timeout).
     private func strainName(for report: TripReport) -> String {
         appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
+    }
+
+    /// Saved strains, computed outside the view body so the `ForEach` builder stays simple
+    /// (the inline `.filter` closure contributed to a SwiftUI type-check timeout).
+    private var savedStrains: [Strain] {
+        appState.strains.filter { appState.savedStrainIDs.contains($0.id) }
+    }
+
+    @ViewBuilder
+    private func savedStrainRow(_ strain: Strain) -> some View {
+        NavigationLink(value: strain) {
+            HStack {
+                Image(systemName: strain.parentSubstance.icon)
+                    .foregroundStyle(strain.parentSubstance.color)
+                Text(strain.name)
+                    .foregroundStyle(Color.ttPrimary)
+                Spacer()
+                PotencyDots(level: strain.potency.level, dotSize: 6, activeColor: strain.potency.color)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Potency: \(strain.potency.rawValue), level \(strain.potency.level) of 4")
+                Image(systemName: "chevron.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+            }
+            .padding(.vertical, 4)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var savedSubstances: [Substance] {
+        appState.substances.filter { appState.savedSubstanceIDs.contains($0.id) }
+    }
+
+    @ViewBuilder
+    private func savedSubstanceRow(_ substance: Substance) -> some View {
+        NavigationLink(value: substance) {
+            HStack {
+                Image(systemName: substance.imageSymbol)
+                    .foregroundStyle(Color.ttGlow)
+                Text(substance.name)
+                    .foregroundStyle(Color.ttPrimary)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+            }
+            .padding(.vertical, 4)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var savedServices: [ServiceCenter] {
+        appState.services.filter { appState.savedServiceIDs.contains($0.id) }
+    }
+
+    @ViewBuilder
+    private func savedServiceRow(_ service: ServiceCenter) -> some View {
+        NavigationLink(value: service) {
+            HStack {
+                Image(systemName: service.imageSymbol)
+                    .foregroundStyle(Color.ttGlow)
+                Text(service.name)
+                    .foregroundStyle(Color.ttPrimary)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.ttSecondary)
+            }
+            .padding(.vertical, 4)
+        }
+        .buttonStyle(.plain)
     }
 
     /// App version pulled out of the view body to avoid a SwiftUI type-check timeout
