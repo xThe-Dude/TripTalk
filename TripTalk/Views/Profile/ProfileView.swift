@@ -95,15 +95,7 @@ struct ProfileView: View {
                             EmptyStateView(icon: "square.and.pencil", imageName: "empty_reports", title: "No Trip Reports", subtitle: "Share your experience from any variety's detail page")
                         } else {
                             ForEach(appState.userTripReports) { report in
-                                let strainName = appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(strainName)
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(Color.ttPrimary)
-                                    RatingStars(rating: Double(report.rating), size: 10)
-                                }
-                                .padding(.vertical, 2)
+                                tripReportRow(report)
                             }
                         }
                     }
@@ -450,5 +442,24 @@ struct ProfileView: View {
             .darkGlassCard()
             .padding(.horizontal)
         }
+    }
+
+    /// Resolves a trip report's strain name. Pulled out of the view body so the
+    /// SwiftUI type-checker doesn't have to infer the optional-chain + nil-coalesce
+    /// inline (which triggered a "unable to type-check in reasonable time" timeout).
+    private func strainName(for report: TripReport) -> String {
+        appState.strains.first(where: { $0.id == report.strainId })?.name ?? "Unknown"
+    }
+
+    @ViewBuilder
+    private func tripReportRow(_ report: TripReport) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(strainName(for: report))
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(Color.ttPrimary)
+            RatingStars(rating: Double(report.rating), size: 10)
+        }
+        .padding(.vertical, 2)
     }
 }
